@@ -192,6 +192,7 @@ class Snake {
     }
 
     boolean checkDinner(Point l) {
+        //if the head of the snake is on an apple
         //if (snakeXs[0] == l.x && snakeYs[0] == l.y) {
         if (segmentLocations.get(0).x == l.x &&
                 segmentLocations.get(0).y == l.y) {

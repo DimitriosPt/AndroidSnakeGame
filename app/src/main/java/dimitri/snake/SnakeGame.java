@@ -3,6 +3,8 @@ package dimitri.snake;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +17,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 public class SnakeGame extends SurfaceView implements Runnable{
 
@@ -47,6 +51,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
     private dimitri.snake.Snake mSnake;
     // And an apple
     private dimitri.snake.Apple mApple;
+    private List<dimitri.snake.Apple> appleList;
 
 
     // This is the constructor method that gets called
@@ -91,12 +96,16 @@ public class SnakeGame extends SurfaceView implements Runnable{
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
+        Bitmap tempBitmap = new BitmapFactory().decodeResource(context.getResources(), R.drawable.apple);
 
         // Call the constructors of our two game objects
-        mApple = new GoodApple(context,
-                new Point(NUM_BLOCKS_WIDE,
-                        mNumBlocksHigh),
-                blockSize);
+        mApple = new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
+                .location(new Point(0, -10))
+                .size(blockSize)
+                .isGood(true)
+                .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
+                .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
+                .build();
 
         mSnake = new Snake(context,
                 new Point(NUM_BLOCKS_WIDE,

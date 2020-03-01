@@ -8,31 +8,86 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import java.util.Random;
 
-abstract class Apple extends GameObject{
+class Apple extends GameObject{
+
+
 
     // The location of the apple on the grid
     // Not in pixels
-    Point location = new Point();
+    private Point location = new Point();
 
     // The range of values we can choose from
     // to spawn an apple
-    //private Point mSpawnRange;
-    //private int mSize;
+    private Point mSpawnRange;
+    private int mSize;
+    private boolean isGood;
 
     // An image to represent the apple
-    //private Bitmap mBitmapApple;
+    private Bitmap appleBitmap;
+
+
+    public static class AppleBuilder
+    {
+        private Point location;
+        private Point gridSize;
+        private int size;
+        private boolean isGood;
+        private Bitmap appleBitmap;
+
+        public AppleBuilder(Point location) {
+            this.location = location;
+        }
+
+        public AppleBuilder spawnRange(Point gridSize) {
+            this.gridSize = gridSize;
+            return this;
+        }
+
+        public AppleBuilder size(int size) {
+            this.size = size;
+            return this;
+        }
+
+        public AppleBuilder location(Point location) {
+            this.location = location;
+            return this;
+        }
+
+        public AppleBuilder bitmap(Bitmap appleBitmap) {
+            this.appleBitmap = appleBitmap;
+            return this;
+        }
+        public AppleBuilder isGood(boolean isGood) {
+            this.isGood = isGood;
+            return this;
+        }
+
+        public Apple build()
+        {
+            Apple apple = new Apple();
+            apple.location = this.location;
+            apple.mSpawnRange = this.gridSize;
+            apple.mSize = this.size;
+            apple.isGood = this.isGood;
+            apple.appleBitmap = this.appleBitmap;
+
+            return apple;
+        }
+    }
+
+
 
     /// Set up the apple in the constructor
-    Apple(Context context, Point sr, int s){
+    private Apple(){
+    }
 
-        // Make a note of the passed in spawn range
-        this.setGridSize(sr);
-        // Make a note of the size of an apple
-        this.setSize(s);
-        // Hide the apple off-screen until the game starts
-        location.x = -10;
 
+    // This is called every time an apple is eaten
+    void spawn(){
         // Choose two random values and place the apple
+        Random random = new Random();
+        location.x = random.nextInt(mSpawnRange.x) + 1;
+        location.y = random.nextInt(mSpawnRange.y - 1) + 1;
     }
 
     // Let SnakeGame know where the apple is
@@ -41,19 +96,10 @@ abstract class Apple extends GameObject{
         return location;
     }
 
-    // This is called every time an apple is eaten
-    @Override
-    void spawn() {
-        Random random = new Random();
-        location.x = random.nextInt(this.getGridSize().x) + 1;
-        location.y = random.nextInt(this.getGridSize().y - 1) + 1;
-
-    }
-
-    @Override
-    void draw(Canvas canvas, Paint paint) {
-        canvas.drawBitmap(this.getObjectBitmap(),
-                location.x * this.getSize(), location.y * this.getSize(), paint);
+    // Draw the apple
+    void draw(Canvas canvas, Paint paint){
+        canvas.drawBitmap(appleBitmap,
+                location.x * mSize, location.y * mSize, paint);
 
     }
 
