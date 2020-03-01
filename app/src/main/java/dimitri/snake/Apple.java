@@ -93,7 +93,7 @@ class Apple extends GameObject{
     // Let SnakeGame know where the apple is
     // SnakeGame can share this with the snake
     Point getLocation(){
-        return location;
+        return this.location;
     }
 
     // Draw the apple
