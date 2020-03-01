@@ -20,7 +20,7 @@ class Apple extends GameObject{
     // to spawn an apple
     private Point mSpawnRange;
     private int mSize;
-    private boolean isGood;
+    boolean isGood;
 
     // An image to represent the apple
     private Bitmap appleBitmap;

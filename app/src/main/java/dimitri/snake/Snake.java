@@ -191,11 +191,12 @@ class Snake {
         return dead;
     }
 
-    boolean checkDinner(Point l) {
+    boolean checkDinner(Point appleLocation) {
         //if the head of the snake is on an apple
-        //if (snakeXs[0] == l.x && snakeYs[0] == l.y) {
-        if (segmentLocations.get(0).x == l.x &&
-                segmentLocations.get(0).y == l.y) {
+        //if (snakeXs[0] == appleLocation.x && snakeYs[0] == appleLocation.y) {
+        if (segmentLocations.get(0).x == appleLocation.x &&
+                segmentLocations.get(0).y == appleLocation.y) {
+
 
             // Add a new Point to the list
             // located off-screen.

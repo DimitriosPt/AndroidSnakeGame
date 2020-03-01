@@ -191,20 +191,29 @@ public class SnakeGame extends SurfaceView implements Runnable{
 
         // Move the snake
         mSnake.move();
+        Random random = new Random();
 
         // Did the head of the snake eat the apple?
         for(Apple apple : appleList)
         {
-            if(mSnake.checkDinner(apple.getLocation())){
+            if(mSnake.checkDinner(apple.getLocation()))
+            {
+                apple.spawn();
+                if(apple.isGood)
+                {
+                    // Add to  mScore
+                    // rand will return 0,1, or 2 so it is necessary to add one
+                    mScore = mScore + random.nextInt(2) + 1;
+
+                    // Play a sound
+                    mSP.play(mEat_ID, 1, 1, 0, 0, 1);
+                }
                 // This reminds me of Edge of Tomorrow.
                 // One day the apple will be ready!
-                apple.spawn();
-
-                // Add to  mScore
-                mScore = mScore + 1;
-
-                // Play a sound
-                mSP.play(mEat_ID, 1, 1, 0, 0, 1);
+                else
+                {
+                    mScore = mScore - 2;
+                }
             }
         }
 
