@@ -56,6 +56,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
     private int additionalApples = 0;
     public SoundContext soundContext;
     public Context mContext;
+    public boolean muteGameSound = false;
 
 
     // This is the constructor method that gets called
@@ -70,35 +71,25 @@ public class SnakeGame extends SurfaceView implements Runnable{
         mNumBlocksHigh = size.y / blockSize;
 
         // Initialize the SoundPool
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //begin with mute option because it is the cheapest to implement
+        //resource-wise
+        if(muteGameSound)
+        {
+            soundContext = new SoundContext(new SilentSoundStrategy());
+            soundContext.initializeSound(context);
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             soundContext = new SoundContext(new LollipopSoundStrategy());
             soundContext.initializeSound(context);
-//            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-//                    .setUsage(AudioAttributes.USAGE_MEDIA)
-//                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-//                    .build();
-//
-//            mSP = new SoundPool.Builder()
-//                    .setMaxStreams(5)
-//                    .setAudioAttributes(audioAttributes)
-//                    .build();
-        } else {
-            mSP = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+
         }
-//        try {
-//            AssetManager assetManager = context.getAssets();
-//            AssetFileDescriptor descriptor;
-//
-//            // Prepare the sounds in memory
-//            descriptor = assetManager.openFd("get_apple.ogg");
-//            mEat_ID = mSP.load(descriptor, 0);
-//
-//            descriptor = assetManager.openFd("snake_death.ogg");
-//            mCrashID = mSP.load(descriptor, 0);
-//
-//        } catch (IOException e) {
-//            // Error
-//        }
+
+
+        else
+        {
+            soundContext = new SoundContext(new PreLollipopSoundStrategy());
+            soundContext.initializeSound(context);
+        }
 
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
