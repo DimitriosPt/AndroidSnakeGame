@@ -1,19 +1,22 @@
 package dimitri.snake;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-class Snake {
+class Snake extends GameObject{
 
     // The location in the grid of all the segments
+
     private ArrayList<Point> segmentLocations;
 
     // How big is each segment of the snake?
@@ -114,8 +117,12 @@ class Snake {
     }
 
     // Get the snake ready for a new game
-    void reset(int w, int h) {
+    void spawn() {
 
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        int blockSize = displayMetrics.widthPixels / 40;
+        // How many blocks of the same size will fit into the height
+        int mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
         // Reset the heading
         heading = Heading.RIGHT;
 
@@ -123,7 +130,7 @@ class Snake {
         segmentLocations.clear();
 
         // Start with a single snake segment
-        segmentLocations.add(new Point(w / 2, h / 2));
+        segmentLocations.add(new Point( 20, mNumBlocksHigh / 2));
     }
 
 
@@ -208,6 +215,7 @@ class Snake {
         }
         return false;
     }
+
 
     void draw(Canvas canvas, Paint paint) {
 
