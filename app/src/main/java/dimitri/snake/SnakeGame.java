@@ -144,6 +144,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
         // Reset the mScore
         mScore = 0;
 
+        additionalApples = 0;
 
         // Setup mNextFrameTime so an update can triggered
         mNextFrameTime = System.currentTimeMillis();
@@ -221,8 +222,8 @@ public class SnakeGame extends SurfaceView implements Runnable{
                     //if the score passes a multiple of 5
                     //this should prevent dropping down in score and going up again
                     //from spawning extra apples
-                    if (mScore > 1) {
-                        //additionalApples = additionalApples + 1;
+                    if (mScore / 5 > additionalApples) {
+                        additionalApples = additionalApples + 1;
                         Random badAppleSpawner = new Random();
                         boolean appleState = true;
                         int mapToUse = R.drawable.apple;
