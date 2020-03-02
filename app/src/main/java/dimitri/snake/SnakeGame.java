@@ -3,6 +3,7 @@ package dimitri.snake;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +14,7 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SnakeGame extends SurfaceView implements Runnable{
 
@@ -43,16 +46,15 @@ public class SnakeGame extends SurfaceView implements Runnable{
     // How many points does the player have
     private int mScore;
 
-    // Objects for drawing
-    private Canvas mCanvas;
     private SurfaceHolder mSurfaceHolder;
     private Paint mPaint;
 
     // A snake ssss
     private dimitri.snake.Snake mSnake;
     // And an apple
-    private dimitri.snake.Apple mApple;
-    private ArrayList<Apple> appleList;
+
+    public List<Apple> appleList = new CopyOnWriteArrayList<Apple>();
+    private int additionalApples = 0;
 
 
     // This is the constructor method that gets called
@@ -97,10 +99,13 @@ public class SnakeGame extends SurfaceView implements Runnable{
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
+
         Bitmap tempBitmap = new BitmapFactory().decodeResource(context.getResources(), R.drawable.apple);
 
-        appleList = new ArrayList<dimitri.snake.Apple>();
-        // Call the constructors of our two game objects
+        //appleList = new ArrayList<dimitri.snake.Apple>();
+
+        // initialize appleList with a good apple as starting the game with a bad apple
+        // would be rude
         appleList.add(new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
                 .location(new Point(0, -10))
                 .size(blockSize)
@@ -139,6 +144,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
 
         // Reset the mScore
         mScore = 0;
+
 
         // Setup mNextFrameTime so an update can triggered
         mNextFrameTime = System.currentTimeMillis();
@@ -189,51 +195,89 @@ public class SnakeGame extends SurfaceView implements Runnable{
     // Update all the game objects
     public void update() {
 
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        int blockSize = displayMetrics.widthPixels / NUM_BLOCKS_WIDE;
+        // How many blocks of the same size will fit into the height
+        mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
         // Move the snake
         mSnake.move();
+
+
         Random random = new Random();
 
-        // Did the head of the snake eat the apple?
-        for(Apple apple : appleList)
-        {
-            if(mSnake.checkDinner(apple.getLocation()))
-            {
-                apple.spawn();
-                if(apple.isGood)
-                {
+        Bitmap tempBitmap;
+        // Did the head of the snake eat an apple?
+        for (Apple apple : appleList) {
+            if (mSnake.checkDinner(apple.getLocation())) {
+
+                if (apple.isGood) {
                     // Add to  mScore
                     // rand will return 0,1, or 2 so it is necessary to add one
                     mScore = mScore + random.nextInt(2) + 1;
 
                     // Play a sound
                     mSP.play(mEat_ID, 1, 1, 0, 0, 1);
+
+
+                    //if the score passes a multiple of 5
+                    //this should prevent dropping down in score and going up again
+                    //from spawning extra apples
+                    if (mScore > 1) {
+                        //additionalApples = additionalApples + 1;
+                        Random badAppleSpawner = new Random();
+                        boolean appleState = true;
+                        int mapToUse = R.drawable.bad_apple;
+
+//                        if (badAppleSpawner.nextInt(2) == 0) //apple will be good unless
+//                        //the apple spawner is 0, 20% chance
+//                        {
+//                            appleState = false;
+//                            mapToUse = R.drawable.bad_apple;
+//
+//                        }
+
+                        new BitmapFactory();
+                        tempBitmap = BitmapFactory.decodeResource(getContext().getResources(),
+                                mapToUse);
+
+                        Apple tempApple = new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
+                                .location(new Point(0, -10))
+                                .size(blockSize)
+                                .isGood(false)
+                                .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
+                                .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
+                                .build();
+
+                        tempApple.spawn();
+
+                        appleList.add(tempApple);
+                    }
+
                 }
-                // This reminds me of Edge of Tomorrow.
-                // One day the apple will be ready!
-                else
-                {
-                    mScore = mScore - 2;
+                else {
+                    mScore -= 2;
                 }
+
+                apple.spawn();
             }
         }
-
 
         // Did the snake die?
         if (mSnake.detectDeath()) {
             // Pause the game ready to start again
             mSP.play(mCrashID, 1, 1, 0, 0, 1);
 
-            mPaused =true;
+            mPaused = true;
         }
 
     }
-
 
     // Do all the drawing
     public void draw() {
         // Get a lock on the mCanvas
         if (mSurfaceHolder.getSurface().isValid()) {
-            mCanvas = mSurfaceHolder.lockCanvas();
+            // Objects for drawing
+            Canvas mCanvas = mSurfaceHolder.lockCanvas();
 
             // Fill the screen with a color
             mCanvas.drawColor(Color.argb(255, 26, 128, 182));
@@ -251,6 +295,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
             {
                 apple.draw(mCanvas, mPaint);
             }
+
             mSnake.draw(mCanvas, mPaint);
 
             // Draw some text while paused

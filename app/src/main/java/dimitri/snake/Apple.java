@@ -34,60 +34,67 @@ class Apple extends GameObject{
         private boolean isGood;
         private Bitmap appleBitmap;
 
-        public AppleBuilder(Point location) {
+        AppleBuilder(Point location) {
             this.location = location;
         }
 
-        public AppleBuilder spawnRange(Point gridSize) {
+        AppleBuilder spawnRange(Point gridSize) {
             this.gridSize = gridSize;
             return this;
         }
 
-        public AppleBuilder size(int size) {
+        AppleBuilder size(int size) {
             this.size = size;
             return this;
         }
 
-        public AppleBuilder location(Point location) {
+        AppleBuilder location(Point location) {
             this.location = location;
             return this;
         }
 
-        public AppleBuilder bitmap(Bitmap appleBitmap) {
+        AppleBuilder bitmap(Bitmap appleBitmap) {
             this.appleBitmap = appleBitmap;
             return this;
         }
-        public AppleBuilder isGood(boolean isGood) {
+        AppleBuilder isGood(boolean isGood) {
             this.isGood = isGood;
             return this;
         }
 
-        public Apple build()
+        Apple build()
         {
-            Apple apple = new Apple();
-            apple.location = this.location;
-            apple.mSpawnRange = this.gridSize;
-            apple.mSize = this.size;
-            apple.isGood = this.isGood;
-            apple.appleBitmap = this.appleBitmap;
+            return new Apple(location, gridSize, size, isGood, appleBitmap);
 
-            return apple;
+//            apple.location = this.location;
+//            apple.mSpawnRange = this.gridSize;
+//            apple.mSize = this.size;
+//            apple.isGood = this.isGood;
+//            apple.appleBitmap = this.appleBitmap;
+
+//            return apple;
         }
     }
 
 
 
     /// Set up the apple in the constructor
-    private Apple(){
-    }
 
+
+    private Apple(Point location, Point mSpawnRange, int mSize, boolean isGood, Bitmap appleBitmap) {
+        this.location = location;
+        this.mSpawnRange = mSpawnRange;
+        this.mSize = mSize;
+        this.isGood = isGood;
+        this.appleBitmap = appleBitmap;
+    }
 
     // This is called every time an apple is eaten
     void spawn(){
         // Choose two random values and place the apple
         Random random = new Random();
-        location.x = random.nextInt(mSpawnRange.x) + 1;
-        location.y = random.nextInt(mSpawnRange.y - 1) + 1;
+        this.location.x = random.nextInt(this.mSpawnRange.x) + 1;
+        this.location.y = random.nextInt(this.mSpawnRange.y - 1) + 1;
     }
 
     // Let SnakeGame know where the apple is
@@ -98,8 +105,8 @@ class Apple extends GameObject{
 
     // Draw the apple
     void draw(Canvas canvas, Paint paint){
-        canvas.drawBitmap(appleBitmap,
-                location.x * mSize, location.y * mSize, paint);
+        canvas.drawBitmap(this.appleBitmap,
+                this.location.x * this.mSize, this.location.y * this.mSize, paint);
 
     }
 
