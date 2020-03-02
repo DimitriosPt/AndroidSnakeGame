@@ -109,6 +109,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
                 .location(new Point(0, -10))
                 .size(blockSize)
                 .isGood(true)
+                .pointValue(2)
                 .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
                 .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
                 .build());
@@ -209,10 +210,9 @@ public class SnakeGame extends SurfaceView implements Runnable{
         for (Apple apple : appleList) {
             if (mSnake.checkDinner(apple.getLocation())) {
 
+                mScore = mScore + apple.pointValue;
+
                 if (apple.isGood) {
-                    // Add to  mScore
-                    // rand will return 0,1, or 2 so it is necessary to add one
-                    mScore = mScore + random.nextInt(2) + 1;
 
                     // Play a sound
                     mSP.play(mEat_ID, 1, 1, 0, 0, 1);
@@ -273,10 +273,6 @@ public class SnakeGame extends SurfaceView implements Runnable{
 
                         appleList.add(tempApple);
                     }
-
-                }
-                else {
-                    mScore -= 2;
                 }
 
                 apple.spawn();

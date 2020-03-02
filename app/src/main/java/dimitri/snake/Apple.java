@@ -14,7 +14,7 @@ class Apple extends GameObject{
 
     // The location of the normal_apple on the grid
     // Not in pixels
-    private Point location = new Point();
+
 
     // The range of values we can choose from
     // to spawn an normal_apple
@@ -89,32 +89,31 @@ class Apple extends GameObject{
     /// Set up the normal_apple in the constructor
 
 
-    private Apple(Point location, Point mSpawnRange, int mSize, boolean isGood, Bitmap appleBitmap, int pointValue) {
-        this.location = location;
+    private Apple(Point location, Point mSpawnRange, int mSize, boolean isGood,
+                  Bitmap appleBitmap, int pointValue) {
+        this.setLocation(location);
         this.mSpawnRange = mSpawnRange;
         this.mSize = mSize;
         this.isGood = isGood;
         this.appleBitmap = appleBitmap;
+        this.pointValue =pointValue;
     }
 
     // This is called every time an normal_apple is eaten
     void spawn(){
         // Choose two random values and place the normal_apple
         Random random = new Random();
-        this.location.x = random.nextInt(this.mSpawnRange.x) + 1;
-        this.location.y = random.nextInt(this.mSpawnRange.y - 1) + 1;
+        Point tempPoint = new Point();
+        tempPoint.x = random.nextInt(this.mSpawnRange.x) + 1;
+        tempPoint.y = random.nextInt(this.mSpawnRange.y - 1) + 1;
+        this.setLocation(tempPoint);
     }
 
-    // Let SnakeGame know where the normal_apple is
-    // SnakeGame can share this with the snake
-    Point getLocation(){
-        return this.location;
-    }
 
     // Draw the normal_apple
     void draw(Canvas canvas, Paint paint){
         canvas.drawBitmap(this.appleBitmap,
-                this.location.x * this.mSize, this.location.y * this.mSize, paint);
+                this.getLocation().x * this.mSize, this.getLocation().y * this.mSize, paint);
 
     }
 

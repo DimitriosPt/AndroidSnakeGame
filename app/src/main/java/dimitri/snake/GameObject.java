@@ -9,6 +9,7 @@ abstract class GameObject{
     private int size;
     private Point gridSize;
     private Bitmap objectBitmap;
+    private Point location;
 
     abstract void spawn();
     abstract void draw(Canvas canvas, Paint paint);
@@ -35,5 +36,13 @@ abstract class GameObject{
 
     public void setObjectBitmap(Bitmap objectBitmap) {
         this.objectBitmap = objectBitmap;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
     }
 }
