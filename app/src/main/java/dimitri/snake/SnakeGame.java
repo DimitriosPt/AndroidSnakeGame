@@ -50,7 +50,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
 
     // A snake ssss
     private dimitri.snake.Snake mSnake;
-    // And an apple
+    // And an normal_apple
 
     public List<Apple> appleList = new CopyOnWriteArrayList<Apple>();
     private int additionalApples = 0;
@@ -99,11 +99,11 @@ public class SnakeGame extends SurfaceView implements Runnable{
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
 
-        Bitmap tempBitmap = new BitmapFactory().decodeResource(context.getResources(), R.drawable.apple);
+        Bitmap tempBitmap = new BitmapFactory().decodeResource(context.getResources(), R.drawable.normal_apple);
 
         //appleList = new ArrayList<dimitri.snake.Apple>();
 
-        // initialize appleList with a good apple as starting the game with a bad apple
+        // initialize appleList with a good normal_apple as starting the game with a bad normal_apple
         // would be rude
         appleList.add(new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
                 .location(new Point(0, -10))
@@ -127,13 +127,13 @@ public class SnakeGame extends SurfaceView implements Runnable{
         // reset the snake
         mSnake.spawn();
 
-        if(appleList.size() > 1) //removes everything but our default spawn apple which
+        if(appleList.size() > 1) //removes everything but our default spawn normal_apple which
                                 // will always be first in the list
         {
             appleList.subList(1, appleList.size()).clear();
         }
 
-        // Get the apple ready for dinner
+        // Get the normal_apple ready for dinner
 
         for (Apple apple:appleList)
         {
@@ -205,7 +205,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
         Random random = new Random();
 
         Bitmap tempBitmap;
-        // Did the head of the snake eat an apple?
+        // Did the head of the snake eat an normal_apple?
         for (Apple apple : appleList) {
             if (mSnake.checkDinner(apple.getLocation())) {
 
@@ -223,16 +223,37 @@ public class SnakeGame extends SurfaceView implements Runnable{
                     //from spawning extra apples
                     if (mScore / 5 > additionalApples) {
                         additionalApples = additionalApples + 1;
-                        Random badAppleSpawner = new Random();
+                        Random appleSpawner = new Random();
                         boolean appleState = true;
-                        int mapToUse = R.drawable.apple;
+                        int appleValue = 2;
+                        int mapToUse = R.drawable.normal_apple;
 
-                        if (badAppleSpawner.nextInt(5) == 0) //apple will be good unless
-                                                            //the apple spawner is 0, 20% chance
+                        //get it? Because random seed?
+                        int appleSeed = appleSpawner.nextInt(5);
+
+                        if (appleSeed == 0) //normal_apple will be good unless
+                                                            //the normal_apple spawner is 0, 20% chance
                         {
                             appleState = false;
                             mapToUse = R.drawable.bad_apple;
+                            appleValue = -2;
 
+                        }
+                        else if (appleSeed < 3)
+                        {
+                            mapToUse = R.drawable.low_apple;
+                            appleValue = 1;
+
+                        }
+                        else if (appleSeed == 3)
+                        {
+                            mapToUse = R.drawable.normal_apple;
+                            appleValue = 2;
+                        }
+                        else
+                        {
+                            mapToUse = R.drawable.best_apple;
+                            appleValue = 3;
                         }
 
                         new BitmapFactory();
@@ -245,6 +266,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
                                 .isGood(appleState)
                                 .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
                                 .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
+                                .pointValue(appleValue)
                                 .build();
 
                         tempApple.spawn();
@@ -288,7 +310,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
             // Draw the score
             mCanvas.drawText("" + mScore, 20, 120, mPaint);
 
-            // Draw the apple and the snake
+            // Draw the normal_apple and the snake
             //mApple.draw(mCanvas, mPaint);
             for(Apple apple : appleList)
             {

@@ -130,7 +130,7 @@ class Snake extends GameObject{
         segmentLocations.clear();
 
         // Start with a single snake segment
-        segmentLocations.add(new Point( 20, mNumBlocksHigh / 2));
+        segmentLocations.add(new Point(  20, mNumBlocksHigh / 2));
     }
 
 
@@ -199,7 +199,7 @@ class Snake extends GameObject{
     }
 
     boolean checkDinner(Point appleLocation) {
-        //if the head of the snake is on an apple
+        //if the head of the snake is on an normal_apple
         //if (snakeXs[0] == appleLocation.x && snakeYs[0] == appleLocation.y) {
         if (segmentLocations.get(0).x == appleLocation.x &&
                 segmentLocations.get(0).y == appleLocation.y) {
