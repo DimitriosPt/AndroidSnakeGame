@@ -131,12 +131,11 @@ public class SnakeGame extends SurfaceView implements Runnable{
         if(appleList.size() > 1) //removes everything but our default spawn apple which
                                 // will always be first in the list
         {
-            for(int i = 1; i < appleList.size(); i++)
-            {
-                appleList.remove(i);
-            }
+            appleList.subList(1, appleList.size()).clear();
         }
+
         // Get the apple ready for dinner
+
         for (Apple apple:appleList)
         {
             apple.spawn();
@@ -226,15 +225,15 @@ public class SnakeGame extends SurfaceView implements Runnable{
                         //additionalApples = additionalApples + 1;
                         Random badAppleSpawner = new Random();
                         boolean appleState = true;
-                        int mapToUse = R.drawable.bad_apple;
+                        int mapToUse = R.drawable.apple;
 
-//                        if (badAppleSpawner.nextInt(2) == 0) //apple will be good unless
-//                        //the apple spawner is 0, 20% chance
-//                        {
-//                            appleState = false;
-//                            mapToUse = R.drawable.bad_apple;
-//
-//                        }
+                        if (badAppleSpawner.nextInt(5) == 0) //apple will be good unless
+                                                            //the apple spawner is 0, 20% chance
+                        {
+                            appleState = false;
+                            mapToUse = R.drawable.bad_apple;
+
+                        }
 
                         new BitmapFactory();
                         tempBitmap = BitmapFactory.decodeResource(getContext().getResources(),
@@ -243,7 +242,7 @@ public class SnakeGame extends SurfaceView implements Runnable{
                         Apple tempApple = new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
                                 .location(new Point(0, -10))
                                 .size(blockSize)
-                                .isGood(false)
+                                .isGood(appleState)
                                 .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
                                 .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
                                 .build();
