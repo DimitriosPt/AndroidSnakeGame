@@ -1,4 +1,4 @@
 package dimitri.towerdefense;
 
-public abstract class StaticGameObject {
+abstract class StaticGameObject extends GameObject{
 }
