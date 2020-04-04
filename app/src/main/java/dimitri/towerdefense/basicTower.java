@@ -13,11 +13,6 @@ public class basicTower extends Tower{
     }
 
     @Override
-    void spawn() {
-
-    }
-
-    @Override
     void draw(Canvas canvas, Paint paint) {
 
     }

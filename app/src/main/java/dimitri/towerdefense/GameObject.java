@@ -33,4 +33,6 @@ abstract class GameObject{
     void setLocation(Point location) {
         this.location = location;
     }
+
+
 }

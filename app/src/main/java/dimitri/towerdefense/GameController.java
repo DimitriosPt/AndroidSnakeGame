@@ -79,8 +79,6 @@ public class GameController extends SurfaceView implements Runnable{
             soundContext.initializeSound(context);
 
         }
-
-
         else
         {
             soundContext = new SoundContext(new PreLollipopSoundStrategy());
@@ -119,6 +117,7 @@ public class GameController extends SurfaceView implements Runnable{
 
         // reset the snake
         mSnake.spawn();
+
 
         if(appleList.size() > 1) //removes everything but our default spawn normal_apple which
                                 // will always be first in the list

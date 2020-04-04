@@ -8,6 +8,9 @@ public abstract class MoveableGameObject extends GameObject {
     static final int SOUTH = 180;
     static final int WEST = 270;
 
+    public MoveableGameObject(int speed) {
+        this.speed = speed;
+    }
 
     abstract void move(int heading, int speed);
 }
