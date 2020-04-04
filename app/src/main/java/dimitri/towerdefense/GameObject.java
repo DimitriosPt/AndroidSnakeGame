@@ -1,4 +1,4 @@
-package dimitri.snake;
+package dimitri.towerdefense;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,7 +7,7 @@ import android.graphics.Point;
 
 abstract class GameObject{
     private int size;
-    private Point gridSize;
+
     private Bitmap objectBitmap;
     private Point location;
 
@@ -18,18 +18,6 @@ abstract class GameObject{
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public Point getGridSize() {
-        return gridSize;
-    }
-
-    public void setGridSize(Point gridSize) {
-        this.gridSize = gridSize;
-    }
-
     public Bitmap getObjectBitmap() {
         return objectBitmap;
     }
@@ -38,11 +26,11 @@ abstract class GameObject{
         this.objectBitmap = objectBitmap;
     }
 
-    public Point getLocation() {
+    Point getLocation() {
         return location;
     }
 
-    public void setLocation(Point location) {
+    void setLocation(Point location) {
         this.location = location;
     }
 }

@@ -1,8 +1,6 @@
-package dimitri.snake;
+package dimitri.towerdefense;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,20 +8,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import java.io.IOException;
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class SnakeGame extends SurfaceView implements Runnable{
+public class GameController extends SurfaceView implements Runnable{
 
     // Objects for the game loop/thread
     private Thread mThread = null;
@@ -49,19 +45,19 @@ public class SnakeGame extends SurfaceView implements Runnable{
     private Paint mPaint;
 
     // A snake ssss
-    private dimitri.snake.Snake mSnake;
+    private dimitri.towerdefense.Snake mSnake;
     // And an normal_apple
 
     public List<Apple> appleList = new CopyOnWriteArrayList<Apple>();
     private int additionalApples = 0;
     public SoundContext soundContext;
     public Context mContext;
-    public boolean muteGameSound = false;
+    public boolean muteGameSound = true;
 
 
     // This is the constructor method that gets called
     // from SnakeActivity
-    public SnakeGame(Context context, Point size) {
+    public GameController(Context context, Point size) {
         super(context);
 
         mContext = context;

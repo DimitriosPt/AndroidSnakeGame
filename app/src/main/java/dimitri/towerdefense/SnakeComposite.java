@@ -1,10 +1,8 @@
-package dimitri.snake;
+package dimitri.towerdefense;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package dimitri.snake;
+package dimitri.towerdefense;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

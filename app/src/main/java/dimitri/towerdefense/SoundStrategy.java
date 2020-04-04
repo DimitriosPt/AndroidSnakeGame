@@ -1,7 +1,6 @@
-package dimitri.snake;
+package dimitri.towerdefense;
 
 import android.content.Context;
-import android.media.SoundPool;
 
 public interface SoundStrategy {
 

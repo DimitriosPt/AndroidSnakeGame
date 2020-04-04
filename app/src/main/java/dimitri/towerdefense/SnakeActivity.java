@@ -1,4 +1,4 @@
-package dimitri.snake;
+package dimitri.towerdefense;
 
 
 import android.app.Activity;
@@ -10,7 +10,7 @@ import android.view.Display;
 public class SnakeActivity extends Activity {
 
     // Declare an instance of SnakeGame
-    SnakeGame mSnakeGame;
+    GameController mSnakeGame;
 
     // Set the game up
     @Override
@@ -25,7 +25,7 @@ public class SnakeActivity extends Activity {
         display.getSize(size);
 
         // Create a new instance of the SnakeEngine class
-        mSnakeGame = new SnakeGame(this, size);
+        mSnakeGame = new GameController(this, size);
 
 
         // Make snakeEngine the view of the Activity
