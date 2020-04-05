@@ -130,7 +130,7 @@ class Snake extends GameObject{
         segmentLocations.clear();
 
         // Start with a single snake segment
-        segmentLocations.add(new Point(  20, mNumBlocksHigh / 2));
+        segmentLocations.add(new Point(20, mNumBlocksHigh / 2));
     }
 
 

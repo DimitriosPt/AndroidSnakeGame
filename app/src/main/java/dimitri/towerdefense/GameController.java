@@ -46,6 +46,7 @@ public class GameController extends SurfaceView implements Runnable{
 
     // A snake ssss
     private dimitri.towerdefense.Snake mSnake;
+    private Human human;
     // And an normal_apple
 
     public List<Apple> appleList = new CopyOnWriteArrayList<Apple>();
@@ -109,6 +110,8 @@ public class GameController extends SurfaceView implements Runnable{
                         mNumBlocksHigh),
                 blockSize);
 
+        human = new Human(context, 10, 10);
+
     }
 
 
@@ -117,6 +120,7 @@ public class GameController extends SurfaceView implements Runnable{
 
         // reset the snake
         mSnake.spawn();
+        human.spawn();
 
 
         if(appleList.size() > 1) //removes everything but our default spawn normal_apple which
@@ -192,6 +196,7 @@ public class GameController extends SurfaceView implements Runnable{
         mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
         // Move the snake
         mSnake.move();
+        human.move();
 
 
         Random random = new Random();
@@ -306,6 +311,7 @@ public class GameController extends SurfaceView implements Runnable{
                 apple.draw(mCanvas, mPaint);
             }
 
+            human.draw(mCanvas, mPaint);
             mSnake.draw(mCanvas, mPaint);
 
             // Draw some text while paused

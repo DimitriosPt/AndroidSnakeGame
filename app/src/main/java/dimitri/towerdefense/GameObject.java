@@ -34,5 +34,7 @@ abstract class GameObject{
         this.location = location;
     }
 
-
+    void setSize(int size) {
+        this.size = size;
+    }
 }
