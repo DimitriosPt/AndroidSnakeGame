@@ -33,7 +33,7 @@ public class SnakeComposite extends GameObject{
     }
 
     @Override
-    public void spawn()
+    public void spawn(Point location)
     {
 //        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
 //        int blockSize = displayMetrics.widthPixels / 40;

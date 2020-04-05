@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Enemy extends MoveableGameObject {
-    public Enemy(Context context, int health, int speed) {
-        super(speed);
-        this.health = health;
-    }
-
     enum damageResistances{
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
-    public List<damageResistances> resistances = new ArrayList<>();
-
+    private List<damageResistances> resistances;
     private int health;
+
+    public Enemy(Context context, int health, int speed, List<damageResistances> resistances) {
+        super(speed);
+        this.health = health;
+        this.resistances = resistances;
+    }
 
     public void setResistances(List<damageResistances> resistances) {
         this.resistances = resistances;

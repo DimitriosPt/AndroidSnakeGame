@@ -72,13 +72,6 @@ class Apple extends GameObject{
         {
             return new Apple(location, gridSize, size, isGood, appleBitmap, pointValue);
 
-//            normal_apple.location = this.location;
-//            normal_apple.mSpawnRange = this.gridSize;
-//            normal_apple.mSize = this.size;
-//            normal_apple.isGood = this.isGood;
-//            normal_apple.appleBitmap = this.appleBitmap;
-
-//            return normal_apple;
         }
     }
 
@@ -98,7 +91,7 @@ class Apple extends GameObject{
     }
 
     // This is called every time an normal_apple is eaten
-    void spawn(){
+    void spawn(Point location){
         // Choose two random values and place the normal_apple
         Random random = new Random();
         Point tempPoint = new Point();

@@ -10,22 +10,22 @@ import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class Human extends Enemy {
-    Human(Context context, int health, int speed) {
-        super(context, health, speed);
-        this.setSize(1);
+    Human(Context context, int health, int speed, List<damageResistances> resistances) {
+        super(context, health, speed, resistances);
 
-        //humans have no resistances so the list remains empty
-        this.setResistances(new ArrayList<Enemy.damageResistances>());
-        this.setObjectBitmap(BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.human));
-        this.setHeading(EAST);
+        new BitmapFactory();
+        this.setObjectBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.human));
+        this.setLocation(new Point(0,0));
     }
+
 
     @Override
     void move() {
         Point newLocation = this.getLocation();
+
         switch (this.getHeading()) {
             case NORTH:
                 newLocation.y += this.getSpeed();
@@ -35,6 +35,7 @@ class Human extends Enemy {
             case EAST:
                 newLocation.x += this.getSpeed();
                 this.setLocation(newLocation);
+                System.out.println("moving right");
                 break;
 
             case SOUTH:
@@ -51,12 +52,13 @@ class Human extends Enemy {
     }
 
     @Override
-    void spawn() {
+    void spawn(Point location) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         int blockSize = displayMetrics.widthPixels / 40;
         // How many blocks of the same size will fit into the height
         int mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
         // Reset the heading
+        this.setHeading(EAST);
 
         // Start with a single snake segment
         this.setLocation(new Point(30, mNumBlocksHigh / 2));
@@ -64,6 +66,6 @@ class Human extends Enemy {
 
     @Override
     void draw(Canvas canvas, Paint paint) {
-        canvas.drawBitmap(this.getObjectBitmap(), this.getSize(), this.getSize(), paint);
+        canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
     }
 }

@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -47,6 +48,7 @@ public class GameController extends SurfaceView implements Runnable{
     // A snake ssss
     private dimitri.towerdefense.Snake mSnake;
     private Human human;
+    private BasicTower basicTower;
     // And an normal_apple
 
     public List<Apple> appleList = new CopyOnWriteArrayList<Apple>();
@@ -110,7 +112,8 @@ public class GameController extends SurfaceView implements Runnable{
                         mNumBlocksHigh),
                 blockSize);
 
-        human = new Human(context, 10, 10);
+        human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
+        basicTower = new BasicTower();
 
     }
 
@@ -119,21 +122,15 @@ public class GameController extends SurfaceView implements Runnable{
     public void newGame() {
 
         // reset the snake
-        mSnake.spawn();
-        human.spawn();
+        mSnake.spawn(new Point(0, 0));
+        human.spawn(new Point(0, 0));
+        basicTower.spawn(new Point(0, 0));
 
 
         if(appleList.size() > 1) //removes everything but our default spawn normal_apple which
                                 // will always be first in the list
         {
             appleList.subList(1, appleList.size()).clear();
-        }
-
-        // Get the normal_apple ready for dinner
-
-        for (Apple apple:appleList)
-        {
-            apple.spawn();
         }
 
         // Reset the mScore
@@ -266,13 +263,9 @@ public class GameController extends SurfaceView implements Runnable{
                                 .pointValue(appleValue)
                                 .build();
 
-                        tempApple.spawn();
-
                         appleList.add(tempApple);
                     }
                 }
-
-                apple.spawn();
             }
         }
 

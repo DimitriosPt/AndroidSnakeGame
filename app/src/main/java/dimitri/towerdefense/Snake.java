@@ -16,7 +16,6 @@ import java.util.ArrayList;
 class Snake extends GameObject{
 
     // The location in the grid of all the segments
-
     private ArrayList<Point> segmentLocations;
 
     // How big is each segment of the snake?
@@ -117,7 +116,7 @@ class Snake extends GameObject{
     }
 
     // Get the snake ready for a new game
-    void spawn() {
+    void spawn(Point location) {
 
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         int blockSize = displayMetrics.widthPixels / 40;
@@ -132,7 +131,6 @@ class Snake extends GameObject{
         // Start with a single snake segment
         segmentLocations.add(new Point(20, mNumBlocksHigh / 2));
     }
-
 
     void move() {
         // Move the body
@@ -216,7 +214,6 @@ class Snake extends GameObject{
         return false;
     }
 
-
     void draw(Canvas canvas, Paint paint) {
 
         // Don't run this code if ArrayList has nothing in it
@@ -268,7 +265,6 @@ class Snake extends GameObject{
             }
         }
     }
-
 
     // Handle changing direction
     void switchHeading(MotionEvent motionEvent) {

@@ -29,16 +29,6 @@ abstract class Tower extends StaticGameObject{
     public int getCost() {
         return cost;
     }
-    void spawn() {
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        int blockSize = displayMetrics.widthPixels / 40;
-        // How many blocks of the same size will fit into the height
-        int mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
-        // Reset the heading
-
-
-    }
-
 
     abstract void attack(int attackSpeed, int damage, int damageType);
 }

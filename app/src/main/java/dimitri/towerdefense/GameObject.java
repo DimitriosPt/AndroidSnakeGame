@@ -11,7 +11,7 @@ abstract class GameObject{
     private Bitmap objectBitmap;
     private Point location;
 
-    abstract void spawn();
+    abstract void spawn(Point location);
     abstract void draw(Canvas canvas, Paint paint);
 
     public int getSize() {
