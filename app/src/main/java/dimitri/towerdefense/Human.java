@@ -17,7 +17,11 @@ class Human extends Enemy {
         super(context, health, speed, resistances);
 
         new BitmapFactory();
-        this.setObjectBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.human));
+        Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.human);
+        Bitmap scaledBitmap = Bitmap
+                .createScaledBitmap(unscaledBitmap,
+                        60, 60, false);
+        this.setObjectBitmap(scaledBitmap);
         this.setLocation(new Point(0,0));
     }
 

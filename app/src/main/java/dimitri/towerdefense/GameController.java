@@ -51,7 +51,6 @@ public class GameController extends SurfaceView implements Runnable{
     private BasicTower basicTower;
     // And an normal_apple
 
-    public List<Apple> appleList = new CopyOnWriteArrayList<Apple>();
     private int additionalApples = 0;
     public SoundContext soundContext;
     public Context mContext;
@@ -92,28 +91,18 @@ public class GameController extends SurfaceView implements Runnable{
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
 
-        Bitmap tempBitmap = new BitmapFactory().decodeResource(context.getResources(), R.drawable.normal_apple);
 
         //appleList = new ArrayList<dimitri.snake.Apple>();
 
         // initialize appleList with a good normal_apple as starting the game with a bad normal_apple
         // would be rude
-        appleList.add(new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
-                .location(new Point(0, -10))
-                .size(blockSize)
-                .isGood(true)
-                .pointValue(2)
-                .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
-                .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
-                .build());
-
         mSnake = new Snake(context,
                 new Point(NUM_BLOCKS_WIDE,
                         mNumBlocksHigh),
                 blockSize);
 
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
-        basicTower = new BasicTower();
+        basicTower = new BasicTower(context);
 
     }
 
@@ -123,20 +112,13 @@ public class GameController extends SurfaceView implements Runnable{
 
         // reset the snake
         mSnake.spawn(new Point(0, 0));
-        human.spawn(new Point(0, 0));
-        basicTower.spawn(new Point(0, 0));
+        human.spawn(new Point(0, 200));
+        basicTower.spawn(new Point(600, 200));
 
-
-        if(appleList.size() > 1) //removes everything but our default spawn normal_apple which
-                                // will always be first in the list
-        {
-            appleList.subList(1, appleList.size()).clear();
-        }
 
         // Reset the mScore
         mScore = 0;
 
-        additionalApples = 0;
 
         // Setup mNextFrameTime so an update can triggered
         mNextFrameTime = System.currentTimeMillis();
@@ -195,79 +177,10 @@ public class GameController extends SurfaceView implements Runnable{
         mSnake.move();
         human.move();
 
-
         Random random = new Random();
 
         Bitmap tempBitmap;
         // Did the head of the snake eat an normal_apple?
-        for (Apple apple : appleList) {
-            if (mSnake.checkDinner(apple.getLocation())) {
-
-                mScore = mScore + apple.pointValue;
-
-                if (apple.isGood) {
-
-                    // Play a sound
-                    soundContext.playEatAppleSound(mContext);
-//                    mSP.play(mEat_ID, 1, 1, 0, 0, 1);
-
-
-                    //if the score passes a multiple of 5
-                    //this should prevent dropping down in score and going up again
-                    //from spawning extra apples
-                    if (mScore / 5 > additionalApples) {
-                        additionalApples = additionalApples + 1;
-                        Random appleSpawner = new Random();
-                        boolean appleState = true;
-                        int appleValue = 2;
-                        int mapToUse = R.drawable.normal_apple;
-
-                        //get it? Because random seed?
-                        int appleSeed = appleSpawner.nextInt(5);
-
-                        if (appleSeed == 0) //normal_apple will be good unless
-                                                            //the normal_apple spawner is 0, 20% chance
-                        {
-                            appleState = false;
-                            mapToUse = R.drawable.bad_apple;
-                            appleValue = -2;
-
-                        }
-                        else if (appleSeed < 3)
-                        {
-                            mapToUse = R.drawable.low_apple;
-                            appleValue = 1;
-
-                        }
-                        else if (appleSeed == 3)
-                        {
-                            mapToUse = R.drawable.normal_apple;
-                            appleValue = 2;
-                        }
-                        else
-                        {
-                            mapToUse = R.drawable.best_apple;
-                            appleValue = 3;
-                        }
-
-                        new BitmapFactory();
-                        tempBitmap = BitmapFactory.decodeResource(getContext().getResources(),
-                                mapToUse);
-
-                        Apple tempApple = new Apple.AppleBuilder(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
-                                .location(new Point(0, -10))
-                                .size(blockSize)
-                                .isGood(appleState)
-                                .spawnRange(new Point(NUM_BLOCKS_WIDE, mNumBlocksHigh))
-                                .bitmap(Bitmap.createScaledBitmap(tempBitmap, blockSize, blockSize, false))
-                                .pointValue(appleValue)
-                                .build();
-
-                        appleList.add(tempApple);
-                    }
-                }
-            }
-        }
 
         // Did the snake die?
         if (mSnake.detectDeath()) {
@@ -299,13 +212,11 @@ public class GameController extends SurfaceView implements Runnable{
 
             // Draw the normal_apple and the snake
             //mApple.draw(mCanvas, mPaint);
-            for(Apple apple : appleList)
-            {
-                apple.draw(mCanvas, mPaint);
-            }
+
 
             human.draw(mCanvas, mPaint);
             mSnake.draw(mCanvas, mPaint);
+            basicTower.draw(mCanvas, mPaint);
 
             // Draw some text while paused
             if(mPaused){
