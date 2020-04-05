@@ -1,10 +1,12 @@
 package dimitri.towerdefense;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Enemy extends MoveableGameObject {
-    public Enemy(int health, int speed) {
+    public Enemy(Context context, int health, int speed) {
         super(speed);
         this.health = health;
     }
