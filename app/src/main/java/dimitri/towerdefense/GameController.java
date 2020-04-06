@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.animation.GridLayoutAnimationController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,8 @@ public class GameController extends SurfaceView implements Runnable{
     public SoundContext soundContext;
     public Context mContext;
     public boolean muteGameSound = true;
+
+    private GameWorld world = new GameWorld();
 
 
     // This is the constructor method that gets called
@@ -104,21 +107,24 @@ public class GameController extends SurfaceView implements Runnable{
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         basicTower = new BasicTower(context);
 
+
     }
 
 
     // Called to start a new game
     public void newGame() {
 
-        // reset the snake
+        world = new GameWorld();
+
+        world.addGameObjectToList(human);
+        world.addGameObjectToList(basicTower);
+
         mSnake.spawn(new Point(0, 0));
         human.spawn(new Point(0, 200));
-        basicTower.spawn(new Point(600, 200));
-
+        basicTower.spawn(new Point(600, 12));
 
         // Reset the mScore
         mScore = 0;
-
 
         // Setup mNextFrameTime so an update can triggered
         mNextFrameTime = System.currentTimeMillis();
@@ -175,13 +181,37 @@ public class GameController extends SurfaceView implements Runnable{
         mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
         // Move the snake
         mSnake.move();
-        human.move();
+        //human.move();
 
-        Random random = new Random();
 
-        Bitmap tempBitmap;
-        // Did the head of the snake eat an normal_apple?
+        for (Tower tower:world.getTowers())
+        {
+            System.out.printf("Tower Location: %d %d", tower.getLocation().x, tower.getLocation().y);
+//            if(tower.canAttack())
+//            {
+                for(Enemy enemy:world.getEnemies())
+                {
+                    double xDistance = (double) (tower.getLocation().x - enemy.getLocation().x);
+                    double yDistance = (double) (tower.getLocation().y - enemy.getLocation().y);
+                    double distanceFromTowerToEnemy =
+                            Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 
+                    if(distanceFromTowerToEnemy < tower.getRange())
+                    {
+                        enemy.setHealth(enemy.getHealth() - tower.getDamage());
+                    }
+
+                    if (enemy.getHealth() <= 0)
+                    {
+                        world.removeGameObjectFromList(enemy);
+                    }
+                }
+//            }
+
+        }
+        for (Enemy enemy: world.getEnemies()) {
+            enemy.move();
+        }
         // Did the snake die?
         if (mSnake.detectDeath()) {
             // Pause the game ready to start again
@@ -210,13 +240,13 @@ public class GameController extends SurfaceView implements Runnable{
             // Draw the score
             mCanvas.drawText("" + mScore, 20, 120, mPaint);
 
-            // Draw the normal_apple and the snake
-            //mApple.draw(mCanvas, mPaint);
+            for (GameObject object:world.getGameObjectList()) {
+                object.draw(mCanvas, mPaint);
+            }
 
-
-            human.draw(mCanvas, mPaint);
+            //human.draw(mCanvas, mPaint);
             mSnake.draw(mCanvas, mPaint);
-            basicTower.draw(mCanvas, mPaint);
+            //basicTower.draw(mCanvas, mPaint);
 
             // Draw some text while paused
             if(mPaused){
@@ -228,9 +258,9 @@ public class GameController extends SurfaceView implements Runnable{
                 // Draw the message
                 // We will give this an international upgrade soon
                 //mCanvas.drawText("Tap To Play!", 200, 700, mPaint);
-                mCanvas.drawText(getResources().
-                                getString(R.string.tap_to_play),
-                        200, 700, mPaint);
+//                mCanvas.drawText(getResources().
+//                                getString(R.string.tap_to_play),
+//                        200, 700, mPaint);
             }
 
 

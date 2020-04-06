@@ -39,7 +39,6 @@ class Human extends Enemy {
             case EAST:
                 newLocation.x += this.getSpeed();
                 this.setLocation(newLocation);
-                System.out.println("moving right");
                 break;
 
             case SOUTH:

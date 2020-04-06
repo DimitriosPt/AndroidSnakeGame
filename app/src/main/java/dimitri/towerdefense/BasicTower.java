@@ -17,6 +17,8 @@ public class BasicTower extends Tower{
         this.setObjectBitmap(scaledBitmap);
 
         this.setLocation(new Point(100,50));
+        this.setRange(50);
+        this.setDamage(3);
     }
 
     @Override
@@ -25,8 +27,9 @@ public class BasicTower extends Tower{
     }
 
     @Override
-    void attack(int attackSpeed, int damage, int damageType) {
-
+    void attack(int damage, int damageType)
+    {
+        this.setTimeOfLastAttack(System.currentTimeMillis());
     }
 
     @Override

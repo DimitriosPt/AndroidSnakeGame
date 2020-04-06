@@ -7,8 +7,19 @@ import android.util.DisplayMetrics;
 abstract class Tower extends StaticGameObject{
     private int range;
     private int damage;
-    private int attackSpeed;
+    private long attackSpeed;
     private int cost;
+
+    public long getTimeOfLastAttack() {
+        return timeOfLastAttack;
+    }
+
+    public void setTimeOfLastAttack(long timeOfLastAttack) {
+        this.timeOfLastAttack = timeOfLastAttack;
+    }
+
+    //this will be a record in milliseconds of when the tower last attacked
+    private long timeOfLastAttack;
 
     private enum damageType{
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
@@ -22,7 +33,7 @@ abstract class Tower extends StaticGameObject{
         return damage;
     }
 
-    public int getAttackSpeed() {
+    public long getAttackSpeed() {
         return attackSpeed;
     }
 
@@ -30,5 +41,23 @@ abstract class Tower extends StaticGameObject{
         return cost;
     }
 
-    abstract void attack(int attackSpeed, int damage, int damageType);
+    abstract void attack(int damage, int damageType);
+
+    //determines if enough time has passed in milliseconds to allow the turret to attack again
+    public boolean canAttack()
+    {
+        return(timeOfLastAttack + attackSpeed < System.currentTimeMillis());
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public void setAttackSpeed(long attackSpeed) {
+        this.attackSpeed = attackSpeed;
+    }
 }
