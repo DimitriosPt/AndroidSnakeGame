@@ -228,7 +228,16 @@ public class GameController extends SurfaceView implements Runnable{
         // Get a lock on the mCanvas
         if (mSurfaceHolder.getSurface().isValid()) {
             // Objects for drawing
+
+
             Canvas mCanvas = mSurfaceHolder.lockCanvas();
+
+//            new BitmapFactory();
+//            Bitmap unscaledBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.background);
+//            Bitmap scaledBitmap = Bitmap
+//                    .createScaledBitmap(unscaledBitmap,
+//                            1000, 720, false);
+//            mCanvas.drawBitmap(scaledBitmap, 0, 0, mPaint);
 
             // Fill the screen with a color
             mCanvas.drawColor(Color.argb(255, 26, 128, 182));
