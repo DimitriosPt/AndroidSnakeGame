@@ -2,8 +2,6 @@ package dimitri.towerdefense;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,12 +12,8 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.animation.GridLayoutAnimationController;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameController extends SurfaceView implements Runnable{
 
@@ -49,7 +43,7 @@ public class GameController extends SurfaceView implements Runnable{
     // A snake ssss
     private dimitri.towerdefense.Snake mSnake;
     private Human human;
-    private BasicTower basicTower;
+    private BasicAOETower basicAOETower;
     // And an normal_apple
 
     private int additionalApples = 0;
@@ -105,7 +99,7 @@ public class GameController extends SurfaceView implements Runnable{
                 blockSize);
 
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
-        basicTower = new BasicTower(context);
+        basicAOETower = new BasicAOETower(context);
 
 
     }
@@ -117,11 +111,11 @@ public class GameController extends SurfaceView implements Runnable{
         world = new GameWorld();
 
         world.addGameObjectToList(human);
-        world.addGameObjectToList(basicTower);
+        world.addGameObjectToList(basicAOETower);
 
         mSnake.spawn(new Point(0, 0));
         human.spawn(new Point(0, 200));
-        basicTower.spawn(new Point(600, 12));
+        basicAOETower.spawn(new Point(600, 112));
 
         // Reset the mScore
         mScore = 0;
@@ -187,28 +181,32 @@ public class GameController extends SurfaceView implements Runnable{
         for (Tower tower:world.getTowers())
         {
             System.out.printf("Tower Location: %d %d", tower.getLocation().x, tower.getLocation().y);
-//            if(tower.canAttack())
-//            {
-                for(Enemy enemy:world.getEnemies())
+            if(tower.canAttack())
+            {
+                tower.attack(world.getEnemies());
+//                for(Enemy enemy:world.getEnemies())
+//                {
+//                    double xDistance = (double) (tower.getLocation().x - enemy.getLocation().x);
+//                    double yDistance = (double) (tower.getLocation().y - enemy.getLocation().y);
+//                    double distanceFromTowerToEnemy =
+//                            Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+//
+//                    if(distanceFromTowerToEnemy <= tower.getRange())
+//                    {
+//                        enemy.setHealth(enemy.getHealth() - tower.getDamage());
+//                    }
+
+                for(Enemy enemy: world.getEnemies())
                 {
-                    double xDistance = (double) (tower.getLocation().x - enemy.getLocation().x);
-                    double yDistance = (double) (tower.getLocation().y - enemy.getLocation().y);
-                    double distanceFromTowerToEnemy =
-                            Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-
-                    if(distanceFromTowerToEnemy < tower.getRange())
-                    {
-                        enemy.setHealth(enemy.getHealth() - tower.getDamage());
-                    }
-
                     if (enemy.getHealth() <= 0)
                     {
                         world.removeGameObjectFromList(enemy);
                     }
                 }
-//            }
-
+                //}
+            }
         }
+
         for (Enemy enemy: world.getEnemies()) {
             enemy.move();
         }
@@ -229,7 +227,6 @@ public class GameController extends SurfaceView implements Runnable{
         if (mSurfaceHolder.getSurface().isValid()) {
             // Objects for drawing
 
-
             Canvas mCanvas = mSurfaceHolder.lockCanvas();
 
 //            new BitmapFactory();
@@ -249,13 +246,9 @@ public class GameController extends SurfaceView implements Runnable{
             // Draw the score
             mCanvas.drawText("" + mScore, 20, 120, mPaint);
 
-            for (GameObject object:world.getGameObjectList()) {
-                object.draw(mCanvas, mPaint);
-            }
+            world.draw(mCanvas, mPaint);
 
-            //human.draw(mCanvas, mPaint);
             mSnake.draw(mCanvas, mPaint);
-            //basicTower.draw(mCanvas, mPaint);
 
             // Draw some text while paused
             if(mPaused){
@@ -271,7 +264,6 @@ public class GameController extends SurfaceView implements Runnable{
 //                                getString(R.string.tap_to_play),
 //                        200, 700, mPaint);
             }
-
 
             // Unlock the mCanvas and reveal the graphics for this frame
             mSurfaceHolder.unlockCanvasAndPost(mCanvas);

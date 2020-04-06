@@ -7,8 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-public class BasicTower extends Tower{
-    public BasicTower(Context context){
+import java.util.List;
+
+public class BasicAOETower extends Tower{
+    AttackStrategy attackStrategy = new AreaOfEffectAttackStrategy();
+    public BasicAOETower(Context context){
         new BitmapFactory();
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.basic_tower);
         Bitmap scaledBitmap = Bitmap
@@ -19,6 +22,7 @@ public class BasicTower extends Tower{
         this.setLocation(new Point(100,50));
         this.setRange(50);
         this.setDamage(3);
+        this.setAttackSpeed(100);
     }
 
     @Override
@@ -27,9 +31,9 @@ public class BasicTower extends Tower{
     }
 
     @Override
-    void attack(int damage, int damageType)
+    void attack(List<Enemy> enemies)
     {
-        this.setTimeOfLastAttack(System.currentTimeMillis());
+        attackStrategy.attack(this, enemies);
     }
 
     @Override

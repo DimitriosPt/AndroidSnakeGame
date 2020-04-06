@@ -1,15 +1,25 @@
 package dimitri.towerdefense;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameWorld {
     private List<GameObject> gameObjectList;
 
-    public GameWorld() {
+    GameWorld() {
         gameObjectList = new ArrayList<>();
     }
-    public List<GameObject> getGameObjectList() {
+
+    void draw(Canvas canvas, Paint paint)
+    {
+        for (GameObject gameObject:gameObjectList) {
+            gameObject.draw(canvas, paint);
+        }
+    }
+    List<GameObject> getGameObjectList() {
         return gameObjectList;
     }
 
@@ -17,12 +27,12 @@ public class GameWorld {
         this.gameObjectList = gameObjectList;
     }
 
-    public void addGameObjectToList(GameObject gameObject)
+    void addGameObjectToList(GameObject gameObject)
     {
         this.gameObjectList.add(gameObject);
     }
 
-    public List<Tower> getTowers()
+    List<Tower> getTowers()
     {
         List<Tower> towerList = new ArrayList<>();
 
@@ -35,7 +45,7 @@ public class GameWorld {
         return towerList;
     }
 
-    public List<Enemy> getEnemies()
+    List<Enemy> getEnemies()
     {
         List<Enemy> enemyList = new ArrayList<>();
 
@@ -47,7 +57,8 @@ public class GameWorld {
         }
         return enemyList;
     }
-    public void removeGameObjectFromList(GameObject gameObject)
+
+    void removeGameObjectFromList(GameObject gameObject)
     {
         this.gameObjectList.remove(gameObject);
     }

@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.BitmapFactory;
+import android.net.wifi.WifiEnterpriseConfig;
 import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
@@ -29,10 +30,24 @@ class Human extends Enemy {
     @Override
     void move() {
         Point newLocation = this.getLocation();
+        System.out.println(newLocation.toString());
+
+        if(newLocation.y >= 100)
+        {
+            this.setHeading(EAST);
+        }
+
+        else if(newLocation.x == 50)
+        {
+            this.setHeading(SOUTH);
+            this.setLocation(new Point(newLocation.x +1, newLocation.y));
+        }
+
+
 
         switch (this.getHeading()) {
             case NORTH:
-                newLocation.y += this.getSpeed();
+                newLocation.y -= this.getSpeed();
                 this.setLocation(newLocation);
                 break;
 
@@ -42,7 +57,7 @@ class Human extends Enemy {
                 break;
 
             case SOUTH:
-                newLocation.y -= this.getSpeed();
+                newLocation.y += this.getSpeed();
                 this.setLocation(newLocation);
                 break;
 
