@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.view.Display;
 
 
-public class SnakeActivity extends Activity {
+public class TDActivty extends Activity {
 
     // Declare an instance of SnakeGame
-    GameController mSnakeGame;
+    GameController towerDefenseGame;
 
     // Set the game up
     @Override
@@ -25,24 +25,24 @@ public class SnakeActivity extends Activity {
         display.getSize(size);
 
         // Create a new instance of the SnakeEngine class
-        mSnakeGame = new GameController(this, size);
+        towerDefenseGame = new GameController(this, size);
 
 
         // Make snakeEngine the view of the Activity
-        setContentView(mSnakeGame);
+        setContentView(towerDefenseGame);
     }
 
     // Start the thread in snakeEngine
     @Override
     protected void onResume() {
         super.onResume();
-        mSnakeGame.resume();
+        towerDefenseGame.resume();
     }
 
     // Stop the thread in snakeEngine
     @Override
     protected void onPause() {
         super.onPause();
-        mSnakeGame.pause();
+        towerDefenseGame.pause();
     }
 }

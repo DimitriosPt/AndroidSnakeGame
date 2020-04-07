@@ -40,8 +40,6 @@ public class GameController extends SurfaceView implements Runnable{
     private SurfaceHolder mSurfaceHolder;
     private Paint mPaint;
 
-    // A snake ssss
-    private dimitri.towerdefense.Snake mSnake;
     private Human human;
     private BasicAOETower basicAOETower;
     // And an normal_apple
@@ -88,16 +86,6 @@ public class GameController extends SurfaceView implements Runnable{
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
 
-
-        //appleList = new ArrayList<dimitri.snake.Apple>();
-
-        // initialize appleList with a good normal_apple as starting the game with a bad normal_apple
-        // would be rude
-        mSnake = new Snake(context,
-                new Point(NUM_BLOCKS_WIDE,
-                        mNumBlocksHigh),
-                blockSize);
-
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         basicAOETower = new BasicAOETower(context);
 
@@ -108,12 +96,11 @@ public class GameController extends SurfaceView implements Runnable{
     // Called to start a new game
     public void newGame() {
 
-        world = new GameWorld();
+        world.clear();
 
         world.addGameObjectToList(human);
         world.addGameObjectToList(basicAOETower);
 
-        mSnake.spawn(new Point(0, 0));
         human.spawn(new Point(0, 200));
         basicAOETower.spawn(new Point(600, 112));
 
@@ -173,28 +160,13 @@ public class GameController extends SurfaceView implements Runnable{
         int blockSize = displayMetrics.widthPixels / NUM_BLOCKS_WIDE;
         // How many blocks of the same size will fit into the height
         mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
-        // Move the snake
-        mSnake.move();
-        //human.move();
 
 
         for (Tower tower:world.getTowers())
         {
-            System.out.printf("Tower Location: %d %d", tower.getLocation().x, tower.getLocation().y);
             if(tower.canAttack())
             {
                 tower.attack(world.getEnemies());
-//                for(Enemy enemy:world.getEnemies())
-//                {
-//                    double xDistance = (double) (tower.getLocation().x - enemy.getLocation().x);
-//                    double yDistance = (double) (tower.getLocation().y - enemy.getLocation().y);
-//                    double distanceFromTowerToEnemy =
-//                            Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-//
-//                    if(distanceFromTowerToEnemy <= tower.getRange())
-//                    {
-//                        enemy.setHealth(enemy.getHealth() - tower.getDamage());
-//                    }
 
                 for(Enemy enemy: world.getEnemies())
                 {
@@ -203,20 +175,17 @@ public class GameController extends SurfaceView implements Runnable{
                         world.removeGameObjectFromList(enemy);
                     }
                 }
-                //}
             }
         }
 
         for (Enemy enemy: world.getEnemies()) {
             enemy.move();
         }
-        // Did the snake die?
-        if (mSnake.detectDeath()) {
-            // Pause the game ready to start again
-            soundContext.playCollisionSound(mContext);
-//            mSP.play(mCrashID, 1, 1, 0, 0, 1);
 
-            mPaused = true;
+        //pause if all enemies in the wave are killed
+        if (world.getEnemies().isEmpty()) {
+
+            newGame();
         }
 
     }
@@ -248,23 +217,6 @@ public class GameController extends SurfaceView implements Runnable{
 
             world.draw(mCanvas, mPaint);
 
-            mSnake.draw(mCanvas, mPaint);
-
-            // Draw some text while paused
-            if(mPaused){
-
-                // Set the size and color of the mPaint for the text
-                mPaint.setColor(Color.argb(255, 255, 255, 255));
-                mPaint.setTextSize(250);
-
-                // Draw the message
-                // We will give this an international upgrade soon
-                //mCanvas.drawText("Tap To Play!", 200, 700, mPaint);
-//                mCanvas.drawText(getResources().
-//                                getString(R.string.tap_to_play),
-//                        200, 700, mPaint);
-            }
-
             // Unlock the mCanvas and reveal the graphics for this frame
             mSurfaceHolder.unlockCanvasAndPost(mCanvas);
         }
@@ -278,12 +230,9 @@ public class GameController extends SurfaceView implements Runnable{
                     mPaused = false;
                     newGame();
 
-                    // Don't want to process snake direction for this tap
                     return true;
                 }
 
-                // Let the Snake class handle the input
-                mSnake.switchHeading(motionEvent);
                 break;
 
             default:

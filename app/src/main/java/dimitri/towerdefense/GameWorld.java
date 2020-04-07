@@ -58,6 +58,10 @@ public class GameWorld {
         return enemyList;
     }
 
+    void clear(){
+        this.gameObjectList.clear();
+    }
+
     void removeGameObjectFromList(GameObject gameObject)
     {
         this.gameObjectList.remove(gameObject);

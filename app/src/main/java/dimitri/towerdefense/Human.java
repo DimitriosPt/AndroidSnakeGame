@@ -30,7 +30,6 @@ class Human extends Enemy {
     @Override
     void move() {
         Point newLocation = this.getLocation();
-        System.out.println(newLocation.toString());
 
         if(newLocation.y >= 100)
         {
