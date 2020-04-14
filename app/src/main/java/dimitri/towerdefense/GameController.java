@@ -54,10 +54,9 @@ public class GameController extends SurfaceView implements Runnable{
 
     // This is the constructor method that gets called
     // from SnakeActivity
-    public GameController(Context context, Point size) {
-        super(context);
-
-        mContext = context;
+    public GameController(Point size) {
+        super(TowerDefense.getContext());
+        Context context = TowerDefense.getContext();
         // Work out how many pixels each block is
         int blockSize = size.x / NUM_BLOCKS_WIDE;
         // How many blocks of the same size will fit into the height
@@ -87,7 +86,7 @@ public class GameController extends SurfaceView implements Runnable{
         mPaint = new Paint();
 
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
-        basicAOETower = new BasicAOETower(context);
+        basicAOETower = new BasicAOETower();
 
 
     }

@@ -11,9 +11,10 @@ import java.util.List;
 
 public class BasicAOETower extends Tower{
     AttackStrategy attackStrategy = new AreaOfEffectAttackStrategy();
-    public BasicAOETower(Context context){
+    public BasicAOETower(){
+        Context newContext = TowerDefense.getContext();
         new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.basic_tower);
+        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.basic_tower);
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         200, 200, false);

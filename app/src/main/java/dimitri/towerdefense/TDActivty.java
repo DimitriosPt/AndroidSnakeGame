@@ -25,7 +25,7 @@ public class TDActivty extends Activity {
         display.getSize(size);
 
         // Create a new instance of the SnakeEngine class
-        towerDefenseGame = new GameController(this, size);
+        towerDefenseGame = new GameController(size);
 
 
         // Make snakeEngine the view of the Activity
