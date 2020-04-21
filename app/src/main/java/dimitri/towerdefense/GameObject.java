@@ -6,12 +6,10 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 
-abstract class GameObject {
+class GameObject {
     private int size;
     private Bitmap objectBitmap;
     private Point location;
-
-    abstract void spawn(Point location);
 
     private Transform transform;
     private boolean isActive = false;
@@ -51,7 +49,7 @@ abstract class GameObject {
     void setGraphics(GraphicsComponent g,
                      ObjectSpec spec, PointF objectSize) {
         graphicsComponent = g;
-        g.initialize(spec);
+        g.initialize(spec, objectSize);
     }
 
     void setMovement(MovementComponent m) {

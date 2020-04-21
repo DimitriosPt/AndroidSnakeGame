@@ -17,6 +17,7 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
     private long frameRate;
     private GameState gameState;
     private ArrayList<InputObserver> inputObservers = new ArrayList<>();
+    Level level;
 
     UIController uiController;
 
@@ -28,6 +29,7 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         hud = new HUD();
         renderer = new Renderer(this);
         uiController = new UIController(this);
+        level = new Level(TowerDefense.getScreenSizeF(), this);
     }
 
     @Override
@@ -36,11 +38,14 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         while(gameState.getThreadRunning())
         {
             long frameStartTime = System.currentTimeMillis();
+            ArrayList<GameObject> gameObjects = level.getGameObjects();
+
             if(!gameState.getPaused())
             {
 
             }
 
+            renderer.draw(gameObjects, gameState, hud);
             long timeElapsed = System.currentTimeMillis() - frameStartTime;
 
             if(timeElapsed >= 1){
@@ -83,7 +88,16 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
 
     @Override
     public void despawnRespawn() {
-
+        ArrayList<GameObject> objects = level.getGameObjects();
+        for(GameObject o : objects){
+            o.setInactive();
+        }
+        objects.get(Level.PLAYER_INDEX)
+                .spawn(objects.get(Level.PLAYER_INDEX)
+                        .getTransform());
+        objects.get(Level.BACKGROUND_INDEX)
+                .spawn(objects.get(Level.PLAYER_INDEX)
+                        .getTransform());
     }
 
 
@@ -95,6 +109,16 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
 
     @Override
     public boolean spawnTowerProjectile(Transform transform) {
-        return false;
+//        ArrayList<GameObject> objects = level.getGameObjects();
+//        if (objects.get(Level.mNextPlayerLaser)
+//                .spawn(transform)) {
+//            Level.mNextPlayerLaser++;
+//            if (Level.mNextPlayerLaser ==
+//                    Level.LAST_PLAYER_LASER + 1) {
+//// Just used the last laser
+//                Level.mNextPlayerLaser = Level.FIRST_PLAYER_LASER;
+//            }
+        //}
+        return true;
     }
 }

@@ -32,4 +32,6 @@ abstract class ObjectSpec {
     public String[] getComponents() {
         return components;
     }
+
+
 }

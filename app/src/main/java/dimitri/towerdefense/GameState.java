@@ -69,7 +69,7 @@ final class GameState {
         money = 200;
 
         stopDrawing();
-        //gameStarter.despawnRespawn();
+        gameStarter.despawnRespawn();
         resume();
 
         startDrawing();

@@ -26,18 +26,18 @@ public class BasicAOETower extends Tower{
         this.setAttackSpeed(100);
     }
 
-    @Override
+
     void spawn(Point location) {
         this.setLocation(location);
     }
 
-    @Override
+
     void attack(List<Enemy> enemies)
     {
         attackStrategy.attack(this, enemies);
     }
 
-    @Override
+
     void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
     }

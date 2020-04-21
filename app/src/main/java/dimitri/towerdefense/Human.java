@@ -68,7 +68,7 @@ class Human extends Enemy {
         }
     }
 
-    @Override
+
     void spawn(Point location) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         int blockSize = displayMetrics.widthPixels / 40;
@@ -81,7 +81,7 @@ class Human extends Enemy {
         this.setLocation(new Point(30, mNumBlocksHigh / 2));
     }
 
-    @Override
+
     void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
     }
