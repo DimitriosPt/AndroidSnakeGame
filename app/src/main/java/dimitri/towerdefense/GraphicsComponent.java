@@ -9,5 +9,5 @@ public interface GraphicsComponent {
 
     void initialize(ObjectSpec spec);
 
-    void draw(Canvas canvas, Paint paint);
+    void draw(Canvas canvas, Paint paint, Transform transform);
 }
