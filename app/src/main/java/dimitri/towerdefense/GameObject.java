@@ -7,10 +7,8 @@ import android.graphics.Point;
 
 abstract class GameObject{
     private int size;
-
     private Bitmap objectBitmap;
     private Point location;
-
     abstract void spawn(Point location);
     abstract void draw(Canvas canvas, Paint paint);
 
