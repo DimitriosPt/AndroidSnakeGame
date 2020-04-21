@@ -29,4 +29,16 @@ final class GameState {
 
         highScore = preferences.getInt("HighScore", 0);
     }
+
+    private void endGame()
+    {
+        gameOver = true;
+        paused = true;
+        if(score > highScore)
+        {
+            highScore = score;
+            editor.putInt("HighScore", highScore);
+            editor.commit();
+        }
+    }
 }
