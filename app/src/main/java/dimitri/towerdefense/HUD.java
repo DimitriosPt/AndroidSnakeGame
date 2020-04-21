@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class HUD {
-    private int textFormatting;
     private ArrayList<Rect> controls;
 
     static int NEWTOWER = 0;
@@ -35,11 +34,12 @@ public class HUD {
 
     void draw(Canvas canvas, GameState gameState)
     {
+        int textFormatting = TowerDefense.getScreenSize().x / 50;
         Paint paint = new Paint();
 
         paint.setColor(Color.argb(255,255,255,255));
         paint.setTextSize(textFormatting);
-        canvas.drawText("Hello World", textFormatting, textFormatting, paint);
+        canvas.drawText("Score: " + gameState.getMoney(), textFormatting, textFormatting, paint);
 
         if (gameState.getGameOver()){
             paint.setTextSize(textFormatting * 5);
@@ -49,7 +49,7 @@ public class HUD {
                     paint);
         }
 
-        if (gameState.getPaused()){
+        else if (gameState.getPaused()){
             paint.setTextSize(textFormatting * 5);
             canvas.drawText("PAUSED",
                     TowerDefense.getScreenSize().x / 4,

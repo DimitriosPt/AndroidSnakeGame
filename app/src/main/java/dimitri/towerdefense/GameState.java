@@ -19,6 +19,26 @@ final class GameState {
 
     private SharedPreferences.Editor editor;
 
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public int getWave() {
+        return wave;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
     GameState(GameStarter gameStarter)
     {
         gameStarter = gameStarter;

@@ -10,14 +10,22 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
-class GameEngine extends SurfaceView implements Runnable , GameStarter{
+import java.util.ArrayList;
+
+class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngineBroadcaster{
     private Thread thread = null;
     private long frameRate;
     private GameState gameState;
+    private ArrayList<InputObserver> inputObservers = new ArrayList<>();
 
+    HUD hud;
+    Renderer renderer;
     public GameEngine(Point size) {
         super(TowerDefense.getContext());
         gameState = new GameState(this);
+
+        hud = new HUD();
+        renderer = new Renderer(this);
     }
 
     @Override
@@ -38,14 +46,19 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter{
                 frameRate = MILLIS_IN_SECOND / timeElapsed;
             }
 
+            renderer.draw(gameState, hud);
+
         }
 
 
     }
-
+    @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-// Handle the player's input here
-// But in a new way
+
+        for (InputObserver observer : inputObservers)
+        {
+            observer.handleInput(motionEvent, gameState, hud.getControls());
+        }
         return true;
     }
     public void stopThread() {
@@ -72,4 +85,9 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter{
     }
 
 
+    @Override
+    public void addObserver(InputObserver o) {
+        inputObservers.add(o);
+
+    }
 }
