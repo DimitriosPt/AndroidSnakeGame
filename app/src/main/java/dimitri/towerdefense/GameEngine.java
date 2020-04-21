@@ -12,7 +12,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 
-class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngineBroadcaster{
+class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngineBroadcaster, TowerProjectileSpawner{
     private Thread thread = null;
     private long frameRate;
     private GameState gameState;
@@ -91,5 +91,10 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
     public void addObserver(InputObserver o) {
         inputObservers.add(o);
 
+    }
+
+    @Override
+    public boolean spawnTowerProjectile(Transform transform) {
+        return false;
     }
 }
