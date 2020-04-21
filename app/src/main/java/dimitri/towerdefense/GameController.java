@@ -2,6 +2,8 @@ package dimitri.towerdefense;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,11 +11,15 @@ import android.graphics.Point;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
+
+import static android.graphics.Bitmap.createScaledBitmap;
 
 public class GameController extends SurfaceView implements Runnable{
 
@@ -84,6 +90,10 @@ public class GameController extends SurfaceView implements Runnable{
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
+        //Canvas mCanvas = mSurfaceHolder.lockCanvas();
+
+
+
 
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         basicAOETower = new BasicAOETower();
@@ -152,6 +162,14 @@ public class GameController extends SurfaceView implements Runnable{
     }
 
 
+    public Point getScreenSize(){
+        WindowManager wm = (WindowManager) TowerDefense.getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        return new Point(metrics.widthPixels,
+        metrics.heightPixels);
+    }
     // Update all the game objects
     public void update() {
 
@@ -197,6 +215,20 @@ public class GameController extends SurfaceView implements Runnable{
 
             Canvas mCanvas = mSurfaceHolder.lockCanvas();
 
+
+
+            Point displaySize = getScreenSize();
+            new BitmapFactory();
+            Bitmap unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.background);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(
+                    unscaledBitmap,
+                    displaySize.x,
+                    displaySize.y,
+                    false);
+
+            System.out.println(scaledBitmap.toString());
+            mCanvas.drawBitmap(scaledBitmap, 0, 0, null);
+
 //            new BitmapFactory();
 //            Bitmap unscaledBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.background);
 //            Bitmap scaledBitmap = Bitmap
@@ -205,7 +237,7 @@ public class GameController extends SurfaceView implements Runnable{
 //            mCanvas.drawBitmap(scaledBitmap, 0, 0, mPaint);
 
             // Fill the screen with a color
-            mCanvas.drawColor(Color.argb(255, 26, 128, 182));
+//            mCanvas.drawColor(Color.argb(255, 26, 128, 182));
 
             // Set the size and color of the mPaint for the text
             mPaint.setColor(Color.argb(255, 255, 255, 255));

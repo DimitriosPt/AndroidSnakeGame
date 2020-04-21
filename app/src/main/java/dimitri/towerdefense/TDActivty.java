@@ -45,4 +45,14 @@ public class TDActivty extends Activity {
         super.onPause();
         towerDefenseGame.pause();
     }
+
+    public Point getDisplaySize(){
+        // Get the pixel dimensions of the screen
+        Display display = getWindowManager().getDefaultDisplay();
+
+        // Initialize the result into a Point object
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
 }

@@ -62,4 +62,17 @@ abstract class Tower extends StaticGameObject{
     public void setAttackSpeed(long attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
+
+    public double calculateDistanceToTower(Tower tower, Enemy enemy)
+    {
+        double tower_x = tower.getLocation().x;
+        double tower_y = tower.getLocation().y;
+        double enemy_x = enemy.getLocation().x;
+        double enemy_y = enemy.getLocation().y;
+
+        return Math.sqrt(Math.pow((tower_x - enemy_x), 2)
+                + Math.pow((tower_y - enemy_y), 2));
+
+
+    }
 }
