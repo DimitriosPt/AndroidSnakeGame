@@ -2,6 +2,10 @@ package dimitri.towerdefense;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Point;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class TowerDefense extends Application {
     private static TowerDefense instance;
@@ -19,6 +23,15 @@ public class TowerDefense extends Application {
     public void onCreate() {
         instance = this;
         super.onCreate();
+    }
+
+    public static Point getScreenSize(){
+        WindowManager wm = (WindowManager) TowerDefense.getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        return new Point(metrics.widthPixels,
+                metrics.heightPixels);
     }
 
 }
