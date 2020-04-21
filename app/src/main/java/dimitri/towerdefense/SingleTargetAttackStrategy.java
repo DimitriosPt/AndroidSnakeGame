@@ -16,7 +16,7 @@ public class SingleTargetAttackStrategy implements AttackStrategy {
             //which is inefficient but this seemed like a more educational approach
             sortEnemiesByDistanceToTower(tower, enemies);
 
-            if(calculateDistanceToTower(tower,enemies.get(0)) <= tower.getRange()){
+            if(tower.calculateDistanceToTower(tower,enemies.get(0)) <= tower.getRange()){
                 enemies.get(0).setHealth(enemies.get(0).getHealth() - tower.getDamage());
             }
             tower.setTimeOfLastAttack(System.currentTimeMillis());
@@ -41,8 +41,8 @@ public class SingleTargetAttackStrategy implements AttackStrategy {
 
             @Override
             public int compare(Enemy o1, Enemy o2) {
-                return calculateDistanceToTower(tower, o1) < calculateDistanceToTower(tower, o2) ? -1
-                        : calculateDistanceToTower(tower, o2) < calculateDistanceToTower(tower, o1) ? -1
+                return tower.calculateDistanceToTower(tower, o1) < tower.calculateDistanceToTower(tower, o2) ? -1
+                        : tower.calculateDistanceToTower(tower, o2) < tower.calculateDistanceToTower(tower, o1) ? -1
                         : 0;
             }
         });

@@ -56,6 +56,7 @@ public class GameController extends SurfaceView implements Runnable{
     public boolean muteGameSound = true;
 
     private GameWorld world = new GameWorld();
+    private boolean firstDraw;
 
 
     // This is the constructor method that gets called
@@ -118,6 +119,8 @@ public class GameController extends SurfaceView implements Runnable{
 
         // Setup mNextFrameTime so an update can triggered
         mNextFrameTime = System.currentTimeMillis();
+
+
     }
 
 
@@ -226,18 +229,7 @@ public class GameController extends SurfaceView implements Runnable{
                     displaySize.y,
                     false);
 
-            System.out.println(scaledBitmap.toString());
             mCanvas.drawBitmap(scaledBitmap, 0, 0, null);
-
-//            new BitmapFactory();
-//            Bitmap unscaledBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.background);
-//            Bitmap scaledBitmap = Bitmap
-//                    .createScaledBitmap(unscaledBitmap,
-//                            1000, 720, false);
-//            mCanvas.drawBitmap(scaledBitmap, 0, 0, mPaint);
-
-            // Fill the screen with a color
-//            mCanvas.drawColor(Color.argb(255, 26, 128, 182));
 
             // Set the size and color of the mPaint for the text
             mPaint.setColor(Color.argb(255, 255, 255, 255));
