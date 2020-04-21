@@ -18,14 +18,16 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
     private GameState gameState;
     private ArrayList<InputObserver> inputObservers = new ArrayList<>();
 
+    UIController uiController;
+
     HUD hud;
     Renderer renderer;
     public GameEngine(Point size) {
         super(TowerDefense.getContext());
         gameState = new GameState(this);
-
         hud = new HUD();
         renderer = new Renderer(this);
+        uiController = new UIController(this);
     }
 
     @Override

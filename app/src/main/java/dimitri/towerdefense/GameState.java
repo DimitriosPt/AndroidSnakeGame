@@ -51,7 +51,7 @@ final class GameState {
         highScore = preferences.getInt("HighScore", 0);
     }
 
-    private void endGame()
+     void endGame()
     {
         gameOver = true;
         paused = true;
@@ -63,13 +63,13 @@ final class GameState {
         }
     }
 
-    private void startNewGame()
+     void startNewGame()
     {
         score = 0;
         money = 200;
 
         stopDrawing();
-        gameStarter.despawnRespawn();
+        //gameStarter.despawnRespawn();
         resume();
 
         startDrawing();
@@ -84,7 +84,7 @@ final class GameState {
         }
     }
 
-    private void resume()
+    void resume()
     {
         gameOver = false;
         paused = false;
@@ -117,4 +117,7 @@ final class GameState {
         return gameOver;
     }
 
+    public void pause() {
+        paused = true;
+    }
 }

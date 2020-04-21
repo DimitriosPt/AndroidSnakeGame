@@ -13,6 +13,7 @@ public class HUD {
     private ArrayList<Rect> controls;
 
     static int NEWTOWER = 0;
+    static int PAUSE = 1;
     HUD(){
         prepareControls();
     }
@@ -28,8 +29,16 @@ public class HUD {
                 buttonWidth + buttonPadding,
                 TowerDefense.getScreenSize().y - buttonHeight - (2*buttonPadding));
 
+        Rect pause = new Rect(
+                buttonPadding,
+                TowerDefense.getScreenSize().y - (2 * buttonHeight) - (2* buttonPadding),
+                2*(buttonWidth + buttonPadding),
+                TowerDefense.getScreenSize().y - buttonHeight - (2*buttonPadding));
+
+
         controls = new ArrayList<>();
         controls.add(NEWTOWER, newTower);
+        controls.add(PAUSE, pause);
     }
 
     void draw(Canvas canvas, GameState gameState)
