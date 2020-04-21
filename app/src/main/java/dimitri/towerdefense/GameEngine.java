@@ -10,21 +10,34 @@ import android.view.SurfaceView;
 class GameEngine extends SurfaceView implements Runnable , GameStarter{
     private Thread thread = null;
     private long frameRate;
+    private GameState gameState;
 
     public GameEngine(Point size) {
         super(TowerDefense.getContext());
+        gameState = new GameState(this);
     }
 
     @Override
     public void run() {
 
-        long frameStartTime = System.currentTimeMillis();
-        long timeElapsed = System.currentTimeMillis() - frameStartTime;
+        while(gameState.getThreadRunning())
+        {
+            long frameStartTime = System.currentTimeMillis();
+            if(!gameState.getPaused())
+            {
 
-        if(timeElapsed >= 1){
-            final int MILLIS_IN_SECOND = 1000;
-            frameRate = MILLIS_IN_SECOND / timeElapsed;
+            }
+
+            long timeElapsed = System.currentTimeMillis() - frameStartTime;
+
+            if(timeElapsed >= 1){
+                final int MILLIS_IN_SECOND = 1000;
+                frameRate = MILLIS_IN_SECOND / timeElapsed;
+            }
+
         }
+
+
     }
 
     public boolean onTouchEvent(MotionEvent motionEvent) {
@@ -34,6 +47,8 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter{
     }
     public void stopThread() {
 // New code here soon
+
+        gameState.stopEverything();
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -43,6 +58,7 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter{
     }
     public void startThread() {
 // New code here soon
+        gameState.startThread();
         thread = new Thread(this);
         thread.start();
     }

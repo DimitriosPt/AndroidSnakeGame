@@ -15,6 +15,7 @@ final class GameState {
     private int score;
     private int money;
     private int wave;
+    private int health;
 
     private SharedPreferences.Editor editor;
 
@@ -41,4 +42,59 @@ final class GameState {
             editor.commit();
         }
     }
+
+    private void startNewGame()
+    {
+        score = 0;
+        money = 200;
+
+        stopDrawing();
+        gameStarter.despawnRespawn();
+        resume();
+
+        startDrawing();
+    }
+
+    void loseHealth(){
+        health--;
+        if(health == 0)
+        {
+            paused = true;
+            endGame();
+        }
+    }
+
+    private void resume()
+    {
+        gameOver = false;
+        paused = false;
+    }
+
+    void stopEverything(){
+        paused = true;
+        gameOver = true;
+        threadRunning = false;
+    }
+    boolean getThreadRunning(){
+        return threadRunning;
+    }
+    void startThread(){
+        threadRunning = true;
+    }
+    private void stopDrawing(){
+        drawing = false;
+    }
+    private void startDrawing(){
+        drawing = true;
+    }
+    boolean getDrawing() {
+        return drawing;
+    }
+    boolean getPaused(){
+        return paused;
+    }
+    boolean getGameOver(){
+        return gameOver;
+    }
+
 }

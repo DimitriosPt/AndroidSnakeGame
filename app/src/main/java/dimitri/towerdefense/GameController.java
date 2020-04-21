@@ -59,8 +59,6 @@ public class GameController extends SurfaceView implements Runnable{
     private boolean firstDraw;
 
 
-    // This is the constructor method that gets called
-    // from SnakeActivity
     public GameController(Point size) {
         super(TowerDefense.getContext());
         Context context = TowerDefense.getContext();

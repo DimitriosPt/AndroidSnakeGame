@@ -33,8 +33,6 @@ public class SingleTargetAttackStrategy implements AttackStrategy {
 
     }
 
-
-
     public void sortEnemiesByDistanceToTower(final Tower tower, List<Enemy> enemies)
     {
         Collections.sort(enemies, new Comparator<Enemy>() {

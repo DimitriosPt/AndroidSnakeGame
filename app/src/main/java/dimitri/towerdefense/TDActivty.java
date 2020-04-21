@@ -27,7 +27,6 @@ public class TDActivty extends Activity {
         // Create a new instance of the SnakeEngine class
         towerDefenseGameEngine = new GameEngine(size);
 
-
         // Make snakeEngine the view of the Activity
         setContentView(towerDefenseGameEngine);
     }
