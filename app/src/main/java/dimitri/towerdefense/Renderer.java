@@ -25,16 +25,6 @@ public class Renderer {
 
     void draw(ArrayList<GameObject> gameObjects, GameState gameState, HUD hud)
     {
-        Point displaySize = TowerDefense.getScreenSize();
-        new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.background);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(
-                unscaledBitmap,
-                displaySize.x,
-                displaySize.y,
-                false);
-
-        canvas.drawBitmap(scaledBitmap, 0, 0, null);
 
         if(surfaceHolder.getSurface().isValid())
         {
@@ -54,9 +44,20 @@ public class Renderer {
 
             if(gameState.getGameOver())
             {
-                gameObjects.get(Level.BACKGROUND_INDEX).draw(canvas, paint);
+                //gameObjects.get(Level.BACKGROUND_INDEX).draw(canvas, paint);
             }
 
+
+            Point displaySize = TowerDefense.getScreenSize();
+            new BitmapFactory();
+            Bitmap unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.background);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(
+                    unscaledBitmap,
+                    displaySize.x,
+                    displaySize.y,
+                    false);
+
+            canvas.drawBitmap(scaledBitmap, 0, 0, null);
 
             hud.draw(canvas, gameState);
 

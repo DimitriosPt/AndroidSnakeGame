@@ -27,11 +27,11 @@ public class Level {
 
         objects.clear();
 // Spawn the player's lasers
-        for (int i = FIRST_PLAYER_LASER;
-             i != LAST_PLAYER_LASER + 1; i++) {
-            objects.add(i, factory
-                    .create(new TowerProjectileSpec()));
-        }
+//        for (int i = FIRST_PLAYER_LASER;
+//             i != LAST_PLAYER_LASER + 1; i++) {
+//            objects.add(i, factory
+//                    .create(new TowerProjectileSpec()));
+//        }
 
 // Create some aliens
 // Create some alien lasers

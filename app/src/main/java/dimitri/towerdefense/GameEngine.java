@@ -53,7 +53,6 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
                 frameRate = MILLIS_IN_SECOND / timeElapsed;
             }
 
-            renderer.draw(gameState, hud);
 
         }
 
@@ -92,12 +91,12 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         for(GameObject o : objects){
             o.setInactive();
         }
-        objects.get(Level.PLAYER_INDEX)
-                .spawn(objects.get(Level.PLAYER_INDEX)
-                        .getTransform());
-        objects.get(Level.BACKGROUND_INDEX)
-                .spawn(objects.get(Level.PLAYER_INDEX)
-                        .getTransform());
+//        objects.get(Level.PLAYER_INDEX)
+//                .spawn(objects.get(Level.PLAYER_INDEX)
+//                        .getTransform());
+//        objects.get(Level.BACKGROUND_INDEX)
+//                .spawn(objects.get(Level.PLAYER_INDEX)
+//                        .getTransform());
     }
 
 
