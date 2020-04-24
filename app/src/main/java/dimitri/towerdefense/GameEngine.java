@@ -1,14 +1,9 @@
 package dimitri.towerdefense;
 
-import android.content.Context;
 import android.graphics.Point;
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 
@@ -91,12 +86,12 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         for(GameObject o : objects){
             o.setInactive();
         }
-//        objects.get(Level.PLAYER_INDEX)
-//                .spawn(objects.get(Level.PLAYER_INDEX)
-//                        .getTransform());
-//        objects.get(Level.BACKGROUND_INDEX)
-//                .spawn(objects.get(Level.PLAYER_INDEX)
-//                        .getTransform());
+        objects.get(Level.PLAYER_INDEX)
+                .spawn(objects.get(Level.PLAYER_INDEX)
+                        .getTransform());
+        objects.get(Level.BACKGROUND_INDEX)
+                .spawn(objects.get(Level.PLAYER_INDEX)
+                        .getTransform());
     }
 
 
@@ -108,16 +103,16 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
 
     @Override
     public boolean spawnTowerProjectile(Transform transform) {
-//        ArrayList<GameObject> objects = level.getGameObjects();
-//        if (objects.get(Level.mNextPlayerLaser)
-//                .spawn(transform)) {
-//            Level.mNextPlayerLaser++;
-//            if (Level.mNextPlayerLaser ==
-//                    Level.LAST_PLAYER_LASER + 1) {
-//// Just used the last laser
-//                Level.mNextPlayerLaser = Level.FIRST_PLAYER_LASER;
-//            }
-        //}
+        ArrayList<GameObject> objects = level.getGameObjects();
+        if (objects.get(Level.NextTowerProjectile)
+                .spawn(transform)) {
+            Level.NextTowerProjectile++;
+            if (Level.NextTowerProjectile ==
+                    Level.LAST_TOWER_PROJECTILE + 1) {
+// Just used the last laser
+                Level.NextTowerProjectile = Level.FIRST_TOWER_PROJECTILE;
+            }
+        }
         return true;
     }
 }

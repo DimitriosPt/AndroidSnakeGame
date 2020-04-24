@@ -34,8 +34,8 @@ public class GameObjectFactory {
 // Loop through and add/initialize all the components
         for (int i = 0; i < numComponents; i++) {
             switch (spec.getComponents()[i]) {
-                case "AOETowerSpec":
-                    object.setGraphics(new StandardGraphicsComponent(), spec, objectSize);
+                case "TowerSpawnComponent":
+                    object.setSpawner(new TowerSpawnComponent());
                     break;
                 case "StdGraphicsComponent":
                     object.setGraphics(new StandardGraphicsComponent(), spec, objectSize);
@@ -52,6 +52,11 @@ public class GameObjectFactory {
                 case "TowerProjectileSpawnComponent":
                     object.setSpawner(new TowerProjectileSpawnComponent());
                     break;
+                case "BackgroundSpawnComponent":
+                    object.setSpawner(new BackgroundSpawnComponent());
+                case "BackgroundGraphicsComponent":
+                    object.setGraphics(new BackgroundGraphicsComponent(), spec, objectSize);
+
                 default:
 // Error unidentified component
                     break;
