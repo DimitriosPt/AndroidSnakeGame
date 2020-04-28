@@ -29,15 +29,13 @@ public class Level {
 // Spawn the tower projectiles
         objects.add(BACKGROUND_INDEX, factory.create(new BackgroundSpec()));
 
-        objects.add(factory.create(new AOETowerSpec()));
-        objects.add(factory.create(new HumanSpec()));
-        for (int i = FIRST_TOWER_PROJECTILE;
-             i != LAST_TOWER_PROJECTILE + 1; i++) {
-            objects.add(factory
-                    .create(new TowerProjectileSpec()));
-        }
-
-
+//        objects.add(factory.create(new AOETowerSpec()));
+//        objects.add(factory.create(new HumanSpec()));
+//        for (int i = FIRST_TOWER_PROJECTILE;
+//             i != LAST_TOWER_PROJECTILE + 1; i++) {
+//            objects.add(factory
+//                    .create(new TowerProjectileSpec()));
+//        }
 // Create some alien lasers
         return objects;
     }

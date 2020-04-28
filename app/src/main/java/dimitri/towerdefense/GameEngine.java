@@ -1,6 +1,7 @@
 package dimitri.towerdefense;
 
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -12,19 +13,27 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
     private long frameRate;
     private GameState gameState;
     private ArrayList<InputObserver> inputObservers = new ArrayList<>();
+
     Level level;
-
     UIController uiController;
-
     HUD hud;
     Renderer renderer;
+    ParticleSystem particleSystem;
+    PhysicsEngine physicsEngine;
+
     public GameEngine(Point size) {
         super(TowerDefense.getContext());
+        uiController = new UIController(this);
         gameState = new GameState(this);
+
         hud = new HUD();
         renderer = new Renderer(this);
-        uiController = new UIController(this);
-        level = new Level(TowerDefense.getScreenSizeF(), this);
+        physicsEngine = new PhysicsEngine();
+
+        particleSystem = new ParticleSystem();
+        particleSystem.init(1000);
+
+        level = new Level(new PointF(size.x, size.y), this);
     }
 
     @Override
@@ -37,10 +46,12 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
 
             if(!gameState.getPaused())
             {
-
+                if(physicsEngine.update(frameRate, gameObjects,gameState,particleSystem)) {
+                    despawnRespawn();
+                }
             }
 
-            renderer.draw(gameObjects, gameState, hud);
+            renderer.draw(gameObjects, gameState, hud, particleSystem);
             long timeElapsed = System.currentTimeMillis() - frameStartTime;
 
             if(timeElapsed >= 1){
@@ -60,8 +71,12 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         {
             observer.handleInput(motionEvent, gameState, hud.getControls());
         }
+
+        particleSystem.emitParticles(
+                new PointF(500,500));
         return true;
     }
+
     public void stopThread() {
 // New code here soon
 
@@ -86,11 +101,11 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         for(GameObject o : objects){
             o.setInactive();
         }
-        objects.get(Level.PLAYER_INDEX)
-                .spawn(objects.get(Level.PLAYER_INDEX)
-                        .getTransform());
+//        objects.get(Level.PLAYER_INDEX)
+//                .spawn(objects.get(Level.PLAYER_INDEX)
+//                        .getTransform());
         objects.get(Level.BACKGROUND_INDEX)
-                .spawn(objects.get(Level.PLAYER_INDEX)
+                .spawn(objects.get(Level.BACKGROUND_INDEX)
                         .getTransform());
     }
 

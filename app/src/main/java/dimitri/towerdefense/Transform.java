@@ -57,4 +57,7 @@ public class Transform {
         this.location = location;
     }
 
+    public int getxClipping() {
+        return xClipping;
+    }
 }

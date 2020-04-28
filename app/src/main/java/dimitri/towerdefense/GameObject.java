@@ -67,15 +67,16 @@ class GameObject {
     void draw(Canvas canvas, Paint paint) {
         graphicsComponent.draw(canvas, paint, transform);
     }
-    void update(long fps, Transform playerTransform) {
+    void update(long fps, Transform transform) {
         if (!(movementComponent.move(fps,
                 transform))) {
 // Component returned false
             isActive = false;
         }
     }
-    boolean spawn(Transform playerTransform) {
+    boolean spawn(Transform transform) {
 // Only spawnComponent if not already active
+        System.out.printf("Spawning object at: %s", transform.getLocation().toString());
         if (!isActive) {
             spawnComponent.spawn(transform);
             isActive = true;

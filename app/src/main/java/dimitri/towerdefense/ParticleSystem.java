@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 class ParticleSystem {
-    float duration;
-    ArrayList<Particle> particles;
+    private float duration;
+    private ArrayList<Particle> particles;
     Random random = new Random();
     boolean isRunning = false;
 
@@ -63,5 +63,6 @@ class ParticleSystem {
                     p.getLocation().x + 25,
                     p.getLocation().y + 25, paint);
         }
+
     }
 }
