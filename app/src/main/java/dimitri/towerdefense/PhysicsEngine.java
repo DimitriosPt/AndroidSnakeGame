@@ -12,10 +12,9 @@ class PhysicsEngine {
 
         // Update all the game objects
         for (GameObject object : objects) {
-        if (object.checkActive()) {
-        object.update(fps, objects
-        .get(Level.PLAYER_INDEX).getTransform());
-        }
+            if (object.checkActive()) {
+            object.update(fps,object.getTransform());
+            }
         }
 
         if(ps.isRunning){

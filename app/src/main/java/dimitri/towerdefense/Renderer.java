@@ -41,13 +41,12 @@ public class Renderer {
             if (gameState.getDrawing()) {
 
                 for (GameObject gameObject : gameObjects) {
-//                    System.out.println("Number of game objects: ");
-//                    System.out.println(gameObjects.size());
-//                    System.out.println(gameObject.checkActive());
-                    if (gameObject.checkActive()) {
+
+                   // if (gameObject.checkActive()) {
                         gameObject.draw(canvas, paint);
-                        System.out.println(gameObject.toString());
-                    }
+                        System.out.println(gameObject.getTransform().getLocation());
+                        //System.out.println(gameObject.toString());
+                    //}
                 }
 
                 if (particleSystem.isRunning) {
@@ -59,6 +58,8 @@ public class Renderer {
             // Draw a background graphic here
                 gameObjects.get(Level.BACKGROUND_INDEX)
                         .draw(canvas, paint);
+
+                gameObjects.get(Level.HUMAN_INDEX).draw(canvas, paint);
             }
 
             hud.draw(canvas, gameState);

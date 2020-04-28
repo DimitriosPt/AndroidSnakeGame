@@ -5,20 +5,20 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 public class GameObjectFactory {
-    private Context context;
+
     private Point screenSize;
     private GameEngine gameEngineReference;
 
-    GameObjectFactory(Context context, PointF screenSize, GameEngine gameEngine) {
-        this.context = context;
-        this.screenSize = TowerDefense.getScreenSize();
+    GameObjectFactory(GameEngine gameEngine) {
+
+        screenSize = TowerDefense.getScreenSize();
         gameEngineReference = gameEngine;
     }
 
     GameObject create(ObjectSpec spec) {
         GameObject object = new GameObject();
         int numComponents = spec.getComponents().length;
-        final float HIDDEN = -2000f;
+        final float HIDDEN = 50f;
 
 // Configure the speed relative to the screen size
         float speed = (float) screenSize.x / spec.getSpeed();
@@ -37,7 +37,7 @@ public class GameObjectFactory {
                 case "TowerSpawnComponent":
                     object.setSpawner(new TowerSpawnComponent());
                     break;
-                case "StdGraphicsComponent":
+                case "StandardGraphicsComponent":
                     object.setGraphics(new StandardGraphicsComponent(), spec, objectSize);
                     break;
                 case "EnemyMovementComponent":
@@ -58,11 +58,10 @@ public class GameObjectFactory {
                     object.setGraphics(new BackgroundGraphicsComponent(), spec, objectSize);
 
                 default:
-// Error unidentified component
+                    System.out.printf("unable to determine component: %s\n", spec.getComponents()[i]);
                     break;
             }
         }
-
 
         return object;
     }

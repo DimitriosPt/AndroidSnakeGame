@@ -9,8 +9,9 @@ public class HumanSpec extends ObjectSpec {
 
     private static final String[] components = new String[]
             {
-                    "StdGraphicsComponent",
-                    "EnemySpawnComponent"
+                    "StandardGraphicsComponent",
+                    "EnemySpawnComponent",
+                    "EnemyMovementComponent"
             };
 
     HumanSpec() {

@@ -6,15 +6,17 @@ import android.util.DisplayMetrics;
 
 import java.util.List;
 
-abstract class Tower extends StaticGameObject{
+abstract class Tower extends StaticGameObject {
     private int range;
     private int damage;
     private long attackSpeed;
     private int cost;
     private long timeOfLastAttack;
-    private enum damageType{
+
+    private enum damageType {
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
+
     public long getTimeOfLastAttack() {
         return timeOfLastAttack;
     }
@@ -24,7 +26,6 @@ abstract class Tower extends StaticGameObject{
     }
 
     //this will be a record in milliseconds of when the tower last attacked
-
 
 
     public int getRange() {
@@ -46,9 +47,8 @@ abstract class Tower extends StaticGameObject{
     abstract void attack(List<Enemy> enemies);
 
     //determines if enough time has passed in milliseconds to allow the turret to attack again
-    public boolean canAttack()
-    {
-        return(timeOfLastAttack + attackSpeed < System.currentTimeMillis());
+    public boolean canAttack() {
+        return (timeOfLastAttack + attackSpeed < System.currentTimeMillis());
     }
 
     public void setRange(int range) {
@@ -63,16 +63,16 @@ abstract class Tower extends StaticGameObject{
         this.attackSpeed = attackSpeed;
     }
 
-    public double calculateDistanceToTower(Tower tower, Enemy enemy)
-    {
-        double tower_x = tower.getLocation().x;
-        double tower_y = tower.getLocation().y;
-        double enemy_x = enemy.getLocation().x;
-        double enemy_y = enemy.getLocation().y;
-
-        return Math.sqrt(Math.pow((tower_x - enemy_x), 2)
-                + Math.pow((tower_y - enemy_y), 2));
-
-
-    }
+//    public double calculateDistanceToTower(Tower tower, Enemy enemy)
+//    {
+////        double tower_x = tower.getLocation().x;
+////        double tower_y = tower.getLocation().y;
+////        double enemy_x = enemy.getLocation().x;
+////        double enemy_y = enemy.getLocation().y;
+////
+////        return Math.sqrt(Math.pow((tower_x - enemy_x), 2)
+////                + Math.pow((tower_y - enemy_y), 2));
+////
+//
+//    }
 }

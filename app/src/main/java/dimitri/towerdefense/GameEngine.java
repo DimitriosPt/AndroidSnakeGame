@@ -100,13 +100,13 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
         ArrayList<GameObject> objects = level.getGameObjects();
         for(GameObject o : objects){
             o.setInactive();
+            System.out.println("Spawning Object");
+            o.spawn(o.getTransform());
         }
-//        objects.get(Level.PLAYER_INDEX)
-//                .spawn(objects.get(Level.PLAYER_INDEX)
+
+//        objects.get(Level.BACKGROUND_INDEX)
+//                .spawn(objects.get(Level.BACKGROUND_INDEX)
 //                        .getTransform());
-        objects.get(Level.BACKGROUND_INDEX)
-                .spawn(objects.get(Level.BACKGROUND_INDEX)
-                        .getTransform());
     }
 
 
