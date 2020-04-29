@@ -40,6 +40,5 @@ public class BackgroundGraphicsComponent implements GraphicsComponent{
 
         canvas.drawBitmap(bitmap,
                 fromRect1, toRect1, paint);
-
     }
 }

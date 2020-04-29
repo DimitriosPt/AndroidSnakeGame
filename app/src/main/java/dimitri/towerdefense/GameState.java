@@ -39,9 +39,9 @@ final class GameState {
         return health;
     }
 
-    GameState(GameStarter gameStarter)
+    GameState(GameStarter mgameStarter)
     {
-        gameStarter = gameStarter;
+        gameStarter = mgameStarter;
 
         SharedPreferences preferences;
         preferences = TowerDefense.getContext().getSharedPreferences("HighScore", Context.MODE_PRIVATE);
@@ -69,7 +69,7 @@ final class GameState {
         money = 200;
 
         stopDrawing();
-        //gameStarter.despawnRespawn();
+        gameStarter.despawnRespawn();
         resume();
 
         startDrawing();

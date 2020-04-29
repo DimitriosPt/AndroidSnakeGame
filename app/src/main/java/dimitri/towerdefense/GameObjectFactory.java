@@ -6,11 +6,13 @@ import android.graphics.PointF;
 
 public class GameObjectFactory {
 
+    private Context context;
     private Point screenSize;
     private GameEngine gameEngineReference;
 
     GameObjectFactory(GameEngine gameEngine) {
 
+        context = TowerDefense.getContext();
         screenSize = TowerDefense.getScreenSize();
         gameEngineReference = gameEngine;
     }
@@ -32,8 +34,9 @@ public class GameObjectFactory {
 
 // More code here next...
 // Loop through and add/initialize all the components
-        for (int i = 0; i < numComponents; i++) {
-            switch (spec.getComponents()[i]) {
+        for (String component : spec.getComponents()) {
+            System.out.printf("Checking component %s\n", component);
+            switch (component) {
                 case "TowerSpawnComponent":
                     object.setSpawner(new TowerSpawnComponent());
                     break;
@@ -54,15 +57,16 @@ public class GameObjectFactory {
                     break;
                 case "BackgroundSpawnComponent":
                     object.setSpawner(new BackgroundSpawnComponent());
+                    break;
                 case "BackgroundGraphicsComponent":
                     object.setGraphics(new BackgroundGraphicsComponent(), spec, objectSize);
+                    break;
 
                 default:
-                    System.out.printf("unable to determine component: %s\n", spec.getComponents()[i]);
+                    System.out.printf("unable to determine component: %s\n", component);
                     break;
             }
         }
-
         return object;
     }
 }

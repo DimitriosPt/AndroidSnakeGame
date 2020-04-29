@@ -10,7 +10,10 @@ class BackgroundSpec extends ObjectSpec {
             new PointF(1f, 1f);
     private static final String[] components = new String [] {
             "BackgroundGraphicsComponent",
-            "BackgroundSpawnComponent"};
+            "BackgroundSpawnComponent",
+    };
+
+
     BackgroundSpec() {
         super(bitmapName, speed, relativeScale,
                 components);

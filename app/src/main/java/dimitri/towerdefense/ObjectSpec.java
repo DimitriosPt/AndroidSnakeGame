@@ -9,12 +9,12 @@ abstract class ObjectSpec {
     private PointF sizeScale;
     private String[] components;
 
-    ObjectSpec(String bitmapName, int speed, PointF sizeScale, String[] components)
+    ObjectSpec(String mBitmapName, int mSpeed, PointF mSizeScale, String[] mComponents)
     {
-        this.bitmapName = bitmapName;
-        this.speed = speed;
-        this.sizeScale = sizeScale;
-        this.components = components;
+        bitmapName = mBitmapName;
+        speed = mSpeed;
+        sizeScale = mSizeScale;
+        components = mComponents;
     }
 
     public String getBitmapName() {

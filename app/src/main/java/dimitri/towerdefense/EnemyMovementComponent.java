@@ -5,16 +5,21 @@ import android.graphics.PointF;
 public class EnemyMovementComponent implements MovementComponent {
     @Override
     public boolean move(long fps, Transform transform) {
-        PointF currentLocation = transform.getLocation();
+        PointF location = transform.getLocation();
 
-        if (transform.getLocation().y >= 100) {
-            transform.setLocation(new PointF(currentLocation.x, currentLocation.y+= transform.getSpeed()));
+        Float speed = transform.getSpeed();
+
+        if (location.x < 100) {
+            transform.setLocation(new PointF(location.x += speed/fps, location.y));
         }
 
         else
         {
-            transform.setLocation(new PointF(currentLocation.x+= transform.getSpeed(), currentLocation.y));
+            location.y += speed/fps;
         }
+
+        transform.updateCollider();
+
         return true;
     }
 }

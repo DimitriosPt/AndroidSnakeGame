@@ -27,22 +27,23 @@ public class Level {
         }
     }
 
-    void buildGameObjects(GameObjectFactory factory) {
+    ArrayList<GameObject> buildGameObjects(GameObjectFactory factory) {
         objects.clear();
-
         objects.add(BACKGROUND_INDEX, factory.create(new BackgroundSpec()));
-
         //objects.add(factory.create(new AOETowerSpec()));
-        GameObject human = factory.create(new HumanSpec());
-        System.out.printf("Location %f, %f", human.getTransform().getLocation().x, human.getTransform().getLocation().y);
-        objects.add(HUMAN_INDEX, human);
+
+        //System.out.printf("Location %f, %f", human.getTransform().getLocation().x, human.getTransform().getLocation().y);
+        objects.add(HUMAN_INDEX, factory.create(new HumanSpec()));
 //        for (int i = FIRST_TOWER_PROJECTILE;
 //             i != LAST_TOWER_PROJECTILE + 1; i++) {
 //            objects.add(factory
 //                    .create(new TowerProjectileSpec()));
 //        }
 // Create some alien lasers
-        //return objects;
+        for (GameObject object: objects) {
+            System.out.println(object.getTransform().getLocation().x);
+        }
+        return objects;
     }
 
     ArrayList<GameObject> getGameObjects() {
