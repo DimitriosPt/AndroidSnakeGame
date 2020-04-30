@@ -61,6 +61,9 @@ public class GameObjectFactory {
                 case "BackgroundGraphicsComponent":
                     object.setGraphics(new BackgroundGraphicsComponent(), spec, objectSize);
                     break;
+                case "BackgroundMovementComponent":
+                    object.setMovement(new BackgroundMovementComponent());
+                    break;
 
                 default:
                     System.out.printf("unable to determine component: %s\n", component);

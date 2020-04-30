@@ -8,7 +8,7 @@ public class EnemySpawnComponent implements SpawnComponent {
     public void spawn(Transform transform) {
 
         Point screenSize = TowerDefense.getScreenSize();
-        PointF spawnPoint = new PointF((float)screenSize.x/2, (float) screenSize.y / 2);
+        PointF spawnPoint = new PointF(0f, (float) 3*screenSize.y / 5 );
         transform.setLocation(spawnPoint);
     }
 }

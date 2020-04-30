@@ -11,6 +11,7 @@ class BackgroundSpec extends ObjectSpec {
     private static final String[] components = new String [] {
             "BackgroundGraphicsComponent",
             "BackgroundSpawnComponent",
+            "BackgroundMovementComponent"
     };
 
 
