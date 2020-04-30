@@ -10,21 +10,12 @@ public class EnemyMovementComponent implements MovementComponent {
 
         Float speed = transform.getSpeed();
 
-        if (location.x < TowerDefense.getScreenSizeF().x * .4) {
-            location.x += speed/fps;
-        }
-
-        else if (location.y >= TowerDefense.getScreenSizeF().y/4)
+        if (location.y >= TowerDefense.getScreenSizeF().y/4 && location.x > screenSize.x * .40)
         {
             location.y -= speed/fps;
         }
 
-        else if (location.x < TowerDefense.getScreenSize().x * 75)
-        {
-            location.x += speed/fps;
-        }
-
-        else if(location.y < TowerDefense.getScreenSize().y)
+        else if(location.y < (.95 * TowerDefense.getScreenSize().y) && location.x == screenSize.x *.70)
         {
             location.y += speed/fps;
         }
