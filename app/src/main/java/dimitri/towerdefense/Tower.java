@@ -6,16 +6,26 @@ import android.util.DisplayMetrics;
 
 import java.util.List;
 
-abstract class Tower extends StaticGameObject {
+class Tower extends GameObject {
     private int range;
     private int damage;
     private long attackSpeed;
     private int cost;
     private long timeOfLastAttack;
+    private AttackStrategy attackStrategy;
 
-    private enum damageType {
-        PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
-    }
+//    public Tower(int range, int damage, long attackSpeed, int cost, AttackStrategy attackStrategy) {
+//
+//        this.range = range;
+//        this.damage = damage;
+//        this.attackSpeed = attackSpeed;
+//        this.cost = cost;
+//        this.attackStrategy = attackStrategy;
+//    }
+//
+//    private enum damageType {
+//        PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
+//    }
 
     public long getTimeOfLastAttack() {
         return timeOfLastAttack;
@@ -26,7 +36,6 @@ abstract class Tower extends StaticGameObject {
     }
 
     //this will be a record in milliseconds of when the tower last attacked
-
 
     public int getRange() {
         return range;
@@ -44,7 +53,7 @@ abstract class Tower extends StaticGameObject {
         return cost;
     }
 
-    abstract void attack(List<Enemy> enemies);
+    //abstract void attack(List<Enemy> enemies);
 
     //determines if enough time has passed in milliseconds to allow the turret to attack again
     public boolean canAttack() {
@@ -63,16 +72,15 @@ abstract class Tower extends StaticGameObject {
         this.attackSpeed = attackSpeed;
     }
 
-//    public double calculateDistanceToTower(Tower tower, Enemy enemy)
-//    {
-////        double tower_x = tower.getLocation().x;
-////        double tower_y = tower.getLocation().y;
-////        double enemy_x = enemy.getLocation().x;
-////        double enemy_y = enemy.getLocation().y;
-////
-////        return Math.sqrt(Math.pow((tower_x - enemy_x), 2)
-////                + Math.pow((tower_y - enemy_y), 2));
-////
-//
-//    }
+    public double calculateDistanceToTower(Tower tower, GameObject enemy)
+    {
+        double tower_x = tower.getTransform().getLocation().x;
+        double tower_y = tower.getTransform().getLocation().y;
+        double enemy_x = enemy.getTransform().getLocation().x;
+        double enemy_y = enemy.getTransform().getLocation().y;
+
+        return Math.sqrt(Math.pow((tower_x - enemy_x), 2)
+                + Math.pow((tower_y - enemy_y), 2));
+
+    }
 }

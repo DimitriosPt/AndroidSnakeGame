@@ -65,6 +65,10 @@ public class GameObjectFactory {
                     object.setMovement(new BackgroundMovementComponent());
                     break;
 
+                case "BaseSpawnComponent":
+                    object.setSpawner(new BaseSpawnComponent());
+                    break;
+
                 default:
                     System.out.printf("unable to determine component: %s\n", component);
                     break;

@@ -30,7 +30,9 @@ public class Level {
     ArrayList<GameObject> buildGameObjects(GameObjectFactory factory) {
         objects.clear();
         objects.add(BACKGROUND_INDEX, factory.create(new BackgroundSpec()));
-        //objects.add(factory.create(new AOETowerSpec()));
+        objects.add(factory.create(new AOETowerSpec()));
+        objects.add(factory.create(new BaseSpec()));
+
 
         //System.out.printf("Location %f, %f", human.getTransform().getLocation().x, human.getTransform().getLocation().y);
         objects.add(HUMAN_INDEX, factory.create(new HumanSpec()));

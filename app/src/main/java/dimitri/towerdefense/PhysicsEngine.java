@@ -18,7 +18,7 @@ class PhysicsEngine {
         }
 
         if(ps.isRunning){
-        ps.update(fps);
+            ps.update(fps);
         }
 
         return detectCollisions(gs, objects,  ps);

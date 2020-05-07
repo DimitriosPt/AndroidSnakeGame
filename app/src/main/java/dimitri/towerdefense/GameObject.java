@@ -9,7 +9,6 @@ class GameObject {
     private Transform transform;
     private boolean isActive = false;
 
-
     private GraphicsComponent graphicsComponent;
     private MovementComponent movementComponent;
     private SpawnComponent spawnComponent;
@@ -52,12 +51,11 @@ class GameObject {
         return isActive;
     }
 
-
     void setInactive() {
         isActive = false;
     }
 
-    boolean spawn(Transform playerTransform) {
+    boolean spawn(Transform transform) {
         // Only spawnComponent if not already active
         if (!isActive) {
             spawnComponent.spawn(transform);

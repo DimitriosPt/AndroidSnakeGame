@@ -67,6 +67,7 @@ final class GameState {
     {
         score = 0;
         money = 200;
+        health = 3;
 
         stopDrawing();
         gameStarter.despawnRespawn();

@@ -14,6 +14,7 @@ public class HUD {
 
     static int NEWTOWER = 0;
     static int PAUSE = 1;
+    static int RESTART = 2;
     HUD(){
         prepareControls();
     }
@@ -35,10 +36,15 @@ public class HUD {
                 2*(buttonWidth + buttonPadding),
                 TowerDefense.getScreenSize().y - buttonHeight - (2*buttonPadding));
 
+        Rect restartGame = new Rect(
+                (TowerDefense.getScreenSize().x - 2*(buttonWidth + buttonPadding)),
+                (2 * buttonPadding),(TowerDefense.getScreenSize().x - buttonPadding),
+                buttonHeight + (2*buttonPadding));
 
         controls = new ArrayList<>();
         controls.add(NEWTOWER, newTower);
         controls.add(PAUSE, pause);
+        controls.add(RESTART, restartGame);
     }
 
     void draw(Canvas canvas, GameState gameState)
@@ -49,20 +55,21 @@ public class HUD {
         paint.setColor(Color.argb(255,255,255,255));
         paint.setTextSize(textFormatting);
         canvas.drawText("Score: " + gameState.getMoney(), textFormatting, textFormatting, paint);
+        canvas.drawText("Lives: " + gameState.getHealth(), textFormatting, textFormatting + 40, paint);
 
         if (gameState.getGameOver()){
             paint.setTextSize(textFormatting * 5);
             canvas.drawText("PRESS PLAY",
-                    TowerDefense.getScreenSize().x / 4,
-                    TowerDefense.getScreenSize().y / 2,
+                    TowerDefense.getScreenSizeF().x / 4,
+                    TowerDefense.getScreenSizeF().y / 2,
                     paint);
         }
 
         else if (gameState.getPaused()){
             paint.setTextSize(textFormatting * 5);
             canvas.drawText("PAUSED",
-                    TowerDefense.getScreenSize().x / 4,
-                    TowerDefense.getScreenSize().y / 2,
+                    TowerDefense.getScreenSizeF().x / 4,
+                    TowerDefense.getScreenSizeF().y / 2,
                     paint);
         }
 

@@ -72,8 +72,8 @@ class GameEngine extends SurfaceView implements Runnable , GameStarter, GameEngi
             observer.handleInput(motionEvent, gameState, hud.getControls());
         }
 
-        particleSystem.emitParticles(
-                new PointF(500,500));
+//        particleSystem.emitParticles(
+//                new PointF(500,500));
         return true;
     }
 

@@ -39,6 +39,13 @@ public class UIController implements InputObserver {
                     gameState.resume();
                 }
             }
+
+            if(controls.get(HUD.RESTART).contains(index_x,index_y))
+            {
+                gameState.startNewGame();
+            }
+
+
         }
     }
 }

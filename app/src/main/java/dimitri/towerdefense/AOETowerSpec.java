@@ -6,14 +6,17 @@ public class AOETowerSpec extends ObjectSpec{
     private static final String bitmapName = "basic_tower";
     private static final int speed = 0;
     private static final PointF relativeScale =
-            new PointF(15f, 15f);
+            new PointF(10f, 10f);
     private static final String[] components = new String [] {
             "PlayerInputComponent",
-            "StdGraphicsComponent",
+            "StandardGraphicsComponent",
+            "BackgroundMovementComponent",
             "TowerSpawnComponent"};
     AOETowerSpec() {
+//        Tower
         super(bitmapName,
                 speed, relativeScale,
                 components);
+
     }
 }
