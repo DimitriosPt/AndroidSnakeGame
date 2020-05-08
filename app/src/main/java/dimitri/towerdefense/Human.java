@@ -27,46 +27,6 @@ class Human extends Enemy {
         this.movementStrategy = new LevelOneEnemyMovement();
     }
 
-
-    @Override
-    void move() {
-        Point newLocation = this.getLocation();
-
-        if(newLocation.y >= 100)
-        {
-            this.setHeading(EAST);
-        }
-
-        else if(newLocation.x == 50)
-        {
-            this.setHeading(SOUTH);
-            this.setLocation(new Point(newLocation.x +1, newLocation.y));
-        }
-
-
-
-        switch (this.getHeading()) {
-            case NORTH:
-                newLocation.y -= this.getSpeed();
-                this.setLocation(newLocation);
-                break;
-
-            case EAST:
-                newLocation.x += this.getSpeed();
-                this.setLocation(newLocation);
-                break;
-
-            case SOUTH:
-                newLocation.y += this.getSpeed();
-                this.setLocation(newLocation);
-                break;
-
-            case WEST:
-                newLocation.x -= this.getSpeed();
-                this.setLocation(newLocation);
-                break;
-        }
-    }
     /*
     @Override
     void spawn(Point location) {

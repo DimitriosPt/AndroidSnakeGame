@@ -178,7 +178,7 @@ public class GameController extends SurfaceView implements Runnable{
         }
 
         for (Enemy enemy: world.getEnemies()) {
-            enemy.move();
+            enemy.movementStrategy.move(enemy);
         }
 
         //pause if all enemies in the wave are killed

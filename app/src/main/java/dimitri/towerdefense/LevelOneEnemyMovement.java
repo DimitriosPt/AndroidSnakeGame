@@ -11,31 +11,32 @@ public class LevelOneEnemyMovement implements MovementStrategy {
         PointF screenSize = TowerDefense.getScreenSizeF();
         float screenWidth = screenSize.x;
         float screenHeight = screenSize.y;
+        System.out.printf("X location %d: \n Y location %d \n" , location.x, location.y);
 
-        if(isBetween(location.x, 0, screenWidth * .40f))
+        if(location.x < 50)
         {
             enemy.setHeading(EAST);
         }
-
-        else if (isBetween(location.x, screenWidth *.38f, screenWidth *.42f)
-                && isBetween(location.y, screenHeight * .25f, screenHeight *.65f))
-        {
-            enemy.setHeading(NORTH);
-        }
-
-        else if (isBetween(location.y, screenHeight*.23f, screenHeight *.27f) && isBetween(location.x, screenWidth *.38f, screenHeight * .70f))
-        {
-            enemy.setHeading(EAST);
-        }
-
-        else if (isBetween(location.y, screenHeight*.23f, screenHeight *.27f) && isBetween(location.x, screenWidth *.65f, screenHeight * .72f))
-        {
-            enemy.setHeading(SOUTH);
-        }
+//
+//        else if (isBetween(location.x, screenWidth *.35f, screenWidth *.45f)
+//                && isBetween(location.y, screenHeight * .25f, screenHeight *.65f))
+//        {
+//            enemy.setHeading(NORTH);
+//        }
+//
+//        else if (isBetween(location.y, screenHeight*.23f, screenHeight *.27f) && isBetween(location.x, screenWidth *.38f, screenHeight * .70f))
+//        {
+//            enemy.setHeading(EAST);
+//        }
+//
+//        else if (isBetween(location.y, screenHeight*.23f, screenHeight *.27f) && isBetween(location.x, screenWidth *.65f, screenHeight * .72f))
+//        {
+//            enemy.setHeading(SOUTH);
+//        }
 
         else
         {
-            enemy.setHeading(EAST);
+            enemy.setHeading(NORTH);
         }
 
 
