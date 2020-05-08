@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Human extends Enemy {
-    Human(Context context, int health, int speed, List<damageResistances> resistances) {
-        super(context, health, speed, resistances);
+    Human(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
+        super(context, maxHealth, speed, resistances);
 
         new BitmapFactory();
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.human);

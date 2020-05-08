@@ -2,14 +2,14 @@ package dimitri.towerdefense;
 
 import java.util.List;
 
-class GunStrategy implements AttackStrategy {
+class SingleTargetAttackStrategy implements AttackStrategy {
 
 
     @Override
     public void attack(Tower tower, List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
             if (tower.canAttack() && tower.isInRange(enemy)) {
-                enemy.setHealth(enemy.getHealth() - tower.getDamage());
+                enemy.setCurrentHealth(enemy.getCurrentHealth() - tower.getDamage());
                 break;
             }
 

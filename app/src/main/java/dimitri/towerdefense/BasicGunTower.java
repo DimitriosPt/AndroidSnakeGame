@@ -10,7 +10,7 @@ import android.graphics.Point;
 import java.util.List;
 
 public class BasicGunTower extends Tower {
-    AttackStrategy attackStrategy = new GunStrategy();
+    AttackStrategy attackStrategy = new SingleTargetAttackStrategy();
     public BasicGunTower(){
         Context newContext = TowerDefense.getContext();
         new BitmapFactory();
@@ -23,7 +23,7 @@ public class BasicGunTower extends Tower {
         this.setLocation(new Point(100,50));
         this.setRange(200);
         this.setDamage(5);
-        this.setAttackSpeed(100);
+        this.setAttackSpeed(400);
     }
 
     @Override

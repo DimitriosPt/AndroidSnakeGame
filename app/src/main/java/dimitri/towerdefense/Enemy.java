@@ -14,11 +14,13 @@ public abstract class Enemy extends MoveableGameObject {
     }
     private List<damageResistances> resistances;
     public MovementStrategy movementStrategy;
-    private int health;
+    private int currentHealth;
+    private int maxHealth;
 
-    public Enemy(Context context, int health, int speed, List<damageResistances> resistances) {
+    public Enemy(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
         super(speed);
-        this.health = health;
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
         this.resistances = resistances;
     }
 
@@ -26,16 +28,24 @@ public abstract class Enemy extends MoveableGameObject {
         this.resistances = resistances;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public List<damageResistances> getResistances() {
         return resistances;
     }
 
-    public int getHealth() {
-        return health;
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     void spawn(Point location) {
