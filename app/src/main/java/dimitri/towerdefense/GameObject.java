@@ -37,4 +37,13 @@ abstract class GameObject{
     void setSize(int size) {
         this.size = size;
     }
+
+    void getDistanceFrom(GameObject object2)
+    {
+
+
+
+    }
+
+
 }
