@@ -97,15 +97,16 @@ public class GameController extends SurfaceView implements Runnable{
 
     // Called to start a new game
     public void newGame() {
-
+        System.out.printf("This happens when you call new game");
         Point screenSize = TowerDefense.getScreenSize();
-
+        //resume();
         world.clear();
 
         world.addGameObjectToList(background);
         world.addGameObjectToList(human);
         world.addGameObjectToList(basicAOETower);
         world.addGameObjectToList(basicGunTower);
+        mPlaying=true;
 
         background.spawn(new Point(0,0));
         human.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
@@ -130,7 +131,6 @@ public class GameController extends SurfaceView implements Runnable{
                     update();
                 }
             }
-
             draw();
         }
     }
@@ -180,6 +180,7 @@ public class GameController extends SurfaceView implements Runnable{
                 {
                     if (enemy.getHealth() <= 0)
                     {
+                        mPlaying=false;
                         world.removeGameObjectFromList(enemy);
                     }
                 }
@@ -192,7 +193,9 @@ public class GameController extends SurfaceView implements Runnable{
 
         //pause if all enemies in the wave are killed
         if (world.getEnemies().isEmpty()) {
+
             newGame();
+
         }
 
     }
@@ -252,7 +255,7 @@ public class GameController extends SurfaceView implements Runnable{
 
     // Stop the thread
     public void pause() {
-        mPlaying = false;
+        mPlaying=false;
         try {
             mThread.join();
         } catch (InterruptedException e) {
