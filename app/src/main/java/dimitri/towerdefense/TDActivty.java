@@ -6,6 +6,13 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 
+import net.sourceforge.plantumldependency.cli.main.program.PlantUMLDependencyProgram;
+import net.sourceforge.plantumldependency.commoncli.command.CommandLine;
+import net.sourceforge.plantumldependency.commoncli.command.impl.CommandLineImpl;
+import net.sourceforge.plantumldependency.commoncli.exception.CommandLineException;
+import net.sourceforge.plantumldependency.commoncli.program.JavaProgram;
+import net.sourceforge.plantumldependency.commoncli.program.execution.JavaProgramExecution;
+
 
 public class TDActivty extends Activity {
 
