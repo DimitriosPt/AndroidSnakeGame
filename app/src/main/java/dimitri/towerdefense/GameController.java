@@ -97,15 +97,21 @@ public class GameController extends SurfaceView implements Runnable{
 
     // Called to start a new game
     public void newGame() {
+        System.out.println("===============new game =====================");
+        System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
+        System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
 
         Point screenSize = TowerDefense.getScreenSize();
 
-        world.clear();
-
         world.addGameObjectToList(background);
+        human.setCurrentHealth(human.getMaxHealth());
         world.addGameObjectToList(human);
+        System.out.printf("Human hp: %d", human.getCurrentHealth());
         world.addGameObjectToList(basicAOETower);
         world.addGameObjectToList(basicGunTower);
+
+        mPlaying = true;
+
 
         background.spawn(new Point(0,0));
         human.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
@@ -164,35 +170,36 @@ public class GameController extends SurfaceView implements Runnable{
     // Update all the game objects
     public void update() {
 
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        int blockSize = displayMetrics.widthPixels / NUM_BLOCKS_WIDE;
-        // How many blocks of the same size will fit into the height
-        mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
-
-
-        for (Tower tower:world.getTowers())
+        if(mPlaying)
         {
-            if(tower.canAttack())
+            for (Tower tower:world.getTowers())
             {
-                tower.attack(world.getEnemies());
-
-                for(Enemy enemy: world.getEnemies())
+                if(tower.canAttack())
                 {
-                    if (enemy.getHealth() <= 0)
+                    tower.attack(world.getEnemies());
+
+                    for(Enemy enemy: world.getEnemies())
                     {
-                        world.removeGameObjectFromList(enemy);
+                        if (enemy.getCurrentHealth() <= 0)
+                        {
+                            world.removeGameObjectFromList(enemy);
+                        }
                     }
                 }
             }
-        }
 
-        for (Enemy enemy: world.getEnemies()) {
-            enemy.movementStrategy.move(enemy);
-        }
+            for (Enemy enemy: world.getEnemies()) {
+                enemy.movementStrategy.move(enemy);
+            }
 
-        //pause if all enemies in the wave are killed
-        if (world.getEnemies().isEmpty()) {
-            newGame();
+            //pause if all enemies in the wave are killed
+            if (world.getEnemies().isEmpty()) {
+                mPlaying = false;
+                world.clear();
+                newGame();
+
+            }
+
         }
 
     }
@@ -235,6 +242,7 @@ public class GameController extends SurfaceView implements Runnable{
             case MotionEvent.ACTION_UP:
                 if (mPaused) {
                     mPaused = false;
+                    System.out.println("calling new game from on touch event");
                     newGame();
 
                     return true;
@@ -256,13 +264,14 @@ public class GameController extends SurfaceView implements Runnable{
         try {
             mThread.join();
         } catch (InterruptedException e) {
-            // Error
+            System.out.println("Error in pause");
         }
     }
 
 
     // Start the thread
     public void resume() {
+        System.out.println("calling resume");
         mPlaying = true;
         mThread = new Thread(this);
         mThread.start();

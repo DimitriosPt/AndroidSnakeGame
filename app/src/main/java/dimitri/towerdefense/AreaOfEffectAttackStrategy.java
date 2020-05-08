@@ -12,7 +12,7 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
              //       Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
             if (tower.isInRange(enemy))
             {
-                enemy.setHealth(enemy.getHealth() - tower.getDamage());
+                enemy.setCurrentHealth(enemy.getCurrentHealth() - tower.getDamage());
             }
 
             //    tower.setTimeOfLastAttack(System.currentTimeMillis());
