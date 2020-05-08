@@ -100,7 +100,7 @@ public class GameController extends SurfaceView implements Runnable{
         world.addGameObjectToList(human);
         world.addGameObjectToList(basicAOETower);
 
-        human.spawn(new Point(0, 200));
+        human.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
         basicAOETower.spawn(new Point(600, 112));
 
         // Reset the mScore

@@ -47,6 +47,6 @@ public abstract class Enemy extends MoveableGameObject {
         this.setHeading(EAST);
 
         // Start with a single snake segment
-        this.setLocation(new Point(30, mNumBlocksHigh / 2));
+        this.setLocation(location);
     }
 }
