@@ -64,7 +64,6 @@ class Human extends Enemy {
                 newLocation.x -= this.getSpeed();
                 this.setLocation(newLocation);
                 break;
-
         }
     }
     /*
