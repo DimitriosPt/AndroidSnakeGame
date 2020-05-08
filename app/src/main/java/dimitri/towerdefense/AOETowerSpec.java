@@ -5,7 +5,7 @@ import android.graphics.PointF;
 public class AOETowerSpec extends ObjectSpec{
     private static final String bitmapName = "basic_tower";
     private static final int speed = 0;
-    private static final PointF relativeScale =
+    private static final PoinktF relativeScale =
             new PointF(10f, 10f);
     private static final String[] components = new String [] {
             "PlayerInputComponent",
