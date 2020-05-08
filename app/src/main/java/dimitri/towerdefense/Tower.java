@@ -4,17 +4,20 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
 
+import java.util.ArrayList;
 import java.util.List;
 
-abstract class Tower extends StaticGameObject{
+abstract class Tower extends StaticGameObject {
     private int range;
     private int damage;
     private long attackSpeed;
     private int cost;
     private long timeOfLastAttack;
-    private enum damageType{
+
+    private enum damageType {
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
+
     public long getTimeOfLastAttack() {
         return timeOfLastAttack;
     }
@@ -25,7 +28,17 @@ abstract class Tower extends StaticGameObject{
 
     //this will be a record in milliseconds of when the tower last attacked
 
-
+    protected boolean isInRange(List<Enemy> enemies) {
+        for (Enemy enemy : enemies) {
+            double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
+            double yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
+            double distanceFromTowerToEnemy = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+            if (this.range >= distanceFromTowerToEnemy) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getRange() {
         return range;
@@ -49,6 +62,7 @@ abstract class Tower extends StaticGameObject{
     public boolean canAttack()
     {
         return(timeOfLastAttack + attackSpeed < System.currentTimeMillis());
+
     }
 
     public void setRange(int range) {

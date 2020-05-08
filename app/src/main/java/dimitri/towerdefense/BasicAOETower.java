@@ -21,7 +21,7 @@ public class BasicAOETower extends Tower{
         this.setObjectBitmap(scaledBitmap);
 
         this.setLocation(new Point(100,50));
-        this.setRange(50);
+        this.setRange(100);
         this.setDamage(3);
         this.setAttackSpeed(100);
     }

@@ -1,6 +1,9 @@
 package dimitri.towerdefense;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Point;
+import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +35,17 @@ public abstract class Enemy extends MoveableGameObject {
 
     public int getHealth() {
         return health;
+    }
+
+    void spawn(Point location) {
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        int blockSize = displayMetrics.widthPixels / 40;
+        // How many blocks of the same size will fit into the height
+        int mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
+        // Reset the heading
+        this.setHeading(EAST);
+
+        // Start with a single snake segment
+        this.setLocation(new Point(30, mNumBlocksHigh / 2));
     }
 }

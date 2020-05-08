@@ -67,7 +67,7 @@ class Human extends Enemy {
 
         }
     }
-
+    /*
     @Override
     void spawn(Point location) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
@@ -79,7 +79,7 @@ class Human extends Enemy {
 
         // Start with a single snake segment
         this.setLocation(new Point(30, mNumBlocksHigh / 2));
-    }
+    }*/
 
     @Override
     void draw(Canvas canvas, Paint paint) {
