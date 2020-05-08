@@ -4,7 +4,11 @@ package dimitri.towerdefense;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Display;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class TDActivty extends Activity {
@@ -16,6 +20,7 @@ public class TDActivty extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         // Get the pixel dimensions of the screen
         Display display = getWindowManager().getDefaultDisplay();
@@ -29,6 +34,7 @@ public class TDActivty extends Activity {
 
 
         // Make snakeEngine the view of the Activity
+
         setContentView(towerDefenseGame);
     }
 

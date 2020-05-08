@@ -2,11 +2,12 @@ package dimitri.towerdefense;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameWorld {
+public class GameWorld  {
     private List<GameObject> gameObjectList;
 
     GameWorld() {
@@ -16,6 +17,10 @@ public class GameWorld {
     void draw(Canvas canvas, Paint paint)
     {
         for (GameObject gameObject:gameObjectList) {
+            if(gameObject instanceof  Enemy)
+            {
+                System.out.println("drawing an enemy");
+            }
             gameObject.draw(canvas, paint);
         }
     }
@@ -25,6 +30,7 @@ public class GameWorld {
 
     public void setGameObjectList(List<GameObject> gameObjectList) {
         this.gameObjectList = gameObjectList;
+
     }
 
     void addGameObjectToList(GameObject gameObject)
@@ -66,5 +72,7 @@ public class GameWorld {
     {
         this.gameObjectList.remove(gameObject);
     }
+
+
 
 }

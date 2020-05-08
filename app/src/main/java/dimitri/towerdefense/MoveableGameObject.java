@@ -3,6 +3,7 @@ package dimitri.towerdefense;
 public abstract class MoveableGameObject extends GameObject {
     private int heading;
     private int speed;
+    private int health;
     public MovementStrategy movementStrategy;
     static final int NORTH = 0;
     static final int EAST = 90;

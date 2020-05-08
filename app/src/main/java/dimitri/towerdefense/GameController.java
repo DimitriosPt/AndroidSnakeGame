@@ -10,13 +10,15 @@ import android.graphics.PointF;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class GameController extends SurfaceView implements Runnable{
+public class GameController extends SurfaceView implements Runnable {
 
     // Objects for the game loop/thread
     private Thread mThread = null;
@@ -34,25 +36,27 @@ public class GameController extends SurfaceView implements Runnable{
     // The size in segments of the playable area
     private final int NUM_BLOCKS_WIDE = 40;
     private int mNumBlocksHigh;
-
+    ArrayList<GameObject> gameObjects;
     // How many points does the player have
     private int mScore;
-
+    private Levels levels;
     private SurfaceHolder mSurfaceHolder;
     private Paint mPaint;
-
+    private ArrayList<Enemy> enemies;
     private Human human;
     private BasicAOETower basicAOETower;
     private BasicGunTower basicGunTower;
     private Background background;
+    private int level_counter = 0;
     // And an normal_apple
-
+    private GameObject gs1;
     private int additionalApples = 0;
     public SoundContext soundContext;
     public Context mContext;
     public boolean muteGameSound = true;
 
     private GameWorld world = new GameWorld();
+    private Object GameObject;
 
 
     // This is the constructor method that gets called
@@ -68,18 +72,14 @@ public class GameController extends SurfaceView implements Runnable{
         // Initialize the SoundPool
         //begin with mute option because it is the cheapest to implement
         //resource-wise
-        if(muteGameSound)
-        {
+        if (muteGameSound) {
             soundContext = new SoundContext(new SilentSoundStrategy());
             soundContext.initializeSound(context);
-        }
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             soundContext = new SoundContext(new LollipopSoundStrategy());
             soundContext.initializeSound(context);
 
-        }
-        else
-        {
+        } else {
             soundContext = new SoundContext(new PreLollipopSoundStrategy());
             soundContext.initializeSound(context);
         }
@@ -87,36 +87,57 @@ public class GameController extends SurfaceView implements Runnable{
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
-
-        human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
-        basicAOETower = new BasicAOETower();
-        basicGunTower = new BasicGunTower();
-        background = new Background();
+        //background=new Background();
+        //gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
+        //basicAOETower= new BasicAOETower();
+        //basicGunTower = new BasicGunTower();
     }
 
 
     // Called to start a new game
     public void newGame() {
+
+        mPlaying = true;
+        levels = new Level1(level_counter);
         System.out.println("===============new game =====================");
         System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
         System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
 
         Point screenSize = TowerDefense.getScreenSize();
 
-        world.addGameObjectToList(background);
-        human.setCurrentHealth(human.getMaxHealth());
-        world.addGameObjectToList(human);
-        System.out.printf("Human hp: %d", human.getCurrentHealth());
-        world.addGameObjectToList(basicAOETower);
-        world.addGameObjectToList(basicGunTower);
 
-        mPlaying = true;
+        for (GameObject gs : levels.getObjects()) {
+            world.addGameObjectToList(gs);
+            if (gs instanceof Background) {
+                gs.spawn(new Point(0, 0));
+            }
+            if (gs instanceof Human) {
+
+                gs.spawn(new Point(200, (int) (TowerDefense.getScreenSize().y * .60)));
+                System.out.println(gs.getLocation());
+            }
+            if (gs instanceof BasicGunTower) {
+                gs.spawn(new Point(new Point(screenSize.x / 2, screenSize.y / 2)));
+            }
+            if (gs instanceof BasicAOETower) {
+                gs.spawn(new Point(600, 112));
+            }
+        }
+        System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
 
 
-        background.spawn(new Point(0,0));
-        human.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
-        basicAOETower.spawn(new Point(600, 112));
-        basicGunTower.spawn(new Point(screenSize.x /2, screenSize.y/2));
+        //world.addGameObjectToList(background);
+
+        //world.addGameObjectToList(gs1);
+        //System.out.printf("Human hp: %d", gs1.getCurrentHealth());
+        //world.addGameObjectToList(basicAOETower);
+        //world.addGameObjectToList(basicGunTower);
+
+
+        //background.spawn(new Point(0,0));
+        //gs1.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
+        //basicAOETower.spawn(new Point(600, 112));
+        //basicGunTower.spawn(new Point(screenSize.x /2, screenSize.y/2));
 
         // Reset the mScore
         mScore = 0;
@@ -130,7 +151,7 @@ public class GameController extends SurfaceView implements Runnable{
     @Override
     public void run() {
         while (mPlaying) {
-            if(!mPaused) {
+            if (!mPaused) {
                 // Update 10 times a second
                 if (updateRequired()) {
                     update();
@@ -151,11 +172,11 @@ public class GameController extends SurfaceView implements Runnable{
         final long MILLIS_PER_SECOND = 1000;
 
         // Are we due to update the frame
-        if(mNextFrameTime <= System.currentTimeMillis()){
+        if (mNextFrameTime <= System.currentTimeMillis()) {
             // Tenth of a second has passed
 
             // Setup when the next update will be triggered
-            mNextFrameTime =System.currentTimeMillis()
+            mNextFrameTime = System.currentTimeMillis()
                     + MILLIS_PER_SECOND / TARGET_FPS;
 
             // Return true so that the update and draw
@@ -169,31 +190,28 @@ public class GameController extends SurfaceView implements Runnable{
 
     // Update all the game objects
     public void update() {
-
-        if(mPlaying)
-        {
-            for (Tower tower:world.getTowers())
-            {
-                if(tower.canAttack())
-                {
+        System.out.println("In the update method");
+        if (mPlaying) {
+            for (Tower tower : world.getTowers()) {
+                if (tower.canAttack()) {
                     tower.attack(world.getEnemies());
 
-                    for(Enemy enemy: world.getEnemies())
-                    {
-                        if (enemy.getCurrentHealth() <= 0)
-                        {
+                    for (Enemy enemy : world.getEnemies()) {
+                        System.out.println(enemy.getCurrentHealth());
+                        if (enemy.getCurrentHealth() <= 0) {
                             world.removeGameObjectFromList(enemy);
                         }
                     }
                 }
             }
 
-            for (Enemy enemy: world.getEnemies()) {
+            for (Enemy enemy : world.getEnemies()) {
                 enemy.movementStrategy.move(enemy);
             }
 
             //pause if all enemies in the wave are killed
             if (world.getEnemies().isEmpty()) {
+                System.out.println("You are here");
                 mPlaying = false;
                 world.clear();
                 newGame();
@@ -243,15 +261,19 @@ public class GameController extends SurfaceView implements Runnable{
                 if (mPaused) {
                     mPaused = false;
                     System.out.println("calling new game from on touch event");
-                    newGame();
+
+                    //newGame();
 
                     return true;
                 }
 
                 break;
 
-            default:
-                break;
+            default: {
+                System.out.println(motionEvent.getX());
+                System.out.println(motionEvent.getY());
+            }
+            break;
 
         }
         return true;
@@ -268,8 +290,7 @@ public class GameController extends SurfaceView implements Runnable{
         }
     }
 
-
-    // Start the thread
+        // Start the thread
     public void resume() {
         System.out.println("calling resume");
         mPlaying = true;

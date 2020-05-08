@@ -14,7 +14,7 @@ public abstract class Enemy extends MoveableGameObject {
     }
     private List<damageResistances> resistances;
     public MovementStrategy movementStrategy;
-    private int currentHealth;
+    private int currentHealth=20;
     private int maxHealth;
 
     public Enemy(Context context, int maxHealth, int speed, List<damageResistances> resistances) {

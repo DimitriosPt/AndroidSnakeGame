@@ -6,10 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.view.SurfaceView;
 
 import java.util.List;
 
-public class BasicAOETower extends Tower{
+public class BasicAOETower extends Tower {
     AttackStrategy attackStrategy = new AreaOfEffectAttackStrategy();
     public BasicAOETower(){
         Context newContext = TowerDefense.getContext();
