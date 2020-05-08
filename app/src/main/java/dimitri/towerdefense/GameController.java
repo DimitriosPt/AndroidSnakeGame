@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -42,6 +43,8 @@ public class GameController extends SurfaceView implements Runnable{
 
     private Human human;
     private BasicAOETower basicAOETower;
+    private BasicGunTower basicGunTower;
+    private Background background;
     // And an normal_apple
 
     private int additionalApples = 0;
@@ -87,21 +90,27 @@ public class GameController extends SurfaceView implements Runnable{
 
         human = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         basicAOETower = new BasicAOETower();
-
-
+        basicGunTower = new BasicGunTower();
+        background = new Background();
     }
 
 
     // Called to start a new game
     public void newGame() {
 
+        Point screenSize = TowerDefense.getScreenSize();
+
         world.clear();
 
+        world.addGameObjectToList(background);
         world.addGameObjectToList(human);
         world.addGameObjectToList(basicAOETower);
+        world.addGameObjectToList(basicGunTower);
 
+        background.spawn(new Point(0,0));
         human.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
         basicAOETower.spawn(new Point(600, 112));
+        basicGunTower.spawn(new Point(screenSize.x /2, screenSize.y/2));
 
         // Reset the mScore
         mScore = 0;
@@ -183,7 +192,6 @@ public class GameController extends SurfaceView implements Runnable{
 
         //pause if all enemies in the wave are killed
         if (world.getEnemies().isEmpty()) {
-
             newGame();
         }
 
