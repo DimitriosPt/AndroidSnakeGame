@@ -8,10 +8,12 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 import java.util.List;
+import java.util.logging.Level;
 
 class Orc extends Enemy {
     Orc(Context context, int health, int speed, List<damageResistances> resistances) {
         super(context, health, speed, resistances);
+        this.movementStrategy = new LevelOneEnemyMovement();
 
         new BitmapFactory();
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.human);
@@ -20,10 +22,6 @@ class Orc extends Enemy {
                         60, 60, false);
         this.setObjectBitmap(scaledBitmap);
         this.setLocation(new Point(0,0));
-    }
-    @Override
-    void move() {
-
     }
 
     @Override
