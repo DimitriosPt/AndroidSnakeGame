@@ -10,7 +10,7 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
             //double yDistance = (double) (tower.getLocation().y - enemy.getLocation().y);
             //double distanceFromTowerToEnemy =
              //       Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-            if (tower.isInRange(enemies) )
+            if (tower.isInRange(enemy))
             {
                 enemy.setHealth(enemy.getHealth() - tower.getDamage());
             }

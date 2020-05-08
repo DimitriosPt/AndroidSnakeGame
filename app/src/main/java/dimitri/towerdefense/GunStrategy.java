@@ -8,12 +8,7 @@ class GunStrategy implements AttackStrategy {
     @Override
     public void attack(Tower tower, List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
-
-            // double xDistance = (double) (tower.getLocation().x - enemy.getLocation().x);
-            //double yDistance = (double) (tower.getLocation().y - enemy.getLocation().y);
-            //double distanceFromTowerToEnemy =
-            //       Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-            if (tower.canAttack() && tower.isInRange(enemies)) {
+            if (tower.canAttack() && tower.isInRange(enemy)) {
                 enemy.setHealth(enemy.getHealth() - tower.getDamage());
                 break;
             }

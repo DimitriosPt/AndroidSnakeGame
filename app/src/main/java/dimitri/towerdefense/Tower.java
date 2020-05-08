@@ -28,17 +28,18 @@ abstract class Tower extends StaticGameObject {
 
     //this will be a record in milliseconds of when the tower last attacked
 
-    protected boolean isInRange(List<Enemy> enemies) {
-        for (Enemy enemy : enemies) {
+    protected boolean isInRange(Enemy enemy) {
             double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
             double yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
             double distanceFromTowerToEnemy = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
             if (this.range >= distanceFromTowerToEnemy) {
                 return true;
             }
+            else
+            {
+                return  false;
+            }
         }
-        return false;
-    }
 
     public int getRange() {
         return range;
