@@ -24,6 +24,7 @@ class Human extends Enemy {
                         60, 60, false);
         this.setObjectBitmap(scaledBitmap);
         this.setLocation(new Point(0,0));
+        this.movementStrategy = new LevelOneEnemyMovement();
     }
 
 

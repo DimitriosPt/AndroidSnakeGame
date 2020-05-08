@@ -10,6 +10,7 @@ public abstract class Enemy extends MoveableGameObject {
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
     private List<damageResistances> resistances;
+    public MovementStrategy movementStrategy;
     private int health;
 
     public Enemy(Context context, int health, int speed, List<damageResistances> resistances) {
