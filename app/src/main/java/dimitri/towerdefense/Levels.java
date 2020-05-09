@@ -13,7 +13,8 @@ import java.util.List;
 public abstract  class Levels  {
     Context context= TowerDefense.getContext();
     private List<GameObject> objects;
-    private GameObject gs;
+    private Human human;
+    private Human human2;
     private Background  background;
     private int startingEnemyCount;
     private BasicAOETower bae;
@@ -23,12 +24,15 @@ public abstract  class Levels  {
                     bge= new BasicGunTower();
                     bae= new BasicAOETower();
                     background = new Background();
+
                     objects= new ArrayList<>();
-                    for(startingEnemyCount=0; startingEnemyCount<1;startingEnemyCount++) {
-                        gs = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
-                        objects.add(gs);
-                    }
-                    objects.add(background);
+                     objects.add(background);
+                        human = new Human(context, 40, 40, new ArrayList<Enemy.damageResistances>());
+                        human2= new Human(context, 20, 20, new ArrayList<Enemy.damageResistances>());
+                        objects.add(human);
+                        objects.add(human2);
+
+                    //objects.add(background);
                     objects.add(bae);
                     objects.add(bge);
         }

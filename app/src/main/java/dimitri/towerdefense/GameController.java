@@ -88,7 +88,7 @@ public class GameController extends SurfaceView implements Runnable {
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
         //background=new Background();
-        //gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
+       // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         //basicAOETower= new BasicAOETower();
         //basicGunTower = new BasicGunTower();
     }
@@ -111,11 +111,14 @@ public class GameController extends SurfaceView implements Runnable {
             if (gs instanceof Background) {
                 gs.spawn(new Point(0, 0));
             }
+
             if (gs instanceof Human) {
 
                 gs.spawn(new Point(200, (int) (TowerDefense.getScreenSize().y * .60)));
                 System.out.println(gs.getLocation());
             }
+
+
             if (gs instanceof BasicGunTower) {
                 gs.spawn(new Point(new Point(screenSize.x / 2, screenSize.y / 2)));
             }
@@ -128,9 +131,9 @@ public class GameController extends SurfaceView implements Runnable {
 
         //world.addGameObjectToList(background);
 
-        //world.addGameObjectToList(gs1);
+       // world.addGameObjectToList(gs1);
         //System.out.printf("Human hp: %d", gs1.getCurrentHealth());
-        //world.addGameObjectToList(basicAOETower);
+       // world.addGameObjectToList(basicAOETower);
         //world.addGameObjectToList(basicGunTower);
 
 
@@ -194,6 +197,7 @@ public class GameController extends SurfaceView implements Runnable {
         if (mPlaying) {
             for (Tower tower : world.getTowers()) {
                 if (tower.canAttack()) {
+                    System.out.println(tower.canAttack());
                     tower.attack(world.getEnemies());
 
                     for (Enemy enemy : world.getEnemies()) {

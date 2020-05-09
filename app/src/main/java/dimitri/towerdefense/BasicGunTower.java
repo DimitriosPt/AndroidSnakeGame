@@ -21,8 +21,8 @@ public class BasicGunTower extends Tower {
         this.setObjectBitmap(scaledBitmap);
 
         this.setLocation(new Point(100,50));
-        this.setRange(200);
-        this.setDamage(5);
+        this.setRange(800);
+        this.setDamage(10);
         this.setAttackSpeed(400);
     }
 
