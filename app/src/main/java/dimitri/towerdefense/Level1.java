@@ -6,7 +6,7 @@ import java.util.List;
 // ONLY ADDS BACKGROUND
 public class Level1 extends  Levels
 {
-    Background background;
+    Background background = new Background();
 
     public Level1(int level_counter)
     {
