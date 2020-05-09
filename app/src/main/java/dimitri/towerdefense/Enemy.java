@@ -17,7 +17,7 @@ public abstract class Enemy extends MoveableGameObject {
     public MovementStrategy movementStrategy;
     private int currentHealth=20;
     private int maxHealth;
-    private ArrayList<Bitmap> spriteSheet;
+    private ArrayList spriteSheet;
 
 
 
@@ -26,6 +26,7 @@ public abstract class Enemy extends MoveableGameObject {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.resistances = resistances;
+        this.spriteSheet = new ArrayList<Bitmap>();
     }
 
     public void setResistances(List<damageResistances> resistances) {

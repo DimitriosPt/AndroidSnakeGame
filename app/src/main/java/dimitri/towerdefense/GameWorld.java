@@ -17,10 +17,7 @@ public class GameWorld  {
     void draw(Canvas canvas, Paint paint)
     {
         for (GameObject gameObject:gameObjectList) {
-            if(gameObject instanceof  Enemy)
-            {
-                System.out.println("drawing an enemy");
-            }
+
             gameObject.draw(canvas, paint);
         }
     }

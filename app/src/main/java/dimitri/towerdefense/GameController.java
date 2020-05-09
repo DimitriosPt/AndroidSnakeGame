@@ -215,7 +215,7 @@ public class GameController extends SurfaceView implements Runnable {
 
             //pause if all enemies in the wave are killed
             if (world.getEnemies().isEmpty()) {
-                System.out.println("You are here");
+
                 mPlaying = false;
                 world.clear();
                 newGame();
@@ -264,7 +264,7 @@ public class GameController extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_UP:
                 if (mPaused) {
                     mPaused = false;
-                    System.out.println("calling new game from on touch event");
+
                     //newGame();
 
                     return true;
