@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Human extends Enemy {
+    int pointValue=20;
     Human(Context context, int maxHealth, int speed, List<damageResistances> resistances){
         super(context, maxHealth, speed, resistances);
         double scaleFactor = .09;

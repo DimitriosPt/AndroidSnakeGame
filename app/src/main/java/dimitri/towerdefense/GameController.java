@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +97,7 @@ public class GameController extends SurfaceView implements Runnable {
 
 
     // Called to start a new game
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void newGame() {
 
         mPlaying = true;
@@ -112,7 +115,7 @@ public class GameController extends SurfaceView implements Runnable {
                 gs.spawn(new Point(0, 0));
             }
 
-            if (gs instanceof Human) {
+            if (gs instanceof Enemy) {
 
                 gs.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
                 System.out.println(gs.getLocation());
