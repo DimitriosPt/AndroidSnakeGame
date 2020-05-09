@@ -18,7 +18,7 @@ public abstract class Enemy extends MoveableGameObject {
     private int currentHealth=20;
     private int maxHealth;
     private ArrayList spriteSheet;
-    public int timeLastDrawn;
+    public long timeLastDrawn;
 
 
 
