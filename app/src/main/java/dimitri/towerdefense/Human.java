@@ -18,7 +18,7 @@ class Human extends Enemy {
         super(context, maxHealth, speed, resistances);
 
         new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.human);
+        Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.knight_walk0);
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         60, 60, false);
