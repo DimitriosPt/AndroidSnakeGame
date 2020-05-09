@@ -15,6 +15,7 @@ public abstract  class Levels  {
     private List<GameObject> objects;
     private Human human;
     private Human human2;
+    private Orc orc;
     private Background  background;
     private int startingEnemyCount;
     private BasicAOETower bae;
@@ -32,10 +33,12 @@ public abstract  class Levels  {
 
 
                         }
+                        orc = new Orc(context, 80, 15, new ArrayList<Enemy.damageResistances>());
                         human = new Human(context, 40, 40, new ArrayList<Enemy.damageResistances>());
                         human2= new Human(context, 20, 20, new ArrayList<Enemy.damageResistances>());
                         objects.add(human);
                         objects.add(human2);
+                        objects.add(orc);
 
                     //objects.add(background);
                     objects.add(bae);

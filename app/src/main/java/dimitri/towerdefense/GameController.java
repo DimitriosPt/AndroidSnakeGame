@@ -110,12 +110,11 @@ public class GameController extends SurfaceView implements Runnable {
                 gs.spawn(new Point(0, 0));
             }
 
-            if (gs instanceof Human) {
+            if (gs instanceof Enemy) {
 
                 gs.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
 
             }
-
 
             if (gs instanceof BasicGunTower) {
                 gs.spawn(new Point(new Point(screenSize.x / 2, screenSize.y / 2)));

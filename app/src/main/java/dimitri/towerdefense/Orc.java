@@ -11,26 +11,37 @@ import java.util.List;
 import java.util.logging.Level;
 
 class Orc extends Enemy {
-    Orc(Context context, int health, int speed, List<damageResistances> resistances) {
-        super(context, health, speed, resistances);
-        this.movementStrategy = new LevelOneEnemyMovement();
-
+    Orc(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
+        super(context, maxHealth, speed, resistances);
+        double scaleFactor = .09;
         new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.human);
-        Bitmap scaledBitmap = Bitmap
-                .createScaledBitmap(unscaledBitmap,
-                        60, 60, false);
-        this.setObjectBitmap(scaledBitmap);
-        this.setLocation(new Point(0,0));
-    }
 
-    @Override
-    void spawn(Point location) {
+        for (int i = 0; i <= 3; i++) {
+            //will iterate through all bitmaps and load them into the arraylist
+            //bitmaps are named such that the i can be appended to the base name of the
+            //bitmap. For example, knight_walk0, knight_walk1
+            String imagefileName = "orc_walk" + Integer.toString(i);
 
-    }
+            // Retrieving the local Resource ID from the name
+            int bitmapID = context.getResources().getIdentifier(
+                    imagefileName,
+                    "drawable",
+                    context.getPackageName());
 
-    @Override
-    void draw(Canvas canvas, Paint paint) {
+            Bitmap unscaledBitmap = BitmapFactory.decodeResource(
+                    context.getResources(),
+                    bitmapID);
 
+            Bitmap scaledBitmap = Bitmap
+                    .createScaledBitmap(unscaledBitmap,
+                            (int) (TowerDefense.getScreenSize().x * scaleFactor),
+                            (int) (TowerDefense.getScreenSize().y * scaleFactor), false);
+
+            this.getSpriteSheet().add(i, scaledBitmap);
+        }
+        //set starting bitmap to first thing in sprite sheet
+        this.setObjectBitmap(this.getSpriteSheet().get(0));
+        this.setLocation(new Point(0, 0));
+        this.movementStrategy = new LevelOneEnemyMovement();
     }
 }
