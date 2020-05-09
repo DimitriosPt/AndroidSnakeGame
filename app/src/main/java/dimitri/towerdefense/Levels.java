@@ -23,8 +23,8 @@ public abstract class Levels {
     private EnemyBuilder enemyBuilder;
     private Background background;
     private int startingEnemyCount;
-    private BasicAOETower bae;
-    private BasicGunTower bge;
+    private BasicAOETower bat;
+    private BasicGunTower bgt;
     private MovementStrategy movementStrategy;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -34,22 +34,22 @@ public abstract class Levels {
         resistance.add(Enemy.damageResistances.FIRE);
         movementStrategy= new LevelOneEnemyMovement();
         enemyBuilder = new EnemyBuilder();
-        bge = new BasicGunTower();
-        bae = new BasicAOETower();
+        bgt = new BasicGunTower();
+        bat = new BasicAOETower();
         background = new Background();
         objects = new ArrayList<>();
         objects.add(background);
-            for (startingEnemyCount = 0; startingEnemyCount < 1; startingEnemyCount++) {
-                randomNum = ThreadLocalRandom.current().nextInt(10, 21);
+            for (startingEnemyCount = 0; startingEnemyCount < 10; startingEnemyCount++) {
+                randomNum = ThreadLocalRandom.current().nextInt(2, 41);
                 objects.add(enemyBuilder.Location(new Point(0, 600)).
-                        EnemyType("Human")
-                        .Speed(20)
+                        EnemyType("Human").EnemyHP(40)
+                        .Speed(randomNum)
                         .EnemyResistances(resistance).
                         MovementStrategy(movementStrategy)
                         .build());
             }
-        objects.add(bae);
-        objects.add(bge);
+        objects.add(bgt);
+        objects.add(bat);
     }
 
     public List<GameObject> getObjects() {
