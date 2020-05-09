@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Human extends Enemy {
-    Human(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
+    Human(Context context, int maxHealth, int speed, List<damageResistances> resistances){
         super(context, maxHealth, speed, resistances);
         double scaleFactor = .09;
         new BitmapFactory();
@@ -65,16 +65,20 @@ class Human extends Enemy {
     @Override
     void draw(Canvas canvas, Paint paint) {
 
-        int currentBitmapIndex = this.getSpriteSheet().indexOf(this.getObjectBitmap());
-        int spriteSheetLength = this.getSpriteSheet().size();
-        //find whichever bitmap we are currently on, then assign the next one in the array list
-        //as our next bitmap. We must go back to the first bitmap in the case we are at the end
-        // i.e the next bitmap after knight_walk5 in our case is knight_walk0
+        //only change the sprite every 200 milliseconds instead of every single frame
+        if (System.currentTimeMillis() - timeLastDrawn > 200)
+        {
+            int currentBitmapIndex = this.getSpriteSheet().indexOf(this.getObjectBitmap());
+            int spriteSheetLength = this.getSpriteSheet().size();
+            //find whichever bitmap we are currently on, then assign the next one in the array list
+            //as our next bitmap. We must go back to the first bitmap in the case we are at the end
+            // i.e the next bitmap after knight_walk5 in our case is knight_walk0
 
-        Bitmap nextBitmap = this.getSpriteSheet().get((currentBitmapIndex + 1) % spriteSheetLength);
+            Bitmap nextBitmap = this.getSpriteSheet().get((currentBitmapIndex + 1) % spriteSheetLength);
 
+            this.setObjectBitmap(nextBitmap);
+        }
 
-        this.setObjectBitmap(nextBitmap);
         canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
     }
 }
