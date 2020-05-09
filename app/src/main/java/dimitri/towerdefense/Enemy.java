@@ -3,6 +3,8 @@ package dimitri.towerdefense;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
 
@@ -60,6 +62,7 @@ public abstract class Enemy extends MoveableGameObject {
     public ArrayList<Bitmap> getSpriteSheet() {
         return spriteSheet;
     }
+
     void spawn(Point location) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         int blockSize = displayMetrics.widthPixels / 40;
@@ -70,5 +73,26 @@ public abstract class Enemy extends MoveableGameObject {
 
         // Start with a single snake segment
         this.setLocation(location);
+    }
+
+    @Override
+    void draw(Canvas canvas, Paint paint) {
+
+        //only change the sprite every 200 milliseconds instead of every single frame
+        if (System.currentTimeMillis() - timeLastDrawn > 300)
+        {
+            int currentBitmapIndex = this.getSpriteSheet().indexOf(this.getObjectBitmap());
+            int spriteSheetLength = this.getSpriteSheet().size();
+            //find whichever bitmap we are currently on, then assign the next one in the array list
+            //as our next bitmap. We must go back to the first bitmap in the case we are at the end
+            // i.e the next bitmap after knight_walk5 in our case is knight_walk0
+
+            Bitmap nextBitmap = this.getSpriteSheet().get((currentBitmapIndex + 1) % spriteSheetLength);
+
+            this.setObjectBitmap(nextBitmap);
+            this.timeLastDrawn = System.currentTimeMillis();
+        }
+
+        canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
     }
 }

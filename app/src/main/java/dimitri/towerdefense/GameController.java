@@ -99,9 +99,7 @@ public class GameController extends SurfaceView implements Runnable {
 
         mPlaying = true;
         levels = new Level1(level_counter);
-        System.out.println("===============new game =====================");
-        System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
-        System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
+
 
         Point screenSize = TowerDefense.getScreenSize();
 
@@ -115,7 +113,7 @@ public class GameController extends SurfaceView implements Runnable {
             if (gs instanceof Human) {
 
                 gs.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
-                System.out.println(gs.getLocation());
+
             }
 
 
@@ -126,7 +124,7 @@ public class GameController extends SurfaceView implements Runnable {
                 gs.spawn(new Point(600, 112));
             }
         }
-        System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
+
 
 
         //world.addGameObjectToList(background);
@@ -193,15 +191,14 @@ public class GameController extends SurfaceView implements Runnable {
 
     // Update all the game objects
     public void update() {
-        System.out.println("In the update method");
+
         if (mPlaying) {
             for (Tower tower : world.getTowers()) {
                 if (tower.canAttack()) {
-                    System.out.println(tower.canAttack());
+
                     tower.attack(world.getEnemies());
 
                     for (Enemy enemy : world.getEnemies()) {
-                        System.out.println(enemy.getCurrentHealth());
                         if (enemy.getCurrentHealth() <= 0) {
                             world.removeGameObjectFromList(enemy);
                         }
@@ -269,7 +266,6 @@ public class GameController extends SurfaceView implements Runnable {
 
                     return true;
                 }
-
                 break;
 
             default: {
