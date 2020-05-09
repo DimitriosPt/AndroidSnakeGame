@@ -18,6 +18,7 @@ public abstract class Enemy extends MoveableGameObject {
     private int currentHealth=20;
     private int maxHealth;
     private ArrayList spriteSheet;
+    public int timeLastDrawn;
 
 
 
@@ -29,6 +30,9 @@ public abstract class Enemy extends MoveableGameObject {
         this.spriteSheet = new ArrayList<Bitmap>();
     }
 
+    public void setTimeLastDrawn(int timeLastDrawn) {
+        this.timeLastDrawn = timeLastDrawn;
+    }
     public void setResistances(List<damageResistances> resistances) {
         this.resistances = resistances;
     }
