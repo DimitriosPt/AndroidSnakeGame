@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
@@ -21,8 +22,6 @@ public abstract class Enemy extends MoveableGameObject {
     private int maxHealth;
     private ArrayList spriteSheet;
     public long timeLastDrawn;
-
-
 
     public Enemy(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
         super(speed);
@@ -63,12 +62,8 @@ public abstract class Enemy extends MoveableGameObject {
         return spriteSheet;
     }
 
-    void spawn(Point location) {
-        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
-        int blockSize = displayMetrics.widthPixels / 40;
-        // How many blocks of the same size will fit into the height
-        int mNumBlocksHigh = displayMetrics.heightPixels / blockSize;
-        // Reset the heading
+    void spawn(PointF location) {
+
         this.setHeading(EAST);
 
         // Start with a single snake segment

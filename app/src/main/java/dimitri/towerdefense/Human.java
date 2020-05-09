@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.net.wifi.WifiEnterpriseConfig;
 import android.util.DisplayMetrics;
 
@@ -44,7 +45,7 @@ class Human extends Enemy {
         }
         //set starting bitmap to first thing in sprite sheet
         this.setObjectBitmap(this.getSpriteSheet().get(0));
-        this.setLocation(new Point(0,0));
+        this.setLocation(new PointF(0,0));
         this.movementStrategy = new LevelOneEnemyMovement();
     }
 

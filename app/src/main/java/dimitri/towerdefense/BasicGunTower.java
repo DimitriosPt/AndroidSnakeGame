@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class BasicGunTower extends Tower {
                         200, 200, false);
         this.setObjectBitmap(scaledBitmap);
 
-        this.setLocation(new Point(100,50));
+        this.setLocation(new PointF(100,50));
         this.setRange(800);
         this.setDamage(10);
         this.setAttackSpeed(400);
@@ -33,7 +34,7 @@ public class BasicGunTower extends Tower {
     }
 
     @Override
-    void spawn(Point location)
+    void spawn(PointF location)
     {
         this.setLocation(location);
     }

@@ -21,8 +21,8 @@ public class Background extends GameObject {
     }
 
     @Override
-    void spawn(Point location) {
-        this.setLocation(new Point(0, 0));
+    void spawn(PointF location) {
+        this.setLocation(new PointF(0, 0));
     }
 
     @Override

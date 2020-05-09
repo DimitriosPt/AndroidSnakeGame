@@ -104,23 +104,23 @@ public class GameController extends SurfaceView implements Runnable {
         Point screenSize = TowerDefense.getScreenSize();
 
 
-        for (GameObject gs : levels.getObjects()) {
-            world.addGameObjectToList(gs);
-            if (gs instanceof Background) {
-                gs.spawn(new Point(0, 0));
+        for (GameObject gameObject : levels.getObjects()) {
+            world.addGameObjectToList(gameObject);
+            if (gameObject instanceof Background) {
+                gameObject.spawn(new PointF(0, 0));
             }
 
-            if (gs instanceof Enemy) {
+            if (gameObject instanceof Enemy) {
 
-                gs.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
+                gameObject.spawn(new PointF(0, (int) (TowerDefense.getScreenSize().y * .60)));
 
             }
 
-            if (gs instanceof BasicGunTower) {
-                gs.spawn(new Point(new Point(screenSize.x / 2, screenSize.y / 2)));
+            if (gameObject instanceof BasicGunTower) {
+                gameObject.spawn(new PointF(screenSize.x / 2, screenSize.y / 2));
             }
-            if (gs instanceof BasicAOETower) {
-                gs.spawn(new Point(600, 112));
+            if (gameObject instanceof BasicAOETower) {
+                gameObject.spawn(new PointF(600, 112));
             }
         }
 

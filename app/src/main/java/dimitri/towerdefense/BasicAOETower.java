@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.view.SurfaceView;
 
 import java.util.List;
@@ -21,14 +22,14 @@ public class BasicAOETower extends Tower {
                         200, 200, false);
         this.setObjectBitmap(scaledBitmap);
 
-        this.setLocation(new Point(100,50));
+        this.setLocation(new PointF(100,50));
         this.setRange(100);
         this.setDamage(3);
         this.setAttackSpeed(100);
     }
 
     @Override
-    void spawn(Point location) {
+    void spawn(PointF location) {
         this.setLocation(location);
     }
 

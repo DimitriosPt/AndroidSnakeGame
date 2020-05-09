@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 abstract class Particle extends MoveableGameObject {
     private int damage;
@@ -24,7 +25,7 @@ abstract class Particle extends MoveableGameObject {
 
 
     @Override
-    void spawn(Point location)
+    void spawn(PointF location)
     {
 
     }

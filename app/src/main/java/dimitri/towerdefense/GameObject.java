@@ -4,14 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 
 abstract class GameObject{
     private int size;
 
     private Bitmap objectBitmap;
-    private Point location;
+    private PointF location;
 
-    abstract void spawn(Point location);
+    abstract void spawn(PointF location);
     abstract void draw(Canvas canvas, Paint paint);
 
     public int getSize() {
@@ -26,11 +27,11 @@ abstract class GameObject{
         this.objectBitmap = objectBitmap;
     }
 
-    Point getLocation() {
+    PointF getLocation() {
         return location;
     }
 
-    void setLocation(Point location) {
+    void setLocation(PointF location) {
         this.location = location;
     }
 
@@ -40,8 +41,6 @@ abstract class GameObject{
 
     void getDistanceFrom(GameObject object2)
     {
-
-
 
     }
 
