@@ -2,6 +2,7 @@ package dimitri.towerdefense;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
 
@@ -16,6 +17,9 @@ public abstract class Enemy extends MoveableGameObject {
     public MovementStrategy movementStrategy;
     private int currentHealth=20;
     private int maxHealth;
+    private ArrayList<Bitmap> spriteSheet;
+
+
 
     public Enemy(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
         super(speed);
@@ -48,6 +52,9 @@ public abstract class Enemy extends MoveableGameObject {
         this.maxHealth = maxHealth;
     }
 
+    public ArrayList<Bitmap> getSpriteSheet() {
+        return spriteSheet;
+    }
     void spawn(Point location) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         int blockSize = displayMetrics.widthPixels / 40;
