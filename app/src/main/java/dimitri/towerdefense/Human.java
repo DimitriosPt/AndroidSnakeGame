@@ -66,7 +66,7 @@ class Human extends Enemy {
     void draw(Canvas canvas, Paint paint) {
 
         //only change the sprite every 200 milliseconds instead of every single frame
-        if (System.currentTimeMillis() - timeLastDrawn > 200)
+        if (System.currentTimeMillis() - timeLastDrawn > 300)
         {
             int currentBitmapIndex = this.getSpriteSheet().indexOf(this.getObjectBitmap());
             int spriteSheetLength = this.getSpriteSheet().size();
@@ -77,6 +77,7 @@ class Human extends Enemy {
             Bitmap nextBitmap = this.getSpriteSheet().get((currentBitmapIndex + 1) % spriteSheetLength);
 
             this.setObjectBitmap(nextBitmap);
+            this.timeLastDrawn = System.currentTimeMillis();
         }
 
         canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
