@@ -27,6 +27,11 @@ public abstract  class Levels  {
 
                     objects= new ArrayList<>();
                      objects.add(background);
+                        for(startingEnemyCount=0; startingEnemyCount <10;startingEnemyCount++)
+                        {
+
+
+                        }
                         human = new Human(context, 40, 40, new ArrayList<Enemy.damageResistances>());
                         human2= new Human(context, 20, 20, new ArrayList<Enemy.damageResistances>());
                         objects.add(human);

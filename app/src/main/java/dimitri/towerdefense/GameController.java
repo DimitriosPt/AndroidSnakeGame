@@ -114,7 +114,7 @@ public class GameController extends SurfaceView implements Runnable {
 
             if (gs instanceof Human) {
 
-                gs.spawn(new Point(200, (int) (TowerDefense.getScreenSize().y * .60)));
+                gs.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
                 System.out.println(gs.getLocation());
             }
 
@@ -219,7 +219,7 @@ public class GameController extends SurfaceView implements Runnable {
                 mPlaying = false;
                 world.clear();
                 newGame();
-
+                level_counter++;
             }
 
         }
@@ -265,7 +265,6 @@ public class GameController extends SurfaceView implements Runnable {
                 if (mPaused) {
                     mPaused = false;
                     System.out.println("calling new game from on touch event");
-
                     //newGame();
 
                     return true;
