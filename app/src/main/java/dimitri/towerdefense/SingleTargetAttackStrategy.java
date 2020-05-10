@@ -19,7 +19,7 @@ class SingleTargetAttackStrategy implements AttackStrategy {
         }
     }
     @Override
-    public List<TowerProjectile> spawnProjectiles(PointF towerLocation) {
+    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, float range) {
 
         System.out.println("Spawning Single Target Projectiles");
         ArrayList<TowerProjectile> projectiles = new ArrayList<>();

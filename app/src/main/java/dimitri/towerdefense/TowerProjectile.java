@@ -9,12 +9,16 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.util.DisplayMetrics;
 
-public class TowerProjectile extends MoveableGameObject {
-    public TowerProjectile(int speed, int heading) {
+class TowerProjectile extends MoveableGameObject {
+    float maxRange;
+    private PointF initialSpawningLocation;
+    public TowerProjectile(int speed, int heading, float maxRange) {
         super(speed);
         this.setHeading(heading);
+        this.maxRange = maxRange;
         this.movementStrategy = new ProjectileMovementStrategy();
         double scaleFactor = .08;
+
 
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(
                 TowerDefense.getContext().getResources(), R.drawable.bad_apple);
@@ -29,8 +33,8 @@ public class TowerProjectile extends MoveableGameObject {
 
     @Override
     void spawn(PointF location) {
-
         this.setLocation(location);
+        this.initialSpawningLocation = new PointF(location.x, location.y);
     }
 
     @Override
@@ -39,4 +43,16 @@ public class TowerProjectile extends MoveableGameObject {
         canvas.drawBitmap(this.getObjectBitmap(), this.getLocation().x, this.getLocation().y, paint);
     }
 
+    float getDistanceTraveled()
+    {
+        float initialX = initialSpawningLocation.x;
+        float initialY = initialSpawningLocation.y;
+
+        float currentX = this.getLocation().x;
+        float currentY = this.getLocation().y;
+
+        float xDifference = initialX - currentX;
+        float yDifference = initialY - currentY;
+        return (float) Math.sqrt(xDifference * xDifference + yDifference * yDifference);
+    }
 }

@@ -206,7 +206,7 @@ public class GameController extends SurfaceView implements Runnable {
 
                     //add all projectiles created by the tower on attack to gameWorld
                     PointF projectileSpawnLocation = new PointF(tower.getLocation().x, tower.getLocation().y);
-                    for(TowerProjectile projectile : tower.attackStrategy.spawnProjectiles(projectileSpawnLocation) )
+                    for(TowerProjectile projectile : tower.attackStrategy.spawnProjectiles(projectileSpawnLocation, tower.getRange()) )
                     {
                         world.addGameObjectToList(projectile);
                     }
@@ -214,6 +214,14 @@ public class GameController extends SurfaceView implements Runnable {
                     for (Enemy enemy : world.getEnemies()) {
                         if (enemy.getCurrentHealth() <= 0) {
                             world.removeGameObjectFromList(enemy);
+                        }
+                    }
+
+                    for (TowerProjectile projectile : world.getProjectiles())
+                    {
+                        if(projectile.getDistanceTraveled() > projectile.maxRange)
+                        {
+                            world.removeGameObjectFromList(projectile);
                         }
                     }
                 }

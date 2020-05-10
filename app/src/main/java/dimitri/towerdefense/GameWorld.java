@@ -82,5 +82,16 @@ public class GameWorld  {
     }
 
 
+     List<TowerProjectile> getProjectiles() {
+        List<TowerProjectile> projectileList = new ArrayList<>();
+
+        for (GameObject object: gameObjectList) {
+            if(object instanceof TowerProjectile)
+            {
+                projectileList.add((TowerProjectile) object);
+            }
+        }
+        return projectileList;
+    }
 
 }
