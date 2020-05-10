@@ -11,7 +11,7 @@ import android.view.SurfaceView;
 
 import java.util.List;
 
-public class BasicAOETower extends Tower {
+public class BasicAOETower extends Tower  {
     AttackStrategy attackStrategy = new AreaOfEffectAttackStrategy();
     public BasicAOETower(){
         Context newContext = TowerDefense.getContext();

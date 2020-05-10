@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,11 +97,14 @@ public class GameController extends SurfaceView implements Runnable {
 
 
     // Called to start a new game
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void newGame() {
 
         mPlaying = true;
         levels = new Level1(level_counter);
-
+        System.out.println("===============new game =====================");
+        System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
+        System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
 
         Point screenSize = TowerDefense.getScreenSize();
 
@@ -148,6 +153,7 @@ public class GameController extends SurfaceView implements Runnable {
 
 
     // Handles the game loop
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void run() {
         while (mPlaying) {
@@ -189,6 +195,7 @@ public class GameController extends SurfaceView implements Runnable {
 
 
     // Update all the game objects
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void update() {
 
         if (mPlaying) {
@@ -265,6 +272,7 @@ public class GameController extends SurfaceView implements Runnable {
 
                     return true;
                 }
+
                 break;
 
             default: {
