@@ -1,3 +1,5 @@
+//Source for orc and human bitmaps here https://opengameart.org/content/knight-of-finlandia
+
 package dimitri.towerdefense;
 
 import android.content.Context;
