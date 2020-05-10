@@ -14,7 +14,7 @@ public class TowerProjectile extends MoveableGameObject {
         super(speed);
         this.setHeading(heading);
         this.movementStrategy = new ProjectileMovementStrategy();
-        double scaleFactor = .20;
+        double scaleFactor = .08;
 
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(
                 TowerDefense.getContext().getResources(), R.drawable.bad_apple);
@@ -23,6 +23,8 @@ public class TowerProjectile extends MoveableGameObject {
                 .createScaledBitmap(unscaledBitmap,
                         (int) (TowerDefense.getScreenSize().x * scaleFactor),
                         (int) (TowerDefense.getScreenSize().y * scaleFactor), false);
+
+        this.setObjectBitmap(scaledBitmap);
     }
 
     @Override

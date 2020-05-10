@@ -60,7 +60,11 @@ abstract class Tower extends StaticGameObject {
         return cost;
     }
 
-    abstract void attack(List<Enemy> enemies);
+    void attack(List<Enemy> enemies)
+    {
+        attackStrategy.attack(this, enemies);
+    }
+
 
     //determines if enough time has passed in milliseconds to allow the turret to attack again
     public boolean canAttack()

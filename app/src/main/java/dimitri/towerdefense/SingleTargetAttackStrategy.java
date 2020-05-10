@@ -1,5 +1,7 @@
 package dimitri.towerdefense;
 
+import android.graphics.PointF;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ class SingleTargetAttackStrategy implements AttackStrategy {
         }
     }
     @Override
-    public List<TowerProjectile> spawnProjectiles() {
+    public List<TowerProjectile> spawnProjectiles(PointF towerLocation) {
 
         System.out.println("Spawning Single Target Projectiles");
         ArrayList<TowerProjectile> projectiles = new ArrayList<>();

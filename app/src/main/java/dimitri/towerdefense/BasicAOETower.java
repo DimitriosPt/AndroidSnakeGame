@@ -33,11 +33,6 @@ public class BasicAOETower extends Tower  {
         this.setLocation(location);
     }
 
-    @Override
-    void attack(List<Enemy> enemies)
-    {
-        attackStrategy.attack(this, enemies);
-    }
 
     @Override
     void draw(Canvas canvas, Paint paint) {
