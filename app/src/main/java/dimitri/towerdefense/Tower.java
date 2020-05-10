@@ -13,10 +13,13 @@ abstract class Tower extends StaticGameObject {
     private long attackSpeed;
     private int cost;
     private long timeOfLastAttack;
+    public AttackStrategy attackStrategy;
 
     private enum damageType {
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
+
+
 
     public long getTimeOfLastAttack() {
         return timeOfLastAttack;

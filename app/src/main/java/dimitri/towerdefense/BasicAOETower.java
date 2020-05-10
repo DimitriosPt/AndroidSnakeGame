@@ -12,7 +12,6 @@ import android.view.SurfaceView;
 import java.util.List;
 
 public class BasicAOETower extends Tower  {
-    AttackStrategy attackStrategy = new AreaOfEffectAttackStrategy();
     public BasicAOETower(){
         Context newContext = TowerDefense.getContext();
         new BitmapFactory();
@@ -26,6 +25,7 @@ public class BasicAOETower extends Tower  {
         this.setRange(100);
         this.setDamage(3);
         this.setAttackSpeed(100);
+        this.attackStrategy = new AreaOfEffectAttackStrategy();
     }
 
     @Override

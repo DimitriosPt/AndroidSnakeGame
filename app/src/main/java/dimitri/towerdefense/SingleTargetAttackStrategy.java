@@ -1,5 +1,6 @@
 package dimitri.towerdefense;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class SingleTargetAttackStrategy implements AttackStrategy {
@@ -13,12 +14,13 @@ class SingleTargetAttackStrategy implements AttackStrategy {
                 tower.setTimeOfLastAttack(System.currentTimeMillis());
                 break;
             }
-
-
         }
     }
     @Override
-    public void drawProjectiles() {
+    public List<TowerProjectile> spawnProjectiles() {
 
+        System.out.println("Spawning Single Target Projectiles");
+        ArrayList<TowerProjectile> projectiles = new ArrayList<>();
+        return projectiles;
     }
 }

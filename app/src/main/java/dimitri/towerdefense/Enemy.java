@@ -17,7 +17,6 @@ public abstract class Enemy extends MoveableGameObject {
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
     private List<damageResistances> resistances;
-    public MovementStrategy movementStrategy;
     private int currentHealth=20;
     private int maxHealth;
     private ArrayList spriteSheet;

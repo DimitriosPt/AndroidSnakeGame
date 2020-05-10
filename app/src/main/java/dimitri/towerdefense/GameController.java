@@ -204,6 +204,12 @@ public class GameController extends SurfaceView implements Runnable {
 
                     tower.attack(world.getEnemies());
 
+                    //add all projectiles created by the tower on attack to gameWorld
+//                    for(TowerProjectile projectile : tower.attackStrategy.spawnProjectiles() )
+//                    {
+//                        world.addGameObjectToList(projectile);
+//                    }
+
                     for (Enemy enemy : world.getEnemies()) {
                         if (enemy.getCurrentHealth() <= 0) {
                             world.removeGameObjectFromList(enemy);
@@ -212,8 +218,12 @@ public class GameController extends SurfaceView implements Runnable {
                 }
             }
 
-            for (Enemy enemy : world.getEnemies()) {
-                enemy.movementStrategy.move(enemy);
+//            for (Enemy enemy : world.getEnemies()) {
+//                enemy.movementStrategy.move(enemy);
+//            }
+            for (MoveableGameObject moveableObject: world.getMoveableGameObjects())
+            {
+                moveableObject.movementStrategy.move(moveableObject);
             }
 
             //pause if all enemies in the wave are killed

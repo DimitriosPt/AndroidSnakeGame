@@ -60,7 +60,18 @@ public class GameWorld  {
         }
         return enemyList;
     }
+    List<MoveableGameObject> getMoveableGameObjects()
+    {
+        List<MoveableGameObject> moveableObjectList = new ArrayList<>();
 
+        for (GameObject object: gameObjectList) {
+            if(object instanceof MoveableGameObject)
+            {
+                moveableObjectList.add((MoveableGameObject) object);
+            }
+        }
+        return moveableObjectList;
+    }
     void clear(){
         this.gameObjectList.clear();
     }
