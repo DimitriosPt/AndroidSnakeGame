@@ -26,26 +26,15 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
 
         //the math for projectile movement converts the heading assumes the input is radians
         //so to make it clear we are spawning every 60 degrees we show it here
-        TowerProjectile projectile1 = new TowerProjectile(20, (int) Math.toRadians(0), range);
-        TowerProjectile projectile2 = new TowerProjectile(20, (int) Math.toRadians(60), range);
-        TowerProjectile projectile3 = new TowerProjectile(20, (int) Math.toRadians(120), range);
-        TowerProjectile projectile4 = new TowerProjectile(20, (int) Math.toRadians(180), range);
-        TowerProjectile projectile5 = new TowerProjectile(20, (int) Math.toRadians(240), range);
-        TowerProjectile projectile6 = new TowerProjectile(20, (int) Math.toRadians(300), range);
+        for (int i = 0; i < 6; i++) {
+            projectiles.add(new TowerProjectile(20, (int) Math.toRadians(60 * i), range));
+        }
 
-        projectile1.spawn(new PointF(towerLocation.x, towerLocation.y));
-        projectile2.spawn(new PointF(towerLocation.x, towerLocation.y));
-        projectile3.spawn(new PointF(towerLocation.x, towerLocation.y));
-        projectile4.spawn(new PointF(towerLocation.x, towerLocation.y));
-        projectile5.spawn(new PointF(towerLocation.x, towerLocation.y));
-        projectile6.spawn(new PointF(towerLocation.x, towerLocation.y));
+        for(TowerProjectile projectile : projectiles )
+        {
+            projectile.spawn(new PointF(towerLocation.x, towerLocation.y));
+        }
 
-        projectiles.add(projectile1);
-        projectiles.add(projectile2);
-        projectiles.add(projectile3);
-        projectiles.add(projectile4);
-        projectiles.add(projectile5);
-        projectiles.add(projectile6);
 
         return (List<TowerProjectile>) projectiles;
     }
