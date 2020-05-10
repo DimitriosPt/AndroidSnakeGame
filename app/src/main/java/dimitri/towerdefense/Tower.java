@@ -35,13 +35,7 @@ abstract class Tower extends StaticGameObject {
             double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
             double yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
             double distanceFromTowerToEnemy = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-            if (this.range >= distanceFromTowerToEnemy) {
-                return true;
-            }
-            else
-            {
-                return  false;
-            }
+            return(distanceFromTowerToEnemy <= this.range);
         }
 
     public int getRange() {
@@ -81,9 +75,8 @@ abstract class Tower extends StaticGameObject {
             if(distanceFromTowerToEnemy < distanceToClosestEnemy)
             {
                 distanceToClosestEnemy = distanceFromTowerToEnemy;
+                closestEnemy = enemy;
             }
-
-            closestEnemy = enemy;
         }
 
         return closestEnemy;
