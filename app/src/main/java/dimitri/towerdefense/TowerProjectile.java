@@ -30,8 +30,6 @@ public class TowerProjectile extends MoveableGameObject {
     @Override
     void spawn(PointF location) {
 
-        this.setHeading(EAST);
-        // Start with a single snake segment
         this.setLocation(location);
     }
 
