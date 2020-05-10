@@ -39,15 +39,26 @@ public abstract class Levels {
         background = new Background();
         objects = new ArrayList<>();
         objects.add(background);
-            for (startingEnemyCount = 0; startingEnemyCount < 10; startingEnemyCount++) {
-                randomNum = ThreadLocalRandom.current().nextInt(2, 41);
-                objects.add(enemyBuilder.Location(new Point(0, 600)).
-                        EnemyType("Human").EnemyHP(40)
-                        .Speed(randomNum)
-                        .EnemyResistances(resistance).
-                        MovementStrategy(movementStrategy)
-                        .build());
-            }
+
+        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
+            randomNum = ThreadLocalRandom.current().nextInt(2, 41);
+            objects.add(enemyBuilder.Location(new Point(0, 600)).
+                    EnemyType("Human").EnemyHP(40)
+                    .Speed(randomNum)
+                    .EnemyResistances(resistance).
+                    MovementStrategy(movementStrategy)
+                    .build());
+        }
+
+        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
+            randomNum = ThreadLocalRandom.current().nextInt(2, 41);
+            objects.add(enemyBuilder.Location(new Point(0, 600)).
+                    EnemyType("Orc").EnemyHP(40)
+                    .Speed(randomNum)
+                    .EnemyResistances(resistance).
+                            MovementStrategy(movementStrategy)
+                    .build());
+        }
         //objects.add(bgt);
         objects.add(bat);
     }
