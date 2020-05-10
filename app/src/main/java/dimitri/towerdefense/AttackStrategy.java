@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AttackStrategy {
     public void attack(Tower tower, List<Enemy> enemies);
-    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, float range);
+    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, double heading, float range);
 
 }

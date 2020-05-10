@@ -65,7 +65,39 @@ abstract class Tower extends StaticGameObject {
         attackStrategy.attack(this, enemies);
     }
 
+    public Enemy getNearestEnemy(List<Enemy> enemies)
+    {
+        Enemy closestEnemy = enemies.get(0);
+        double xDistance = (double) (this.getLocation().x - closestEnemy.getLocation().x);
+        double yDistance = (double) (this.getLocation().y - closestEnemy.getLocation().y);
+        double distanceToClosestEnemy = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 
+        for(Enemy enemy : enemies)
+        {
+            xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
+            yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
+            double distanceFromTowerToEnemy = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+
+            if(distanceFromTowerToEnemy < distanceToClosestEnemy)
+            {
+                distanceToClosestEnemy = distanceFromTowerToEnemy;
+            }
+
+            closestEnemy = enemy;
+        }
+
+        return closestEnemy;
+    }
+
+    //returns angle to the nearest enemy in radians
+    public double getDirectionToNearestEnemy(Enemy enemy)
+    {
+        double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
+        double yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
+        double angleBetweenTurretAndEnemy =
+                Math.atan(Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2)));
+        return Math.toRadians(angleBetweenTurretAndEnemy);
+    }
     //determines if enough time has passed in milliseconds to allow the turret to attack again
     public boolean canAttack()
     {

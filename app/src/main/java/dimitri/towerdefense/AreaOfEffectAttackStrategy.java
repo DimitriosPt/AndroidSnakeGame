@@ -9,8 +9,6 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
     @Override
     public void attack(Tower tower, List<Enemy> enemies) {
 
-        spawnProjectiles(tower.getLocation(), tower.getRange());
-
         for(Enemy enemy:enemies) {
 
             if (tower.isInRange(enemy))
@@ -22,7 +20,7 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
     }
 
     @Override
-    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, float range){
+    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, double heading, float range){
         System.out.println("Spawning AOE Projectiles");
         List<TowerProjectile> projectiles = new ArrayList<TowerProjectile>();
 

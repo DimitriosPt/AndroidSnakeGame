@@ -19,10 +19,19 @@ class SingleTargetAttackStrategy implements AttackStrategy {
         }
     }
     @Override
-    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, float range) {
+    public List<TowerProjectile> spawnProjectiles(PointF towerLocation, double heading, float range) {
+        List<TowerProjectile> projectiles = new ArrayList<TowerProjectile>();
 
-        System.out.println("Spawning Single Target Projectiles");
-        ArrayList<TowerProjectile> projectiles = new ArrayList<>();
-        return projectiles;
+        //the math for projectile movement converts the heading assumes the input is radians
+        //so to make it clear we are spawning every 60 degrees we show it here
+        TowerProjectile projectile= new TowerProjectile(20, (int) Math.toRadians(0), range);
+
+        projectile.spawn(new PointF(towerLocation.x, towerLocation.y));
+
+        projectiles.add(projectile);
+
+
+
+        return (List<TowerProjectile>) projectiles;
     }
 }

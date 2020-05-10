@@ -202,14 +202,22 @@ public class GameController extends SurfaceView implements Runnable {
             for (Tower tower : world.getTowers()) {
                 if (tower.canAttack()) {
 
-                    tower.attack(world.getEnemies());
-
-                    //add all projectiles created by the tower on attack to gameWorld
-                    PointF projectileSpawnLocation = new PointF(tower.getLocation().x, tower.getLocation().y);
-                    for(TowerProjectile projectile : tower.attackStrategy.spawnProjectiles(projectileSpawnLocation, tower.getRange()) )
+                    Enemy nearestEnemy = tower.getNearestEnemy(world.getEnemies());
+                    //if the closest enemy on the board is in range, then and only then do you
+                    //bother attacking and spawning all the projectiles
+                    if (tower.isInRange(nearestEnemy))
                     {
-                        world.addGameObjectToList(projectile);
+                        tower.attack(world.getEnemies());
+
+                        //add all projectiles created by the tower on attack to gameWorld
+                        PointF projectileSpawnLocation = new PointF(tower.getLocation().x, tower.getLocation().y);
+
+                        for(TowerProjectile projectile : tower.attackStrategy.spawnProjectiles(projectileSpawnLocation, tower.getDirectionToNearestEnemy(nearestEnemy), tower.getRange()) )
+                        {
+                            world.addGameObjectToList(projectile);
+                        }
                     }
+
 
                     for (Enemy enemy : world.getEnemies()) {
                         if (enemy.getCurrentHealth() <= 0) {
