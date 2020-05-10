@@ -22,7 +22,7 @@ public class BasicAOETower extends Tower  {
         this.setObjectBitmap(scaledBitmap);
 
         this.setLocation(new PointF(100,50));
-        this.setRange(100);
+        this.setRange(600);
         this.setDamage(3);
         this.setAttackSpeed(700);
         this.attackStrategy = new AreaOfEffectAttackStrategy();
