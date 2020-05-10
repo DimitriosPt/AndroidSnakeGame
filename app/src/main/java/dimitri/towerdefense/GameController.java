@@ -210,9 +210,13 @@ public class GameController extends SurfaceView implements Runnable {
                         tower.attack(world.getEnemies());
 
                         //add all projectiles created by the tower on attack to gameWorld
-                        PointF projectileSpawnLocation = new PointF(tower.getLocation().x, tower.getLocation().y);
+                        PointF projectileSpawnLocation =
+                                new PointF(tower.getLocation().x, tower.getLocation().y);
 
-                        for(TowerProjectile projectile : tower.attackStrategy.spawnProjectiles(projectileSpawnLocation, tower.getDirectionToNearestEnemy(nearestEnemy), tower.getRange()) )
+                        for(TowerProjectile projectile :
+                                tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
+                                        tower.getDirectionToNearestEnemy(nearestEnemy),
+                                        tower.getRange()) )
                         {
                             world.addGameObjectToList(projectile);
                         }

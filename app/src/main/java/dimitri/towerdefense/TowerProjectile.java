@@ -10,8 +10,10 @@ import android.graphics.PointF;
 import android.util.DisplayMetrics;
 
 class TowerProjectile extends MoveableGameObject {
+
     float maxRange;
     private PointF initialSpawningLocation;
+
     public TowerProjectile(int speed, int heading, float maxRange) {
         super(speed);
         this.setHeading(heading);

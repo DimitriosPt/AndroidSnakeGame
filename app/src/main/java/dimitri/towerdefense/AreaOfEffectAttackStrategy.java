@@ -35,7 +35,6 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
             projectile.spawn(new PointF(towerLocation.x, towerLocation.y));
         }
 
-
         return (List<TowerProjectile>) projectiles;
     }
 }
