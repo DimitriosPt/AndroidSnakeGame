@@ -21,7 +21,7 @@ class SingleTargetAttackStrategy implements AttackStrategy {
                 projectiles = spawnProjectiles(
                         tower.getLocation(),
                         tower.getDirectionToNearestEnemy(tower.getNearestEnemy(enemies)),
-                        tower.getRange(), "iceball");
+                        tower.getDistanceFrom(tower.getNearestEnemy(enemies)), "iceball");
                 break;
             }
         }
@@ -35,7 +35,7 @@ class SingleTargetAttackStrategy implements AttackStrategy {
 
         //the math for projectile movement converts the heading assumes the input is radians
         //so to make it clear we are spawning every 60 degrees we show it here
-        TowerProjectile projectile= new TowerProjectile(20, (int)heading, range, bitmapName);
+        TowerProjectile projectile= new TowerProjectile(80, (int)heading, range, bitmapName);
 
         projectile.spawn(new PointF(towerLocation.x, towerLocation.y));
 
