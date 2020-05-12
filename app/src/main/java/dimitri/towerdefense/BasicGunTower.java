@@ -28,9 +28,9 @@ public class BasicGunTower extends Tower {
     }
 
     @Override
-    void attack(List<Enemy> enemies)
+    List<TowerProjectile> attack(List<Enemy> enemies)
     {
-        attackStrategy.attack(this, enemies);
+        return attackStrategy.attack(this, enemies);
     }
 
     @Override

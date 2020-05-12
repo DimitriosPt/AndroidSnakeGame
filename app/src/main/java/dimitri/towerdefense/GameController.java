@@ -90,7 +90,7 @@ public class GameController extends SurfaceView implements Runnable {
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
         //background=new Background();
-       // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
+        // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         //basicAOETower= new BasicAOETower();
         //basicGunTower = new BasicGunTower();
     }
@@ -190,56 +190,29 @@ public class GameController extends SurfaceView implements Runnable {
                     //if the closest enemy on the board is in range, then and only then do you
                     //bother attacking and spawning all the projectiles
                     List<TowerProjectile> spawnedProjectiles = new ArrayList<>();
-                    if (tower.isInRange(nearestEnemy))
-                    {
-                        tower.attack(world.getEnemies());
 
+                    spawnedProjectiles = tower.attack(world.getEnemies());
 
-                        PointF projectileSpawnLocation =
-                                new PointF(tower.getLocation().x, tower.getLocation().y);
-
-                        //determine what headings to assign to the projectiles
-                        if(tower.attackStrategy instanceof AreaOfEffectAttackStrategy) {
-
-                            spawnedProjectiles =
-                                    tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
-                                            0, tower.getRange());
-                        }
-
-                        //single target projectiles are aimed at the nearest enemy
-                        if(tower.attackStrategy instanceof SingleTargetAttackStrategy){
-                          spawnedProjectiles = tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
-                                  tower.getDirectionToNearestEnemy(nearestEnemy),
-                                  tower.getRange());
-                        }
-
-                        //add all projectiles created by the tower on attack to gameWorld
-
-                        for(TowerProjectile projectile : spawnedProjectiles)
-                        {
-                            world.addGameObjectToList(projectile);
-                        }
-                    }
-
-
-                    for (Enemy enemy : world.getEnemies()) {
-                        if (enemy.getCurrentHealth() <= 0) {
-                            world.removeGameObjectFromList(enemy);
-                        }
-                    }
-
-                    for (TowerProjectile projectile : world.getProjectiles())
-                    {
-                        if(projectile.getDistanceTraveled() > projectile.maxRange)
-                        {
-                            world.removeGameObjectFromList(projectile);
-                        }
+                    for (TowerProjectile projectile : spawnedProjectiles) {
+                        world.addGameObjectToList(projectile);
                     }
                 }
             }
 
-            for (MoveableGameObject moveableObject: world.getMoveableGameObjects())
-            {
+            for (Enemy enemy : world.getEnemies()) {
+                if (enemy.getCurrentHealth() <= 0) {
+                    world.removeGameObjectFromList(enemy);
+                }
+            }
+
+            for (TowerProjectile projectile : world.getProjectiles()) {
+                if (projectile.getDistanceTraveled() > projectile.maxRange) {
+                    world.removeGameObjectFromList(projectile);
+                }
+            }
+
+
+            for (MoveableGameObject moveableObject : world.getMoveableGameObjects()) {
                 moveableObject.movementStrategy.move(moveableObject);
             }
 
@@ -253,8 +226,8 @@ public class GameController extends SurfaceView implements Runnable {
             }
 
         }
-
     }
+
 
     // Do all the drawing
     public void draw() {
@@ -316,7 +289,7 @@ public class GameController extends SurfaceView implements Runnable {
         }
     }
 
-        // Start the thread
+    // Start the thread
     public void resume() {
         System.out.println("calling resume");
         mPlaying = true;

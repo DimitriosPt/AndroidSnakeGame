@@ -34,7 +34,7 @@ public abstract class Levels {
         resistance.add(Enemy.damageResistances.FIRE);
         movementStrategy= new LevelOneEnemyMovement();
         enemyBuilder = new EnemyBuilder();
-        //bgt = new BasicGunTower();
+        bgt = new BasicGunTower();
         bat = new BasicAOETower();
         background = new Background();
         objects = new ArrayList<>();
@@ -59,7 +59,7 @@ public abstract class Levels {
                             MovementStrategy(movementStrategy)
                     .build());
         }
-        //objects.add(bgt);
+        objects.add(bgt);
         objects.add(bat);
     }
 

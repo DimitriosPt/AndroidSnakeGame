@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
@@ -19,18 +20,23 @@ class TowerProjectile extends MoveableGameObject {
         this.setHeading(heading);
         this.maxRange = maxRange;
         this.movementStrategy = new ProjectileMovementStrategy();
-        double scaleFactor = .08;
+        double scaleFactor = .04;
 
 
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(
-                TowerDefense.getContext().getResources(), R.drawable.bad_apple);
+                TowerDefense.getContext().getResources(), R.drawable.arrow);
 
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         (int) (TowerDefense.getScreenSize().x * scaleFactor),
                         (int) (TowerDefense.getScreenSize().y * scaleFactor), false);
 
-        this.setObjectBitmap(scaledBitmap);
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(heading - 90);
+
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+        this.setObjectBitmap(rotatedBitmap);
     }
 
     @Override

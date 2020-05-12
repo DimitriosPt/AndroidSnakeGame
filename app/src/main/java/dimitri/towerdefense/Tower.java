@@ -54,9 +54,11 @@ abstract class Tower extends StaticGameObject {
         return cost;
     }
 
-    void attack(List<Enemy> enemies)
+    //attacking returns a list of projectiles that are spawned
+    //as well as dealing damage
+    List<TowerProjectile> attack(List<Enemy> enemies)
     {
-        attackStrategy.attack(this, enemies);
+        return attackStrategy.attack(this, enemies);
     }
 
     public Enemy getNearestEnemy(List<Enemy> enemies)
@@ -82,14 +84,14 @@ abstract class Tower extends StaticGameObject {
         return closestEnemy;
     }
 
-    //returns angle to the nearest enemy in radians
+    //returns angle to the nearest enemy in degrees
     public double getDirectionToNearestEnemy(Enemy enemy)
     {
         double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
         double yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
         double angleBetweenTurretAndEnemy =
-                Math.atan(Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2)));
-        return Math.toRadians(angleBetweenTurretAndEnemy);
+                Math.atan2(xDistance, yDistance);
+        return Math.toDegrees(angleBetweenTurretAndEnemy) + 70;
     }
     //determines if enough time has passed in milliseconds to allow the turret to attack again
     public boolean canAttack()

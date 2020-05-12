@@ -7,18 +7,21 @@ import java.util.List;
 
 public class AreaOfEffectAttackStrategy implements AttackStrategy {
     @Override
-    public void attack(Tower tower, List<Enemy> enemies) {
+
+    public List<TowerProjectile> attack(Tower tower, List<Enemy> enemies) {
 
         for(Enemy enemy:enemies) {
-
             if (tower.isInRange(enemy))
             {
+
                 enemy.setCurrentHealth(enemy.getCurrentHealth() - tower.getDamage());
             }
         }
-        tower.setTimeOfLastAttack(System.currentTimeMillis());
-    }
 
+        tower.setTimeOfLastAttack(System.currentTimeMillis());
+        return (ArrayList<TowerProjectile>) spawnProjectiles(tower.getLocation(),
+                0, tower.getRange());
+    }
     @Override
     public List<TowerProjectile> spawnProjectiles(PointF towerLocation, double heading, float range){
         System.out.println("Spawning AOE Projectiles");
