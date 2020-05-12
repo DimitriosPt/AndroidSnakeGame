@@ -1,7 +1,6 @@
 package dimitri.towerdefense;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,8 +8,6 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.media.SoundPool;
 import android.os.Build;
-import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -46,8 +43,8 @@ public class GameController extends SurfaceView implements Runnable {
     private Paint mPaint;
     private ArrayList<Enemy> enemies;
     private Human human;
-    private BasicAOETower basicAOETower;
-    private BasicGunTower basicGunTower;
+    private AreaOfEffectTurret areaOfEffectTurret;
+    private SingleTargetTurret singleTargetTurret;
     private Background background;
     private int level_counter = 0;
     // And an normal_apple
@@ -121,10 +118,10 @@ public class GameController extends SurfaceView implements Runnable {
 
             }
 
-            if (gameObject instanceof BasicGunTower) {
+            if (gameObject instanceof SingleTargetTurret) {
                 gameObject.spawn(new PointF(screenSize.x / 2, screenSize.y / 2));
             }
-            if (gameObject instanceof BasicAOETower) {
+            if (gameObject instanceof AreaOfEffectTurret) {
                 gameObject.spawn(new PointF(600, 112));
             }
         }

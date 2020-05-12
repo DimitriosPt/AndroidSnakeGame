@@ -11,8 +11,8 @@ import android.view.SurfaceView;
 
 import java.util.List;
 
-public class BasicAOETower extends Tower  {
-    public BasicAOETower(){
+public class AreaOfEffectTurret extends Tower  {
+    public AreaOfEffectTurret(){
         Context newContext = TowerDefense.getContext();
         new BitmapFactory();
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.basic_tower);
