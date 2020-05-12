@@ -9,7 +9,9 @@ public class ProjectileMovementStrategy implements MovementStrategy {
         PointF location = self.getLocation();
         int speed = self.getSpeed();
 
-        location.x += speed * Math.cos(self.getHeading());
-        location.y += speed * Math.sin(self.getHeading());
+        //headings are passed around as degrees to maintain their int nature
+        //converted to radians here in order to preserve precision
+        location.x += speed * Math.cos(Math.toRadians(self.getHeading()));
+        location.y += speed * Math.sin(Math.toRadians(self.getHeading()));
     }
 }
