@@ -88,10 +88,12 @@ abstract class Tower extends StaticGameObject {
     public double getDirectionToNearestEnemy(Enemy enemy)
     {
         double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
-        double yDistance = (double) (this.getLocation().y - enemy.getLocation().y);
+        double yDistance = (double) -1 * (this.getLocation().y - enemy.getLocation().y);
         double angleBetweenTurretAndEnemy =
                 Math.atan2(xDistance, yDistance);
-        return Math.toDegrees(angleBetweenTurretAndEnemy) + 70;
+        //the default equation seems to be off by exactly 90 degrees. I'm adding
+        //an extra 5 just to make the bolts line up with the enemies a little better
+        return Math.toDegrees(angleBetweenTurretAndEnemy) + 90 + 5;
     }
     //determines if enough time has passed in milliseconds to allow the turret to attack again
     public boolean canAttack()

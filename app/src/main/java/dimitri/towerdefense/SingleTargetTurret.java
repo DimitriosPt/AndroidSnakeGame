@@ -55,7 +55,6 @@ public class SingleTargetTurret extends Tower {
         float y_center = this.getLocation().x + ((float)this.getObjectBitmap().getHeight())/2;
         matrix.setRotate(this.heading,  x_center, y_center);
 
-
         Bitmap rotatedBitmap = Bitmap.createBitmap(
                 currentBitmap,
                 0,
