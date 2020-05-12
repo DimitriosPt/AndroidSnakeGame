@@ -15,16 +15,22 @@ class TowerProjectile extends MoveableGameObject {
     float maxRange;
     private PointF initialSpawningLocation;
 
-    public TowerProjectile(int speed, int heading, float maxRange) {
+    public TowerProjectile(int speed, int heading, float maxRange, String bitmapName) {
         super(speed);
         this.setHeading(heading);
         this.maxRange = maxRange;
         this.movementStrategy = new ProjectileMovementStrategy();
-        double scaleFactor = .04;
+        double scaleFactor = .07;
+
+
+        int bitmapID = TowerDefense.getContext().getResources().getIdentifier(
+                bitmapName,
+                "drawable",
+                TowerDefense.getContext().getPackageName());
 
 
         Bitmap unscaledBitmap = BitmapFactory.decodeResource(
-                TowerDefense.getContext().getResources(), R.drawable.arrow);
+                TowerDefense.getContext().getResources(), bitmapID);
 
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
@@ -33,7 +39,7 @@ class TowerProjectile extends MoveableGameObject {
 
         Matrix matrix = new Matrix();
 
-        matrix.postRotate(heading - 90);
+        matrix.postRotate(heading);
 
         Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
         this.setObjectBitmap(rotatedBitmap);
