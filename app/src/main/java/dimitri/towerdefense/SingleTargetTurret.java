@@ -12,7 +12,10 @@ import android.graphics.PointF;
 import java.util.List;
 
 public class SingleTargetTurret extends Tower {
+
+    //since single targets rotate, they need a heading
     float heading;
+
     AttackStrategy attackStrategy = new SingleTargetAttackStrategy();
     public SingleTargetTurret(){
         Context newContext = TowerDefense.getContext();
@@ -25,8 +28,8 @@ public class SingleTargetTurret extends Tower {
 
         this.setLocation(new PointF(100,50));
         this.setRange(800);
-        this.setDamage(10);
-        this.setAttackSpeed(400);
+        this.setDamage(1);
+        this.setAttackSpeed(100);
     }
 
     @Override
@@ -48,7 +51,10 @@ public class SingleTargetTurret extends Tower {
         //when the turret aims at an enemy
         Bitmap currentBitmap = this.getObjectBitmap();
         Matrix matrix = new Matrix();
-        matrix.postRotate(this.heading);
+        float x_center = this.getLocation().x + ((float)this.getObjectBitmap().getWidth())/2;
+        float y_center = this.getLocation().x + ((float)this.getObjectBitmap().getHeight())/2;
+        matrix.setRotate(this.heading,  x_center, y_center);
+
 
         Bitmap rotatedBitmap = Bitmap.createBitmap(
                 currentBitmap,
