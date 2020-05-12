@@ -129,22 +129,6 @@ public class GameController extends SurfaceView implements Runnable {
             }
         }
 
-
-
-        //world.addGameObjectToList(background);
-
-       // world.addGameObjectToList(gs1);
-        //System.out.printf("Human hp: %d", gs1.getCurrentHealth());
-       // world.addGameObjectToList(basicAOETower);
-        //world.addGameObjectToList(basicGunTower);
-
-
-        //background.spawn(new Point(0,0));
-        //gs1.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
-        //basicAOETower.spawn(new Point(600, 112));
-        //basicGunTower.spawn(new Point(screenSize.x /2, screenSize.y/2));
-
-        // Reset the mScore
         mScore = 0;
 
         // Setup mNextFrameTime so an update can triggered
@@ -205,18 +189,33 @@ public class GameController extends SurfaceView implements Runnable {
                     Enemy nearestEnemy = tower.getNearestEnemy(world.getEnemies());
                     //if the closest enemy on the board is in range, then and only then do you
                     //bother attacking and spawning all the projectiles
+                    List<TowerProjectile> spawnedProjectiles = new ArrayList<>();
                     if (tower.isInRange(nearestEnemy))
                     {
                         tower.attack(world.getEnemies());
 
-                        //add all projectiles created by the tower on attack to gameWorld
+
                         PointF projectileSpawnLocation =
                                 new PointF(tower.getLocation().x, tower.getLocation().y);
 
-                        for(TowerProjectile projectile :
-                                tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
-                                        tower.getDirectionToNearestEnemy(nearestEnemy),
-                                        tower.getRange()) )
+                        //determine what headings to assign to the projectiles
+                        if(tower.attackStrategy instanceof AreaOfEffectAttackStrategy) {
+
+                            spawnedProjectiles =
+                                    tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
+                                            0, tower.getRange());
+                        }
+
+                        //single target projectiles are aimed at the nearest enemy
+                        if(tower.attackStrategy instanceof SingleTargetAttackStrategy){
+                          spawnedProjectiles = tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
+                                  tower.getDirectionToNearestEnemy(nearestEnemy),
+                                  tower.getRange());
+                        }
+
+                        //add all projectiles created by the tower on attack to gameWorld
+
+                        for(TowerProjectile projectile : spawnedProjectiles)
                         {
                             world.addGameObjectToList(projectile);
                         }
