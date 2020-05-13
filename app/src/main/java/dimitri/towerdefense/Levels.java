@@ -19,6 +19,7 @@ public  class Levels {
     private int startingEnemyCount;
     private AreaOfEffectTurret bat;
     private SingleTargetTurret bgt;
+    private ConeTurret coneTurret;
     private MovementStrategy movementStrategy;
     private Background background;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -29,6 +30,7 @@ public  class Levels {
         enemyBuilder = new EnemyBuilder();
         bgt = new SingleTargetTurret();
         bat = new AreaOfEffectTurret();
+        coneTurret = new ConeTurret();
         objects = new ArrayList<>();
         background = new Background(level);
         objects.add(background);
@@ -53,6 +55,7 @@ public  class Levels {
         }
         objects.add(bgt);
         objects.add(bat);
+        objects.add(coneTurret);
     }
 
     public List<GameObject> getObjects() {

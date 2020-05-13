@@ -80,7 +80,6 @@ abstract class Tower extends StaticGameObject {
                 closestEnemy = enemy;
             }
         }
-
         return closestEnemy;
     }
 
