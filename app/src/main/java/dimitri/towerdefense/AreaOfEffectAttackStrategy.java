@@ -28,10 +28,9 @@ public class AreaOfEffectAttackStrategy implements AttackStrategy {
     public List<TowerProjectile> spawnProjectiles(PointF towerLocation, double heading, float range, String bitmapName){
         System.out.println("Spawning AOE Projectiles");
         List<TowerProjectile> projectiles = new ArrayList<TowerProjectile>();
+
         int numOfProjectilesPerBurst = 10;
 
-        //the math for projectile movement converts the heading assumes the input is radians
-        //so to make it clear we are spawning every 60 degrees we show it here
         for (int i = 0; i < numOfProjectilesPerBurst; i++) {
             projectiles.add(new TowerProjectile(20, 360/numOfProjectilesPerBurst * i, range, bitmapName));
         }

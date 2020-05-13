@@ -15,7 +15,7 @@ public class AreaOfEffectTurret extends Tower  {
     public AreaOfEffectTurret(){
         Context newContext = TowerDefense.getContext();
         new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.basic_tower);
+        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.aoeturret);
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         200, 200, false);

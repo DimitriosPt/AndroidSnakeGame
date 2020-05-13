@@ -54,8 +54,8 @@ public  class Levels {
                     .build());
         }
         objects.add(bgt);
-        objects.add(bat);
-        objects.add(coneTurret);
+//        objects.add(bat);
+//        objects.add(coneTurret);
     }
 
     public List<GameObject> getObjects() {

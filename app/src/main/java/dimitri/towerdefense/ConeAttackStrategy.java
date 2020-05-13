@@ -8,7 +8,7 @@ import java.util.List;
 class ConeAttackStrategy implements AttackStrategy {
 
     //changing this changes the size of the cone which this turret attacks in
-    int degreesInAttackCone = 60;
+    int degreesInAttackCone = 80;
 
     @Override
     public List<TowerProjectile> attack(Tower tower, List<Enemy> enemies) {
