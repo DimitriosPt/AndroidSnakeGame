@@ -19,7 +19,7 @@ public class ConeTurret extends Tower {
     public ConeTurret(){
         Context newContext = TowerDefense.getContext();
         new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.singletargetturret);
+        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.coneturret);
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         200, 200, false);
