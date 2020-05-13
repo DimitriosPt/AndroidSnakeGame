@@ -6,12 +6,13 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameWorld  {
-    private List<GameObject> gameObjectList;
+    private CopyOnWriteArrayList<GameObject> gameObjectList;
 
     GameWorld() {
-        gameObjectList = new ArrayList<>();
+        gameObjectList = new CopyOnWriteArrayList<>();
     }
 
     void draw(Canvas canvas, Paint paint)
@@ -25,7 +26,7 @@ public class GameWorld  {
         return gameObjectList;
     }
 
-    public void setGameObjectList(List<GameObject> gameObjectList) {
+    public void setGameObjectList(CopyOnWriteArrayList<GameObject> gameObjectList) {
         this.gameObjectList = gameObjectList;
 
     }
