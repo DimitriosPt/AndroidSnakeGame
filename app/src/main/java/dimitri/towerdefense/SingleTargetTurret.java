@@ -20,7 +20,7 @@ public class SingleTargetTurret extends Tower {
     public SingleTargetTurret(){
         Context newContext = TowerDefense.getContext();
         new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.singletargetturret);
+        Bitmap unscaledBitmap = BitmapFactory.decodeResource(newContext.getResources(), R.drawable.single_target);
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         200, 200, false);
