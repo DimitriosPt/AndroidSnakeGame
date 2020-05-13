@@ -8,13 +8,11 @@ import androidx.annotation.RequiresApi;
 
 import java.util.List;
 // ONLY ADDS BACKGROUND
-public class Level1 extends  Levels
+public class Level2 extends  Levels
 {
-    Background background;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public Level1(int level_counter)
+    public Level2(int level_counter)
     {
-
         super(level_counter);
     }
-    }
+}

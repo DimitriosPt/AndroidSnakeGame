@@ -42,14 +42,12 @@ public class GameController extends SurfaceView implements Runnable {
     private SurfaceHolder mSurfaceHolder;
     private Paint mPaint;
     private ArrayList<Enemy> enemies;
-    private Human human;
-    private AreaOfEffectTurret areaOfEffectTurret;
-    private SingleTargetTurret singleTargetTurret;
-    private Background background;
+   // private Human human;
+    //private AreaOfEffectTurret areaOfEffectTurret;
+    //private SingleTargetTurret singleTargetTurret;
+    //private Background background;
     private int level_counter = 0;
     // And an normal_apple
-    private GameObject gs1;
-    private int additionalApples = 0;
     public SoundContext soundContext;
     public Context mContext;
     public boolean muteGameSound = true;
@@ -98,7 +96,24 @@ public class GameController extends SurfaceView implements Runnable {
     public void newGame() {
 
         mPlaying = true;
-        levels = new Level1(level_counter);
+        switch (level_counter)
+        {
+            case 1:
+            {
+                levels = new Level1(level_counter);
+            }
+
+            case 2:
+            {
+                levels = new Level2(level_counter);
+            }
+
+            default:
+            {
+                levels = new Level1(level_counter);
+            }
+        }
+
         System.out.println("===============new game =====================");
         System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
         System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());

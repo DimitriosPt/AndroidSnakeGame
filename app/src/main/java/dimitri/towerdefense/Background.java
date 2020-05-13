@@ -8,10 +8,17 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 public class Background extends GameObject {
-    public Background() {
+    public Background(int level) {
         Point screenSize = TowerDefense.getScreenSize();
         BitmapFactory bitmap = new BitmapFactory();
-        Bitmap unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.background);
+        Bitmap unscaledBitmap;
+        if(level==0) {
+            unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.background);
+        }
+        else
+        {
+            unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.level2_background);
+        }
         Bitmap scaledBitmap = Bitmap
                 .createScaledBitmap(unscaledBitmap,
                         screenSize.x, screenSize.y, false);

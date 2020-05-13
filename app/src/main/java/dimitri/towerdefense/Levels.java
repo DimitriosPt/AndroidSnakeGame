@@ -16,26 +16,23 @@ public abstract class Levels {
     Context context = TowerDefense.getContext();
     private List<GameObject> objects;
     private EnemyBuilder enemyBuilder;
-    private Background background;
     private int startingEnemyCount;
     private AreaOfEffectTurret bat;
     private SingleTargetTurret bgt;
     private MovementStrategy movementStrategy;
-
+    private Background background;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Levels(int level) {
         int randomNum;
         ArrayList<Enemy.damageResistances> resistance = new ArrayList<Enemy.damageResistances>();
         resistance.add(Enemy.damageResistances.FIRE);
-        movementStrategy= new LevelOneEnemyMovement();
         enemyBuilder = new EnemyBuilder();
         bgt = new SingleTargetTurret();
         bat = new AreaOfEffectTurret();
-        background = new Background();
         objects = new ArrayList<>();
+        background = new Background(level);
         objects.add(background);
-
-        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
+        for (startingEnemyCount = 0; startingEnemyCount < 2; startingEnemyCount++) {
             randomNum = ThreadLocalRandom.current().nextInt(2, 41);
             objects.add(enemyBuilder.Location(new Point(0, 600)).
                     EnemyType("Human").EnemyHP(40)
@@ -45,7 +42,7 @@ public abstract class Levels {
                     .build());
         }
 
-        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
+        for (startingEnemyCount = 0; startingEnemyCount < 2; startingEnemyCount++) {
             randomNum = ThreadLocalRandom.current().nextInt(2, 41);
             objects.add(enemyBuilder.Location(new Point(0, 600)).
                     EnemyType("Orc").EnemyHP(40)
