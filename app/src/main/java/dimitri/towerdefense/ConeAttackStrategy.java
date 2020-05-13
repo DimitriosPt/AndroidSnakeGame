@@ -25,7 +25,7 @@ class ConeAttackStrategy implements AttackStrategy {
                 projectiles = spawnProjectiles(
                         tower.getLocation(),
                         directionToNearestTarget,
-                        tower.getDistanceFrom(tower.getNearestEnemy(enemies)), "iceball");
+                        tower.getDistanceFrom(tower.getNearestEnemy(enemies)), "poisonball");
 
                 coneTurret.heading = (float) directionToNearestTarget;
                 break;
