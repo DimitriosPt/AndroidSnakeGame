@@ -53,7 +53,7 @@ public  class Levels {
                             MovementStrategy(movementStrategy)
                     .build());
         }
-//        objects.add(bgt);
+        objects.add(bgt);
         objects.add(bat);
         objects.add(coneTurret);
     }
