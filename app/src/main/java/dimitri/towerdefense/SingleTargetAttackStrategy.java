@@ -18,7 +18,7 @@ class SingleTargetAttackStrategy implements AttackStrategy {
             if (tower.isInRange(enemy))
             {
                 double directionToNearestTarget =
-                        tower.getDirectionToNearestEnemy(tower.getNearestEnemy(enemies));
+                        tower.getDirectionToEnemy(tower.getNearestEnemy(enemies));
 
                 enemy.setCurrentHealth(enemy.getCurrentHealth() - tower.getDamage());
                 tower.setTimeOfLastAttack(System.currentTimeMillis());

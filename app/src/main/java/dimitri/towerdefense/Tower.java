@@ -84,7 +84,7 @@ abstract class Tower extends StaticGameObject {
     }
 
     //returns angle to the nearest enemy in degrees
-    public double getDirectionToNearestEnemy(Enemy enemy)
+    public double getDirectionToEnemy(Enemy enemy)
     {
         double xDistance = (double) (this.getLocation().x - enemy.getLocation().x);
         double yDistance = (double) -1 * (this.getLocation().y - enemy.getLocation().y);
