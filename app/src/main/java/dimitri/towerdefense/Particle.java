@@ -22,14 +22,11 @@ abstract class Particle extends MoveableGameObject {
         this.setObjectBitmap(scaledBitmap);
     }
 
-
-
     @Override
     void spawn(PointF location)
     {
 
     }
-
     @Override
     void draw(Canvas canvas, Paint paint)
     {

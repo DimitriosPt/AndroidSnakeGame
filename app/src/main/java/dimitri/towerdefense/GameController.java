@@ -19,6 +19,8 @@ import java.util.List;
 
 public class GameController extends SurfaceView implements Runnable {
 
+    boolean canTouchAOE = false;
+    boolean canTouchCone=false;
     // Objects for the game loop/thread
     private Thread mThread = null;
     // Control pausing between updates
@@ -42,7 +44,7 @@ public class GameController extends SurfaceView implements Runnable {
     private SurfaceHolder mSurfaceHolder;
     private Paint mPaint;
     private ArrayList<Enemy> enemies;
-   // private Human human;
+    // private Human human;
     //private AreaOfEffectTurret areaOfEffectTurret;
     //private SingleTargetTurret singleTargetTurret;
     //private Background background;
@@ -51,7 +53,7 @@ public class GameController extends SurfaceView implements Runnable {
     public SoundContext soundContext;
     public Context mContext;
     public boolean muteGameSound = true;
-
+    private HUD hud;
     private GameWorld world = new GameWorld();
     private Object GameObject;
 
@@ -88,6 +90,7 @@ public class GameController extends SurfaceView implements Runnable {
         // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         //basicAOETower= new BasicAOETower();
         //basicGunTower = new BasicGunTower();
+        hud = new HUD(TowerDefense.getScreenSize());
     }
 
 
@@ -96,7 +99,7 @@ public class GameController extends SurfaceView implements Runnable {
     public void newGame() {
 
         mPlaying = true;
-        levels= new Levels(level_counter);
+        levels = new Levels(level_counter);
         System.out.println("===============new game =====================");
         System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
         System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
@@ -123,6 +126,8 @@ public class GameController extends SurfaceView implements Runnable {
                 gameObject.spawn(new PointF(600, 112));
             }
         }
+
+        world.addGameObjectToList(hud);
 
         mScore = 0;
 
@@ -249,10 +254,11 @@ public class GameController extends SurfaceView implements Runnable {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: {
                 if (mPaused) {
                     mPaused = false;
 
@@ -262,33 +268,79 @@ public class GameController extends SurfaceView implements Runnable {
                 }
 
                 break;
-
-            default: {
-                System.out.println(motionEvent.getX());
-                System.out.println(motionEvent.getY());
             }
-            break;
 
+            case MotionEvent.ACTION_DOWN: {
+                if (hud.getControls().get(HUD.aoe).contains((int) (motionEvent.getX()), (int) motionEvent.getY()) ) {
+                    System.out.println("You are here");
+                    if (!canTouchAOE) {
+                        canTouchAOE = true;
+                        break;
+                    }
+                    };
+                if (canTouchAOE) {
+                    canTouchAOE = false;
+                    getWhichButtonPressed(motionEvent,HUD.aoe);
+                    break;
+                    }
+
+                if (hud.getControls().get(HUD.reset).contains((int) (motionEvent.getX()), (int) motionEvent.getY())) {
+                    if (!canTouchCone) {
+                        canTouchCone = true;
+                        break;
+                    }
+                }
+                    if (canTouchCone) {
+                        canTouchCone = false;
+                        getWhichButtonPressed(motionEvent,HUD.reset);
+                        break;
+                    }
+                }
+            }
+            return true;
         }
-        return true;
-    }
 
-
-    // Stop the thread
-    public void pause() {
-        mPlaying = false;
-        try {
-            mThread.join();
-        } catch (InterruptedException e) {
-            System.out.println("Error in pause");
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        public void getWhichButtonPressed(MotionEvent event, int turretType) {
+            AreaOfEffectTurret areaOfEffectTurret;
+            ConeTurret coneTurret;
+            int i = event.getActionIndex();
+            float x = event.getX(i);
+            float y = event.getY(i);
+            PointF p = new PointF(x, y);
+            System.out.println(hud.getControls().get(1).flattenToString());
+            int eventType = event.getAction() & MotionEvent.ACTION_MASK;
+            if (eventType == MotionEvent.ACTION_DOWN) {
+                if (turretType == HUD.aoe) {
+                    areaOfEffectTurret = new AreaOfEffectTurret();
+                    world.addGameObjectToList(areaOfEffectTurret);
+                    areaOfEffectTurret.spawn(p);
+                }
+                if(turretType == HUD.reset)
+                {
+                    coneTurret = new ConeTurret();
+                    world.addGameObjectToList(coneTurret);
+                    coneTurret.spawn(p);
+                }
+            }
         }
-    }
+// Stop the thread
+        public void pause () {
+            mPlaying = false;
+            try {
+                mThread.join();
+            } catch (InterruptedException e) {
+                System.out.println("Error in pause");
+            }
+        }
 
-    // Start the thread
-    public void resume() {
-        System.out.println("calling resume");
-        mPlaying = true;
-        mThread = new Thread(this);
-        mThread.start();
+// Start the thread
+        public void resume () {
+            System.out.println("calling resume");
+            mPlaying = true;
+            mThread = new Thread(this);
+            mThread.start();
+        }
+
+
     }
-}
