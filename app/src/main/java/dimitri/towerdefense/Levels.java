@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 // Will instantiate all of the objexts that are being passed in
 // Will also randomly choose which kind of enemy will get instaniated ONLY ADDS ENEMIES
-public abstract class Levels {
+public  class Levels {
     Context context = TowerDefense.getContext();
     private List<GameObject> objects;
     private EnemyBuilder enemyBuilder;

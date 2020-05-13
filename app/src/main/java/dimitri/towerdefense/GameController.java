@@ -96,24 +96,7 @@ public class GameController extends SurfaceView implements Runnable {
     public void newGame() {
 
         mPlaying = true;
-        switch (level_counter)
-        {
-            case 1:
-            {
-                levels = new Level1(level_counter);
-            }
-
-            case 2:
-            {
-                levels = new Level2(level_counter);
-            }
-
-            default:
-            {
-                levels = new Level1(level_counter);
-            }
-        }
-
+        levels= new Levels(level_counter);
         System.out.println("===============new game =====================");
         System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
         System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
