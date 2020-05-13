@@ -39,9 +39,12 @@ abstract class GameObject{
         this.size = size;
     }
 
-    void getDistanceFrom(GameObject object2)
+    float getDistanceFrom(GameObject object2)
     {
-
+        double xDistance = (double) (this.getLocation().x - object2.getLocation().x);
+        double yDistance = (double) (this.getLocation().y - object2.getLocation().y);
+        double distanceBetweenObjects = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+        return (float)distanceBetweenObjects;
     }
 
 

@@ -1,16 +1,11 @@
 package dimitri.towerdefense;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Build;
-import android.view.SurfaceView;
 
 import androidx.annotation.RequiresApi;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,8 +18,8 @@ public abstract class Levels {
     private EnemyBuilder enemyBuilder;
     private Background background;
     private int startingEnemyCount;
-    private BasicAOETower bat;
-    private BasicGunTower bgt;
+    private AreaOfEffectTurret bat;
+    private SingleTargetTurret bgt;
     private MovementStrategy movementStrategy;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -34,8 +29,8 @@ public abstract class Levels {
         resistance.add(Enemy.damageResistances.FIRE);
         movementStrategy= new LevelOneEnemyMovement();
         enemyBuilder = new EnemyBuilder();
-        //bgt = new BasicGunTower();
-        bat = new BasicAOETower();
+        bgt = new SingleTargetTurret();
+        bat = new AreaOfEffectTurret();
         background = new Background();
         objects = new ArrayList<>();
         objects.add(background);
@@ -59,7 +54,7 @@ public abstract class Levels {
                             MovementStrategy(movementStrategy)
                     .build());
         }
-        //objects.add(bgt);
+        objects.add(bgt);
         objects.add(bat);
     }
 

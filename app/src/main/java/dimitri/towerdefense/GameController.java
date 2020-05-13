@@ -1,7 +1,6 @@
 package dimitri.towerdefense;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,8 +8,6 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.media.SoundPool;
 import android.os.Build;
-import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -46,8 +43,8 @@ public class GameController extends SurfaceView implements Runnable {
     private Paint mPaint;
     private ArrayList<Enemy> enemies;
     private Human human;
-    private BasicAOETower basicAOETower;
-    private BasicGunTower basicGunTower;
+    private AreaOfEffectTurret areaOfEffectTurret;
+    private SingleTargetTurret singleTargetTurret;
     private Background background;
     private int level_counter = 0;
     // And an normal_apple
@@ -90,7 +87,7 @@ public class GameController extends SurfaceView implements Runnable {
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
         //background=new Background();
-       // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
+        // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         //basicAOETower= new BasicAOETower();
         //basicGunTower = new BasicGunTower();
     }
@@ -121,30 +118,14 @@ public class GameController extends SurfaceView implements Runnable {
 
             }
 
-            if (gameObject instanceof BasicGunTower) {
+            if (gameObject instanceof SingleTargetTurret) {
                 gameObject.spawn(new PointF(screenSize.x / 2, screenSize.y / 2));
             }
-            if (gameObject instanceof BasicAOETower) {
+            if (gameObject instanceof AreaOfEffectTurret) {
                 gameObject.spawn(new PointF(600, 112));
             }
         }
 
-
-
-        //world.addGameObjectToList(background);
-
-       // world.addGameObjectToList(gs1);
-        //System.out.printf("Human hp: %d", gs1.getCurrentHealth());
-       // world.addGameObjectToList(basicAOETower);
-        //world.addGameObjectToList(basicGunTower);
-
-
-        //background.spawn(new Point(0,0));
-        //gs1.spawn(new Point(0, (int) (TowerDefense.getScreenSize().y * .60)));
-        //basicAOETower.spawn(new Point(600, 112));
-        //basicGunTower.spawn(new Point(screenSize.x /2, screenSize.y/2));
-
-        // Reset the mScore
         mScore = 0;
 
         // Setup mNextFrameTime so an update can triggered
@@ -205,42 +186,30 @@ public class GameController extends SurfaceView implements Runnable {
                     Enemy nearestEnemy = tower.getNearestEnemy(world.getEnemies());
                     //if the closest enemy on the board is in range, then and only then do you
                     //bother attacking and spawning all the projectiles
-                    if (tower.isInRange(nearestEnemy))
-                    {
-                        tower.attack(world.getEnemies());
+                    List<TowerProjectile> spawnedProjectiles = new ArrayList<>();
 
-                        //add all projectiles created by the tower on attack to gameWorld
-                        PointF projectileSpawnLocation =
-                                new PointF(tower.getLocation().x, tower.getLocation().y);
+                    spawnedProjectiles = tower.attack(world.getEnemies());
 
-                        for(TowerProjectile projectile :
-                                tower.attackStrategy.spawnProjectiles(projectileSpawnLocation,
-                                        tower.getDirectionToNearestEnemy(nearestEnemy),
-                                        tower.getRange()) )
-                        {
-                            world.addGameObjectToList(projectile);
-                        }
-                    }
-
-
-                    for (Enemy enemy : world.getEnemies()) {
-                        if (enemy.getCurrentHealth() <= 0) {
-                            world.removeGameObjectFromList(enemy);
-                        }
-                    }
-
-                    for (TowerProjectile projectile : world.getProjectiles())
-                    {
-                        if(projectile.getDistanceTraveled() > projectile.maxRange)
-                        {
-                            world.removeGameObjectFromList(projectile);
-                        }
+                    for (TowerProjectile projectile : spawnedProjectiles) {
+                        world.addGameObjectToList(projectile);
                     }
                 }
             }
 
-            for (MoveableGameObject moveableObject: world.getMoveableGameObjects())
-            {
+            for (Enemy enemy : world.getEnemies()) {
+                if (enemy.getCurrentHealth() <= 0) {
+                    world.removeGameObjectFromList(enemy);
+                }
+            }
+
+            for (TowerProjectile projectile : world.getProjectiles()) {
+                if (projectile.getDistanceTraveled() > projectile.maxRange) {
+                    world.removeGameObjectFromList(projectile);
+                }
+            }
+
+
+            for (MoveableGameObject moveableObject : world.getMoveableGameObjects()) {
                 moveableObject.movementStrategy.move(moveableObject);
             }
 
@@ -254,8 +223,8 @@ public class GameController extends SurfaceView implements Runnable {
             }
 
         }
-
     }
+
 
     // Do all the drawing
     public void draw() {
@@ -317,7 +286,7 @@ public class GameController extends SurfaceView implements Runnable {
         }
     }
 
-        // Start the thread
+    // Start the thread
     public void resume() {
         System.out.println("calling resume");
         mPlaying = true;
