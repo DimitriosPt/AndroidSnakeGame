@@ -94,11 +94,13 @@ public class HUD extends GameObject {
 
     @Override
     void draw(Canvas canvas, Paint paint) {
-        paint.setColor(Color.argb(100, 255, 255, 255));
+       paint.setColor(Color.argb(100, 255, 255, 255));
         for (Rect r : controls) {
             canvas.drawRect(r.left, r.top, r.right, r.bottom, paint);
 
         }
+
+        paint.setColor(Color.argb(255, 255, 255, 255));
     }
 
 }
