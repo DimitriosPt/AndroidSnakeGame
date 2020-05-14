@@ -26,6 +26,7 @@ public class SingleTargetTurret extends Tower {
                         200, 200, false);
         this.setObjectBitmap(scaledBitmap);
 
+
         this.setLocation(new PointF(100,50));
         this.setRange(800);
         this.setDamage(1);

@@ -20,6 +20,7 @@ public  class Levels {
     private AreaOfEffectTurret bat;
     private SingleTargetTurret bgt;
     private ConeTurret coneTurret;
+    private Base base;
     private MovementStrategy movementStrategy;
     private Background background;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -27,6 +28,7 @@ public  class Levels {
         int randomNum;
         ArrayList<Enemy.damageResistances> resistance = new ArrayList<Enemy.damageResistances>();
         resistance.add(Enemy.damageResistances.FIRE);
+        base=new Base();
         enemyBuilder = new EnemyBuilder();
         bgt = new SingleTargetTurret();
         bat = new AreaOfEffectTurret();
@@ -34,6 +36,7 @@ public  class Levels {
         objects = new ArrayList<>();
         background = new Background(level);
         objects.add(background);
+        objects.add(base);
         for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
             randomNum = ThreadLocalRandom.current().nextInt(2, 41);
             objects.add(enemyBuilder.Location(new Point(0, 600)).
@@ -44,7 +47,7 @@ public  class Levels {
                     .build());
         }
 
-        for (startingEnemyCount = 0; startingEnemyCount < 20; startingEnemyCount++) {
+        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
             randomNum = ThreadLocalRandom.current().nextInt(2, 41);
             objects.add(enemyBuilder.Location(new Point(0, 600)).
                     EnemyType("Orc").EnemyHP(40)
@@ -53,7 +56,7 @@ public  class Levels {
                             MovementStrategy(movementStrategy)
                     .build());
         }
-        objects.add(bgt);
+       // objects.add(bgt);
 //        objects.add(bat);
 //        objects.add(coneTurret);
     }

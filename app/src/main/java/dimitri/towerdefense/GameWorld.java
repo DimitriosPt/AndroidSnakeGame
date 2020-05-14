@@ -21,7 +21,22 @@ public class GameWorld  {
 
             gameObject.draw(canvas, paint);
         }
+       // canvas.drawText("Some Text", 20, 120, paint);
+
     }
+
+    void draw(Canvas canvas, Paint paint, GameController controller)
+    {
+
+        for (GameObject gameObject:gameObjectList) {
+
+            gameObject.draw(canvas, paint);
+        }
+         canvas.drawText("Score: " + controller.getscore(), 40, 120, paint);
+         canvas.drawText("Lives: " + controller.getLives(), 1300, 120, paint);
+
+    }
+
     List<GameObject> getGameObjectList() {
         return gameObjectList;
     }

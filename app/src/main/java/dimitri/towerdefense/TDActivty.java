@@ -4,11 +4,13 @@ package dimitri.towerdefense;
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.ContactsContract;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 public class TDActivty extends Activity {
@@ -28,10 +30,8 @@ public class TDActivty extends Activity {
         // Initialize the result into a Point object
         Point size = new Point();
         display.getSize(size);
-
         // Create a new instance of the SnakeEngine class
         towerDefenseGame = new GameController(size);
-
 
         // Make snakeEngine the view of the Activity
 

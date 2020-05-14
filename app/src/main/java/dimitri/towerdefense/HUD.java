@@ -46,6 +46,9 @@ public class HUD extends GameObject {
 
         Rect AOE = new Rect((buttonLength),
                 screenHeight - (int)(1.9*buttonHeight ), (int)(5*buttonLength), (int) (screenHeight - buttonHeight));
+
+        Rect Single = new Rect(
+                (12*buttonLength), screenHeight - (int)(1.9*buttonHeight ), (int)(16*buttonLength), (int) (screenHeight - buttonHeight));
 /*
         Rect AOE = new Rect( (buttonLength),
                 screenHeight - (2*buttonHeight),
@@ -61,9 +64,10 @@ public class HUD extends GameObject {
                 buttonLength + buttonHeight);
 */
 
-        controls = new ArrayList<>();
+        controls = new ArrayList<Rect>();
         controls.add(0,RESET);
         controls.add(1,AOE);
+        controls.add(2,Single);
 
 
     }
@@ -74,10 +78,29 @@ public class HUD extends GameObject {
         p.setTextSize(textFormatting);
     }*/
 
-    private void drawControls(Canvas c, Paint p) {
-        p.setColor(Color.argb(100, 255, 255, 255));
+     void draw(Canvas c, Paint p) {
+
         for (Rect r : controls) {
-            c.drawRect(r.left, r.top, r.right, r.bottom, p);
+            if(r.centerX() < (TowerDefense.getScreenSize().x/3))
+            {
+                p.setColor(Color.argb(100, 255, 0, 0));
+                c.drawRect(r.left, r.top, r.right, r.bottom, p);
+            }
+            else if (r.centerX() > (TowerDefense.getScreenSize().x/3) && r.centerX() < ((2*TowerDefense.getScreenSize().x)/3))
+            {
+                p.setColor(Color.argb(100, 0, 0, 255));
+                c.drawRect(r.left, r.top, r.right, r.bottom, p);
+            }
+
+            else if (r.centerX() < (TowerDefense.getScreenSize().x))
+            {
+                p.setColor(Color.argb(100, 0, 255, 0));
+                c.drawRect(r.left, r.top, r.right, r.bottom, p);
+            }
+
+            p.setColor(Color.argb(255, 255, 255, 255));
+
+
         }
 // Set the colors back
         p.setColor(Color.argb(255, 255, 255, 255));
@@ -91,10 +114,10 @@ public class HUD extends GameObject {
     void spawn(PointF location) {
 
     }
-
+/*
     @Override
     void draw(Canvas canvas, Paint paint) {
-       paint.setColor(Color.argb(100, 255, 255, 255));
+
         for (Rect r : controls) {
             canvas.drawRect(r.left, r.top, r.right, r.bottom, paint);
 
@@ -102,5 +125,5 @@ public class HUD extends GameObject {
 
         paint.setColor(Color.argb(255, 255, 255, 255));
     }
-
+*/
 }

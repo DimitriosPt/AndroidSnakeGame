@@ -8,9 +8,11 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.media.SoundPool;
 import android.os.Build;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -56,7 +58,7 @@ public class GameController extends SurfaceView implements Runnable {
     private HUD hud;
     private GameWorld world = new GameWorld();
     private Object GameObject;
-
+    private int Lives=10;
 
     // This is the constructor method that gets called
     // from SnakeActivity
@@ -103,7 +105,6 @@ public class GameController extends SurfaceView implements Runnable {
         System.out.println("===============new game =====================");
         System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
         System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
-
         Point screenSize = TowerDefense.getScreenSize();
 
 
@@ -126,7 +127,7 @@ public class GameController extends SurfaceView implements Runnable {
                 gameObject.spawn(new PointF(600, 112));
             }
         }
-
+        System.out.println("You are here");
         world.addGameObjectToList(hud);
 
         mScore = 0;
@@ -181,6 +182,7 @@ public class GameController extends SurfaceView implements Runnable {
     // Update all the game objects
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void update() {
+        Canvas canvas = new Canvas();
 
         if (mPlaying) {
             for (Tower tower : world.getTowers()) {
@@ -201,6 +203,13 @@ public class GameController extends SurfaceView implements Runnable {
 
             for (Enemy enemy : world.getEnemies()) {
                 if (enemy.getCurrentHealth() <= 0) {
+                    mScore = mScore +20;
+                    world.removeGameObjectFromList(enemy);
+                }
+
+               else if(enemy.getLocation().x > 1500)
+                {
+                    Lives--;
                     world.removeGameObjectFromList(enemy);
                 }
             }
@@ -216,15 +225,21 @@ public class GameController extends SurfaceView implements Runnable {
                 moveableObject.movementStrategy.move(moveableObject);
             }
 
+            if (this.Lives == 0 )
+            {
+                mPlaying = false;
+                this.Lives=10;
+                world.clear();
+                newGame();
+            }
             //pause if all enemies in the wave are killed
-            if (world.getEnemies().isEmpty()) {
+            if (world.getEnemies().isEmpty() && this.Lives != 0) {
 
                 mPlaying = false;
                 world.clear();
                 newGame();
                 level_counter++;
             }
-
         }
     }
 
@@ -232,10 +247,11 @@ public class GameController extends SurfaceView implements Runnable {
     // Do all the drawing
     public void draw() {
         // Get a lock on the mCanvas
+
         if (mSurfaceHolder.getSurface().isValid()) {
             // Objects for drawing
 
-            Canvas mCanvas = mSurfaceHolder.lockCanvas();
+           Canvas mCanvas = mSurfaceHolder.lockCanvas();
 
             // Fill the screen with a color
             mCanvas.drawColor(Color.argb(255, 26, 128, 182));
@@ -244,15 +260,16 @@ public class GameController extends SurfaceView implements Runnable {
             mPaint.setColor(Color.argb(255, 255, 255, 255));
             mPaint.setTextSize(120);
 
-            // Draw the score
-            mCanvas.drawText("" + mScore, 20, 120, mPaint);
+            mCanvas.drawText("Click to play!", 400, 700, mPaint);
 
-            world.draw(mCanvas, mPaint);
+            world.draw(mCanvas, mPaint,this);
 
             // Unlock the mCanvas and reveal the graphics for this frame
             mSurfaceHolder.unlockCanvasAndPost(mCanvas);
+
         }
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -271,6 +288,7 @@ public class GameController extends SurfaceView implements Runnable {
             }
 
             case MotionEvent.ACTION_DOWN: {
+                System.out.println(motionEvent.getX());
                 if (hud.getControls().get(HUD.aoe).contains((int) (motionEvent.getX()), (int) motionEvent.getY()) ) {
                     System.out.println("You are here");
                     if (!canTouchAOE) {
@@ -323,6 +341,16 @@ public class GameController extends SurfaceView implements Runnable {
                     coneTurret.spawn(p);
                 }
             }
+        }
+
+        public String getscore()
+        {
+            return  Integer.toString(mScore);
+        }
+
+        public String getLives()
+        {
+            return  Integer.toString(Lives);
         }
 // Stop the thread
         public void pause () {
