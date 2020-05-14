@@ -116,7 +116,7 @@ public class GameController extends SurfaceView implements Runnable {
 
             if (gameObject instanceof Enemy) {
 
-                gameObject.spawn(new PointF(0, (int) (TowerDefense.getScreenSize().y * .60)));
+                gameObject.spawn(new PointF(-350, (int) (TowerDefense.getScreenSize().y * .60)));
 
             }
 
@@ -368,6 +368,11 @@ public class GameController extends SurfaceView implements Runnable {
         public String getscore()
         {
             return  Integer.toString(mScore);
+        }
+
+        public String getLevel()
+        {
+            return Integer.toString(level_counter-1);
         }
 
         public String getLives()

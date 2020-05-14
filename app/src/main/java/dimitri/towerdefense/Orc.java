@@ -42,7 +42,7 @@ class Orc extends Enemy {
         }
         //set starting bitmap to first thing in sprite sheet
         this.setObjectBitmap(this.getSpriteSheet().get(0));
-        this.setLocation(new PointF(-5000, 0));
+        this.setLocation(new PointF(-500, 0));
         this.movementStrategy = new LevelOneEnemyMovement();
     }
 }

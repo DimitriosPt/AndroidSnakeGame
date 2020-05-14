@@ -17,12 +17,13 @@ public class GameWorld  {
 
     void draw(Canvas canvas, Paint paint)
     {
+        /*
         for (GameObject gameObject:gameObjectList) {
 
             gameObject.draw(canvas, paint);
         }
        // canvas.drawText("Some Text", 20, 120, paint);
-
+    */
     }
 
     void draw(Canvas canvas, Paint paint, GameController controller)
@@ -34,7 +35,7 @@ public class GameWorld  {
         }
          canvas.drawText("Score: " + controller.getscore(), 40, 120, paint);
          canvas.drawText("Lives: " + controller.getLives(), 1300, 120, paint);
-
+        canvas.drawText("Levels: " + controller.getLevel(), 700, 120, paint);
     }
 
     List<GameObject> getGameObjectList() {
