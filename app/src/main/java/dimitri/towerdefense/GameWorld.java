@@ -92,6 +92,8 @@ public class GameWorld  {
         this.gameObjectList.clear();
     }
 
+
+
     void removeGameObjectFromList(GameObject gameObject)
     {
         this.gameObjectList.remove(gameObject);

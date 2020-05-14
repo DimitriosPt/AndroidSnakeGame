@@ -12,7 +12,7 @@ public class Background extends GameObject {
         Point screenSize = TowerDefense.getScreenSize();
         BitmapFactory bitmap = new BitmapFactory();
         Bitmap unscaledBitmap;
-        if(level==0) {
+        if(level==1) {
             unscaledBitmap = BitmapFactory.decodeResource(TowerDefense.getContext().getResources(), R.drawable.background);
         }
         else

@@ -37,8 +37,8 @@ public  class Levels {
         background = new Background(level);
         objects.add(background);
         objects.add(base);
-        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
-            randomNum = ThreadLocalRandom.current().nextInt(2, 41);
+        for (startingEnemyCount = 0; startingEnemyCount < (int)(5* level*.7); startingEnemyCount++) {
+            randomNum = ThreadLocalRandom.current().nextInt(10, 20);
             objects.add(enemyBuilder.Location(new Point(0, 600)).
                     EnemyType("Human").EnemyHP(40)
                     .Speed(randomNum)
@@ -47,8 +47,8 @@ public  class Levels {
                     .build());
         }
 
-        for (startingEnemyCount = 0; startingEnemyCount < 5; startingEnemyCount++) {
-            randomNum = ThreadLocalRandom.current().nextInt(2, 41);
+        for (startingEnemyCount = 0; startingEnemyCount < (int)(3*level*.7); startingEnemyCount++) {
+            randomNum = ThreadLocalRandom.current().nextInt(10, 20);
             objects.add(enemyBuilder.Location(new Point(0, 600)).
                     EnemyType("Orc").EnemyHP(40)
                     .Speed(randomNum)

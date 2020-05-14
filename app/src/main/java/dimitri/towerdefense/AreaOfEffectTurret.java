@@ -23,7 +23,7 @@ public class AreaOfEffectTurret extends Tower  {
 
         this.setLocation(new PointF(100,50));
         this.setRange(600);
-        this.setDamage(9);
+        this.setDamage(7);
         this.setAttackSpeed(700);
         this.attackStrategy = new AreaOfEffectAttackStrategy();
     }

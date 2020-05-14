@@ -23,6 +23,7 @@ public class GameController extends SurfaceView implements Runnable {
 
     boolean canTouchAOE = false;
     boolean canTouchCone=false;
+    boolean canTouchSingle=false;
     // Objects for the game loop/thread
     private Thread mThread = null;
     // Control pausing between updates
@@ -50,7 +51,7 @@ public class GameController extends SurfaceView implements Runnable {
     //private AreaOfEffectTurret areaOfEffectTurret;
     //private SingleTargetTurret singleTargetTurret;
     //private Background background;
-    private int level_counter = 0;
+    private int level_counter = 1;
     // And an normal_apple
     public SoundContext soundContext;
     public Context mContext;
@@ -106,7 +107,6 @@ public class GameController extends SurfaceView implements Runnable {
         System.out.printf("thread: %s\n playing: %s\n paused: %s\n", mThread.toString(), mPlaying, mPaused);
         System.out.printf("Num of World objects %d\n", world.getGameObjectList().size());
         Point screenSize = TowerDefense.getScreenSize();
-
 
         for (GameObject gameObject : levels.getObjects()) {
             world.addGameObjectToList(gameObject);
@@ -225,7 +225,8 @@ public class GameController extends SurfaceView implements Runnable {
                 moveableObject.movementStrategy.move(moveableObject);
             }
 
-            if (this.Lives == 0 )
+
+            if (Lives <= 0 )
             {
                 mPlaying = false;
                 this.Lives=10;
@@ -233,7 +234,7 @@ public class GameController extends SurfaceView implements Runnable {
                 newGame();
             }
             //pause if all enemies in the wave are killed
-            if (world.getEnemies().isEmpty() && this.Lives != 0) {
+            if (world.getEnemies().isEmpty() && Lives > 0) {
 
                 mPlaying = false;
                 world.clear();
@@ -313,6 +314,19 @@ public class GameController extends SurfaceView implements Runnable {
                         getWhichButtonPressed(motionEvent,HUD.reset);
                         break;
                     }
+
+                if (hud.getControls().get(HUD.single).contains((int) (motionEvent.getX()), (int) motionEvent.getY())) {
+                    if (!canTouchSingle) {
+                        canTouchSingle = true;
+                        break;
+                    }
+                }
+                if (canTouchSingle) {
+                    canTouchSingle = false;
+                    getWhichButtonPressed(motionEvent,HUD.single);
+                    break;
+                }
+
                 }
             }
             return true;
@@ -322,9 +336,10 @@ public class GameController extends SurfaceView implements Runnable {
         public void getWhichButtonPressed(MotionEvent event, int turretType) {
             AreaOfEffectTurret areaOfEffectTurret;
             ConeTurret coneTurret;
+            SingleTargetTurret singleTargetTurret;
             int i = event.getActionIndex();
             float x = event.getX(i);
-            float y = event.getY(i);
+            float y = event.getY(i) -20;
             PointF p = new PointF(x, y);
             System.out.println(hud.getControls().get(1).flattenToString());
             int eventType = event.getAction() & MotionEvent.ACTION_MASK;
@@ -339,6 +354,13 @@ public class GameController extends SurfaceView implements Runnable {
                     coneTurret = new ConeTurret();
                     world.addGameObjectToList(coneTurret);
                     coneTurret.spawn(p);
+                }
+
+                if(turretType == HUD.single)
+                {
+                    singleTargetTurret = new SingleTargetTurret();
+                    world.addGameObjectToList(singleTargetTurret);
+                    singleTargetTurret.spawn(p);
                 }
             }
         }

@@ -27,7 +27,7 @@ public class ConeTurret extends Tower {
 
         this.setLocation(new PointF((TowerDefense.getScreenSizeF().x * .7f),TowerDefense.getScreenSizeF().y * .05f));
         this.setRange(600);
-        this.setDamage(1);
+        this.setDamage(3);
         this.setAttackSpeed(100);
     }
 

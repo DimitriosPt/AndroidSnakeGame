@@ -29,7 +29,7 @@ public class SingleTargetTurret extends Tower {
 
         this.setLocation(new PointF(100,50));
         this.setRange(800);
-        this.setDamage(1);
+        this.setDamage(4);
         this.setAttackSpeed(100);
     }
 

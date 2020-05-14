@@ -17,6 +17,7 @@ public class HUD extends GameObject {
 
     public static int reset = 0;
     public static int aoe = 1;
+    public static int single=2;
     /*
     static int FLIP = 2;
     static int SHOOT = 3;
