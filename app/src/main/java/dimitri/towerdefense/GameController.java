@@ -89,6 +89,7 @@ public class GameController extends SurfaceView implements Runnable {
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
+        mScore = 0;
         //background=new Background();
         // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         //basicAOETower= new BasicAOETower();
@@ -130,7 +131,7 @@ public class GameController extends SurfaceView implements Runnable {
         System.out.println("You are here");
         world.addGameObjectToList(hud);
 
-        mScore = 0;
+
 
         // Setup mNextFrameTime so an update can triggered
         mNextFrameTime = System.currentTimeMillis();
@@ -230,6 +231,7 @@ public class GameController extends SurfaceView implements Runnable {
             {
                 mPlaying = false;
                 this.Lives=10;
+                mScore=0;
                 world.clear();
                 newGame();
             }
