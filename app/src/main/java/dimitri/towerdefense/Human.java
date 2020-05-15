@@ -15,13 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Human extends Enemy {
-    int pointValue=20;
+
     Human(Context context, int maxHealth, int speed, List<damageResistances> resistances){
 
         super(context, maxHealth, speed, resistances);
+
         double scaleFactor = .09;
         new BitmapFactory();
 
+        this.pointValue =20;
         for (int i = 0; i <= 5 ; i++) {
             //will iterate through all bitmaps and load them into the arraylist
             //bitmaps are named such that the i can be appended to the base name of the
@@ -48,7 +50,7 @@ class Human extends Enemy {
         //set starting bitmap to first thing in sprite sheet
         this.setObjectBitmap(this.getSpriteSheet().get(0));
         this.setLocation(new PointF(-500,900));
-        this.movementStrategy = new LevelOneEnemyMovement();
+//        this.movementStrategy = new LevelOneEnemyMovement();
     }
 
     /*

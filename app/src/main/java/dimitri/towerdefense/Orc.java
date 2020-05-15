@@ -15,6 +15,7 @@ class Orc extends Enemy {
     Orc(Context context, int maxHealth, int speed, List<damageResistances> resistances) {
         super(context, maxHealth, speed, resistances);
         double scaleFactor = .09;
+        this.pointValue =40;
         new BitmapFactory();
 
         for (int i = 0; i <= 3; i++) {
@@ -43,6 +44,6 @@ class Orc extends Enemy {
         //set starting bitmap to first thing in sprite sheet
         this.setObjectBitmap(this.getSpriteSheet().get(0));
         this.setLocation(new PointF(-500, 0));
-        this.movementStrategy = new LevelOneEnemyMovement();
+//        this.movementStrategy = new LevelOneEnemyMovement();
     }
 }

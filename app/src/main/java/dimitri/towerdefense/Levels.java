@@ -17,9 +17,6 @@ public  class Levels {
     private List<GameObject> objects;
     private EnemyBuilder enemyBuilder;
     private int startingEnemyCount;
-    private AreaOfEffectTurret bat;
-    private SingleTargetTurret bgt;
-    private ConeTurret coneTurret;
     private Base base;
     private MovementStrategy movementStrategy;
     private Background background;
@@ -30,20 +27,18 @@ public  class Levels {
         resistance.add(Enemy.damageResistances.FIRE);
         base=new Base();
         enemyBuilder = new EnemyBuilder();
-        bgt = new SingleTargetTurret();
-        bat = new AreaOfEffectTurret();
-        coneTurret = new ConeTurret();
         objects = new ArrayList<>();
         background = new Background(level);
         objects.add(background);
         objects.add(base);
+        movementStrategy = new LevelOneEnemyMovement();
         for (startingEnemyCount = 0; startingEnemyCount < (int)(5* level*.7); startingEnemyCount++) {
             randomNum = ThreadLocalRandom.current().nextInt(10, 20);
             objects.add(enemyBuilder.Location(new Point(-500, 600)).
                     EnemyType("Human").EnemyHP(30)
                     .Speed(randomNum)
-                    .EnemyResistances(resistance).
-                    MovementStrategy(movementStrategy)
+                    .EnemyResistances(resistance)
+                    .MovementStrategy(movementStrategy)
                     .build());
         }
 
@@ -52,13 +47,11 @@ public  class Levels {
             objects.add(enemyBuilder.Location(new Point(0, 0)).
                     EnemyType("Orc").EnemyHP(60)
                     .Speed(randomNum)
-                    .EnemyResistances(resistance).
-                            MovementStrategy(movementStrategy)
+                    .EnemyResistances(resistance)
+                    .MovementStrategy(movementStrategy)
                     .build());
         }
-       // objects.add(bgt);
-//        objects.add(bat);
-//        objects.add(coneTurret);
+
     }
 
     public List<GameObject> getObjects() {

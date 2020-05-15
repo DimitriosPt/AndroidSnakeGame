@@ -18,6 +18,7 @@ public abstract class Enemy extends MoveableGameObject {
     enum damageResistances{
         PHYSICAL, FIRE, FROST, LIGHTNING, RADIANT
     }
+    int pointValue;
     private List<damageResistances> resistances;
     private int currentHealth=20;
     private int maxHealth;

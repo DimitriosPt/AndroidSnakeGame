@@ -64,7 +64,6 @@ import java.util.List;
     {
         this.movementStrategy=movementStrategy;
         return this;
-
     }
     /*
     EnemyBuilder EnemyBitmap(Bitmap enemyBitmap) {
@@ -78,11 +77,15 @@ import java.util.List;
         {
             case "Orc":
             {
-                return new Orc(TowerDefense.getContext(), maxHealth, speed, damageResistances);
+                Orc orc = new Orc(TowerDefense.getContext(), maxHealth, speed, damageResistances);
+                orc.movementStrategy = movementStrategy;
+                return orc;
             }
             case "Human":
             {
-                return new Human(TowerDefense.getContext(),maxHealth, speed,damageResistances);
+                Human human = new Human(TowerDefense.getContext(), maxHealth, speed, damageResistances);
+                human.movementStrategy = movementStrategy;
+                return human;
             }
 
             default:

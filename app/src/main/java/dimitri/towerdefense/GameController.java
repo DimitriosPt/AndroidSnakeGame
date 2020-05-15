@@ -8,11 +8,9 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.media.SoundPool;
 import android.os.Build;
-import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -42,7 +40,7 @@ public class GameController extends SurfaceView implements Runnable {
     private int mNumBlocksHigh;
     ArrayList<GameObject> gameObjects;
     // How many points does the player have
-    private int mScore;
+    private int score;
     private Levels levels;
     private SurfaceHolder mSurfaceHolder;
     private Paint mPaint;
@@ -89,7 +87,7 @@ public class GameController extends SurfaceView implements Runnable {
         // Initialize the drawing objects
         mSurfaceHolder = getHolder();
         mPaint = new Paint();
-        mScore = 0;
+        score = 0;
         //background=new Background();
         // gs1 = new Human(context, 10, 20, new ArrayList<Enemy.damageResistances>());
         //basicAOETower= new BasicAOETower();
@@ -117,7 +115,7 @@ public class GameController extends SurfaceView implements Runnable {
 
             if (gameObject instanceof Enemy) {
 
-                gameObject.spawn(new PointF(-350, (int) (TowerDefense.getScreenSize().y * .60)));
+                gameObject.spawn(new PointF(-600, (int) (TowerDefense.getScreenSize().y * .60)));
 
             }
 
@@ -204,11 +202,11 @@ public class GameController extends SurfaceView implements Runnable {
 
             for (Enemy enemy : world.getEnemies()) {
                 if (enemy.getCurrentHealth() <= 0) {
-                    mScore = mScore +20;
+                    score += enemy.pointValue;
                     world.removeGameObjectFromList(enemy);
                 }
 
-               else if(enemy.getLocation().x > 1500)
+               else if(enemy.getLocation().x > TowerDefense.getScreenSize().x)
                 {
                     Lives--;
                     world.removeGameObjectFromList(enemy);
@@ -231,7 +229,7 @@ public class GameController extends SurfaceView implements Runnable {
             {
                 mPlaying = false;
                 this.Lives=10;
-                mScore=0;
+                score =0;
                 world.clear();
                 newGame();
             }
@@ -369,7 +367,7 @@ public class GameController extends SurfaceView implements Runnable {
 
         public String getscore()
         {
-            return  Integer.toString(mScore);
+            return  Integer.toString(score);
         }
 
         public String getLevel()

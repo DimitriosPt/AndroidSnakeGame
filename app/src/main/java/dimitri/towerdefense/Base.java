@@ -22,7 +22,8 @@ public class Base extends StaticGameObject {
         Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
         this.setObjectBitmap(rotatedBitmap);
 
-        this.setLocation(new PointF(1530,155));
+        PointF screenSize = TowerDefense.getScreenSizeF();
+        this.setLocation(new PointF(screenSize.x * .90f,screenSize.y * .17f));
 
     }
     @Override
